@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Layout from './Layout';
+import Layout from '../layouts/Session';
 
-const SigninContent = (props) => {
+const Signin = (props) => {
     return (
         <Layout>
             <h5>Signin Content (Here goes the signin content)</h5>
@@ -10,4 +10,4 @@ const SigninContent = (props) => {
     );
 }
 
-export default SigninContent;
+export default Signin;

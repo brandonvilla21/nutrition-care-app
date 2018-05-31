@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Dashboard from './layouts/Dashboard/DashboardContent';
-import Login from './layouts/Session/LoginContent';
-import Signin from './layouts/Session/SigninContent';
+import Dashboard from './containers/Dashboard';
+import Login from './containers/Login';
+import Signin from './containers/Signin';
 
 class App extends Component {
   render() {  
