@@ -5,7 +5,7 @@ import Layout from './Layout';
 const SigninContent = (props) => {
     return (
         <Layout>
-            <h5>Signin Content (Instead of this, should be the routes)</h5>
+            <h5>Signin Content (Here goes the signin content)</h5>
         </Layout>
     );
 }
