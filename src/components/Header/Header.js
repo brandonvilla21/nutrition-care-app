@@ -33,9 +33,9 @@ class Header extends Component {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="title" color="inherit" style={classes.flex}>
-                            Title
+                            Nutrition Care
                         </Typography>
-                        <Button color="inherit">Login</Button>
+                        <Button color="inherit">Cerrar sesión</Button>
                     </Toolbar>
                 </AppBar>
             </div>

@@ -27,7 +27,6 @@ class Layout extends Component {
             paddingLeft: navDrawerOpen ? paddingLeftDrawerOpen : 0
           }
         };
-        console.log(styles.header);
         return (
             <div>
                 <Header
