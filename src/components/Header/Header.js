@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
-import { styles as classes } from './styles';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 class Header extends Component {
     constructor(props) {
@@ -18,29 +19,30 @@ class Header extends Component {
     }
 
     render() {
-        const { styles, handleChangeRequestNavDrawer } = this.props;
+        const { classes, theme } = this.props;
 
         return (
-            <div style={classes.root}>
-                <AppBar style={styles} position="static">
-                    <Toolbar>
-                        <IconButton
-                            style={classes.menuButton}
-                            color="inherit"
-                            aria-label="Menu"
-                            onClick={handleChangeRequestNavDrawer}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="title" color="inherit" style={classes.flex}>
-                            Nutrition Care
-                        </Typography>
-                        <Button color="inherit">Cerrar sesión</Button>
-                    </Toolbar>
-                </AppBar>
-            </div>
-        )
+            <AppBar
+                position="absolute"
+                className={classNames(classes.appBar, this.props.open && classes.appBarShift)}
+            >
+                <Toolbar disableGutters={!this.props.open}>
+                    <IconButton
+                      color="inherit"
+                      aria-label="open drawer"
+                      onClick={this.props.handleDrawerOpen}
+                      className={classNames(classes.menuButton, this.props.open && classes.hide)}
+                    >
+                    <MenuIcon />
+                    </IconButton>
+                    <Typography variant="title" color="inherit" noWrap>
+                      Nutrition Care
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+        );
     }
 }
+
 
 export default Header;

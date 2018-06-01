@@ -1,41 +1,53 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header/';
+import LeftDrawer from '../../components/LeftDrawer/LeftDrawer';
+import { withStyles } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import { styles } from './styles';
 
 class Layout extends Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            navDrawerOpen: false
+            open: false
         };
 
-        this.handleChangeRequestNavDrawer = this.handleChangeRequestNavDrawer.bind(this);
+        this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+        this.handleDrawerClose = this.handleDrawerClose.bind(this);
     }
     
-    handleChangeRequestNavDrawer() {
-        this.setState({
-          navDrawerOpen: !this.state.navDrawerOpen
-        });
-    }
+    handleDrawerOpen() {
+        this.setState({ open: true });
+    };
+    
+    handleDrawerClose() {
+        this.setState({ open: false });
+    };
     
     render() {
-        let { navDrawerOpen } = this.state;
-        const paddingLeftDrawerOpen = 236;
-    
-        const styles = {
-          header: {
-            paddingLeft: navDrawerOpen ? paddingLeftDrawerOpen : 0
-          }
-        };
+        const { classes, theme } = this.props;
+        const { open } = this.state;
         return (
-            <div>
+            <div className={classes.root}>
                 <Header
-                    styles={styles.header}
-                    handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer} />
-                {this.props.children}
+                    open={open}
+                    classes={classes}
+                    handleDrawerOpen={this.handleDrawerOpen}
+                />
+                <LeftDrawer
+                    open={open}
+                    classes={classes}
+                    theme={theme}
+                    handleDrawerClose={this.handleDrawerClose}
+                />
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    {this.props.children}
+                </main>
             </div>
         );
     }
 }
 
-export default Layout;
+export default withStyles(styles, { withTheme: true })(Layout);
