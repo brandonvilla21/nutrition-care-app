@@ -3,7 +3,8 @@ const drawerWidth = 240;
 export const styles = theme => ({
     root: {
       flexGrow: 1,
-      height: 430,
+      // height: 430,
+      height: `calc(100%)`,
       zIndex: 1,
       overflow: 'hidden',
       position: 'relative',
@@ -62,5 +63,7 @@ export const styles = theme => ({
       flexGrow: 1,
       backgroundColor: theme.palette.background.default,
       padding: theme.spacing.unit * 3,
+      overflow: 'scroll',
+      height: '100vh',
     },
 });
