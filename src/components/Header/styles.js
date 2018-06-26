@@ -9,4 +9,10 @@ export const styles = {
         marginLeft: -12,
         marginRight: 20,
     },
+    topright: {
+        position: 'absolute',
+        top: '8px',
+        right: '16px',
+        fontSize: '18px',
+    }
 };

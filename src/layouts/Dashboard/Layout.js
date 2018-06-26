@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from '../../components/Header/';
 import LeftDrawer from '../../components/LeftDrawer/LeftDrawer';
 import { withStyles } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
 import { styles } from './styles';
 
 class Layout extends Component {
