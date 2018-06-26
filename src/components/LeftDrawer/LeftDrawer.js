@@ -5,7 +5,6 @@ import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { withStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import { drawerItems } from './drawerItems';
 
