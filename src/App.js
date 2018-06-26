@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Switch>
-          <Route path="/dashboard" component={Dashboard} />
+          <Route exact path="/" component={Dashboard} />
           <Route path="/login" component={Login} />
           <Route path="/signin" component={Signin} />
         </Switch>
