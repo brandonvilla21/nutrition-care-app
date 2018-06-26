@@ -2,10 +2,11 @@ import React from 'react';
 import { Button, withStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { styles } from './styles';
+import { Link } from 'react-router-dom';
 
-const AddButton = ({ classes }) => {
+const AddButton = ({ to, classes }) => {
     return (
-        <Button variant="fab" color="primary" aria-label="add" className={classes.button}>
+        <Button component={Link} to={to} variant="fab" color="primary" aria-label="add" className={classes.button}>
             <AddIcon />
         </Button>
     );
