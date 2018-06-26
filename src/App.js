@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import Dashboard from './containers/Dashboard';
-import Login from './containers/Login';
-import Signin from './containers/Signin';
-
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './material-theme';
+
+import { Switch, Route } from 'react-router-dom';
+
+import Dashboard from './containers/Dashboard';
+import Routine from './containers/Routine/Routine';
+import Login from './containers/Login';
+import Signin from './containers/Signin';
 
 class App extends Component {
   render() {  
@@ -13,6 +15,7 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Switch>
           <Route exact path="/" component={Dashboard} />
+          <Route path="/routine" component={Routine} />
           <Route path="/login" component={Login} />
           <Route path="/signin" component={Signin} />
         </Switch>
