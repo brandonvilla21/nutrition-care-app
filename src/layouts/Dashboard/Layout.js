@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header/';
-import LeftDrawer from '../../components/LeftDrawer/LeftDrawer';
+import LeftDrawer from '../../components/LeftDrawer';
 import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
 
