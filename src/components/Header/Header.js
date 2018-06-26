@@ -37,12 +37,11 @@ class Header extends Component {
                     <Typography variant="title" color="inherit" noWrap className={classNames(classes.flex)}>
                       Nutrition Care
                     </Typography>
-                    <Button color="inherit">Cerrar sesión</Button>
+                    <Button className={classNames(classes.leftButton)} color="inherit">Cerrar sesión</Button>
                 </Toolbar>
             </AppBar>
         );
     }
 }
-
 
 export default Header;

@@ -66,4 +66,9 @@ export const styles = theme => ({
       overflow: 'scroll',
       height: '100vh',
     },
+    leftButton: {
+      position: 'absolute',
+      right: 0,
+      marginRight: '10px'
+    },
 });
