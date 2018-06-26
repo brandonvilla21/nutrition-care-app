@@ -7,6 +7,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { withStyles } from '@material-ui/core';
 import classNames from 'classnames';
+import { drawerItems } from './drawerItems';
 
 class LeftDrawer extends Component {
     render() {
@@ -26,9 +27,9 @@ class LeftDrawer extends Component {
                     </IconButton>
                 </div>
                 <Divider />
-                {/* <List>{mailFolderListItems}</List> */}
-                <Divider />
-                {/* <List>{otherMailFolderListItems}</List> */}
+                <List>
+                    {drawerItems}
+                </List>
             </Drawer>
         )
     }
