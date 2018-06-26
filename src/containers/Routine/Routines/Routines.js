@@ -1,11 +1,11 @@
 import React from 'react';
 import AddButton from '../../../components/AddButton';
 
-const Routines = ({ classes }) => {
+const Routines = () => {
     return (
         <div>
             <h2>This sould show all routines</h2>
-            <AddButton />
+            <AddButton to="/routine/create"/>
         </div>
     );
 };
