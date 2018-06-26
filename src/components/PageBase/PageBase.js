@@ -14,7 +14,7 @@ const PageBase = ({ children, title, classes }) => {
                     component="h3">
                     {title}
                 </Typography>
-                <Divider className={classes.divider}/>
+                {title ? <Divider className={classes.divider}/> : null}
                 {children}
             </Paper>
         </div>
