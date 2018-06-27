@@ -14,8 +14,8 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/routine" component={Routine} />
+          <Route path="/dashboard" component={Dashboard} />
+          {/* <Route path="/routine" component={Routine} /> */}
           <Route path="/login" component={Login} />
           <Route path="/signin" component={Signin} />
         </Switch>

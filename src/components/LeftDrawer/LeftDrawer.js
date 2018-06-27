@@ -11,7 +11,6 @@ import { drawerItems } from './drawerItems';
 class LeftDrawer extends Component {
     render() {
         const { classes, theme } = this.props;
-
         return (
             <Drawer
                 variant="permanent"

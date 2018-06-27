@@ -1,11 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Layout from '../layouts/Dashboard';
+import Routine from './Routine/Routine';
 
-const DashboardContent = (props) => {
+const DashboardContent = ({ match }) => {
     return (
         <Layout>
-            <h5>Dashboard Content</h5>
+            
             {/* 
                 Change of logic:
                 Routes shouldn't be here
@@ -27,7 +28,12 @@ const DashboardContent = (props) => {
              */}
             
             
-            
+            <Route
+                exact
+                path={match.url}
+                render={() => <h5>Dashboard Content</h5>}
+            />
+            <Route path={`${match.url}/routine`} component={Routine}/>
             {/* Dashboard content goes here */}
         </Layout>
     );

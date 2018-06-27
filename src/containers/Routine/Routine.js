@@ -7,15 +7,13 @@ import CreateRoutine from './CreateRoutine/CreateRoutine';
 const Routine = ({ match }) => {
 
   return (
-    <Layout>    
-      
+    <div>
       <Route
         exact
         path={match.url}
         render={() => <Routines /> }/>
       <Route path={`${match.url}/create`} component={CreateRoutine} />
-
-    </Layout>
+    </div>
   )
 }
 

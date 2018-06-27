@@ -5,7 +5,7 @@ const Routines = () => {
     return (
         <div>
             <h2>This sould show all routines</h2>
-            <AddButton to="/routine/create"/>
+            <AddButton to="/dashboard/routine/create"/>
         </div>
     );
 };

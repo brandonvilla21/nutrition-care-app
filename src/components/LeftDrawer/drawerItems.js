@@ -7,20 +7,20 @@ import { Link } from 'react-router-dom';
 
 export const drawerItems = (
     <div>
-        <ListItem button component={Link} to="/routine" >
+        <ListItem button component={Link} to="/dashboard/routine" >
             <ListItemIcon>
                 <FitnessCenter />
             </ListItemIcon>
             <ListItemText primary="Rutinas" />
         </ListItem>
-        <ListItem button component={Link} to="/diet">
+        <ListItem button component={Link} to="/dashboard/diet">
             <ListItemIcon>
                 <Restaurant />
             </ListItemIcon>
             <ListItemText primary="Dietas" />
         </ListItem>
         <Divider />
-        <ListItem button component={Link} to="/my-info">
+        <ListItem button component={Link} to="/dashboard/my-info">
             <ListItemIcon>
                 <PermIdentity />
             </ListItemIcon>
