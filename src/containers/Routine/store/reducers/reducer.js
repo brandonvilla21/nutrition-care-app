@@ -23,7 +23,7 @@ const initialState = {
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
-        case ADD_DESCRIPTION: return { ...state, ...action.description };
+        case ADD_DESCRIPTION: return { ...state, description: action.description };
         // case SELECTED_DAYS: 
         default: return state;
     }
