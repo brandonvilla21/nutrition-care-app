@@ -14,12 +14,19 @@ class TabsRoutine extends Component {
             value: 0,
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.nextIndex = this.nextIndex.bind(this);
+        this.prevIndex = this.prevIndex.bind(this);
     }
 
-    handleChange(event, value) {
-        this.setState({ value });
-    };
+    nextIndex() {
+        const { value } = this.state;
+        this.setState({ value: value + 1 });
+    }
+
+    prevIndex() {
+        const { value } = this.state;
+        this.setState({ value: value - 1 });
+    }
 
     render() {
         const { classes } = this.props;
@@ -29,8 +36,6 @@ class TabsRoutine extends Component {
             <AppBar position="static" color="default">
                 <Tabs
                     value={value}
-                    // Remove this prop to avoid changing tabs without buttons
-                    onChange={this.handleChange}
                     indicatorColor="primary"
                     textColor="primary"
                     fullWidth
@@ -42,7 +47,12 @@ class TabsRoutine extends Component {
                     <Tab label="Finalizar" icon={<CheckCircle />}/>
                 </Tabs>
             </AppBar>
-            {value === 0 && <TabContainer><GeneralInfo /></TabContainer>}
+            {
+                value === 0 &&
+                <TabContainer>
+                    <GeneralInfo nextIndex={this.nextIndex} />
+                </TabContainer>
+            }
             {value === 1 && <TabContainer>Item Two</TabContainer>}
             {value === 2 && <TabContainer>Item Three</TabContainer>}
         </div>
