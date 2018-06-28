@@ -1,8 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Typography, TextField, Button, withStyles } from '@material-ui/core';
+import { styles } from './styles';
+import propTypes from './propTypes';
+import { connect } from 'react-redux';
+import { addDescription } from '../../../containers/Routine/store/actions/actions';
 
-const GeneralInfo = ({ classes, description, handleInput }) => {
+const GeneralInfo = ({ classes, description, handleInput, nextIndex }) => {
     return (
         <div>
             <Typography variant="headline">
@@ -18,7 +21,11 @@ const GeneralInfo = ({ classes, description, handleInput }) => {
                 onChange={handleInput}
             />
             <div className={classes.buttonContainer}>
-                <Button variant="raised" color="primary" className={classes.button}>
+                <Button
+                    onClick={nextIndex}
+                    className={classes.button}
+                    variant="raised"
+                    color="primary">
                     Siguiente
                 </Button>
             </div>
@@ -26,20 +33,19 @@ const GeneralInfo = ({ classes, description, handleInput }) => {
     );
 };
 
-const styles = theme => ({
-    buttonContainer: {
-      display: 'flex',
-      justifyContent: 'flex-end'
-    },
-    button: {
-        margin: theme.spacing.unit,
-    }
-});
-
-GeneralInfo.propTypes = {
-    description: PropTypes.string,
-    handleInput: PropTypes.func,
-    nextIndex: PropTypes.func
+const mapStateToProps = store => {
+    return {
+        description: store.description,
+    };
 };
 
-export default withStyles(styles)(GeneralInfo);
+const mapDispatchToProps = dispatch => {
+    return {
+        handleInput: event => dispatch(addDescription(event.target.value))
+    }
+};
+
+GeneralInfo.propTypes = propTypes;
+
+export default  connect(mapStateToProps, mapDispatchToProps)
+                (withStyles(styles)(GeneralInfo));
