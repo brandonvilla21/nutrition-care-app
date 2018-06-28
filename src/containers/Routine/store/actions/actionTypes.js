@@ -1,0 +1,9 @@
+export const ADD_DESCRIPTION = 'ADD_DESCRIPTION';
+export const SELECTED_DAYS = 'SELECTED_DAYS';
+export const REMOVE_DAY = 'REMOVE_DAY';
+export const CLEAR_REMOVED_DAY = 'CLEAR_REMOVED_DAY';
+export const ADD_EXERCISE_TO_DAY = 'ADD_EXERCISE_TO_DAY';
+export const CHANGE_FIELD = 'CHANGE_FIELD';
+export const SUBMIT_ROUTINE = 'SUBMIT_ROUTINE';
+export const CLOSE = 'CLOSE';
+export const GO_ROUTINES = 'GO_ROUTINES';
