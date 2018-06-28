@@ -1,22 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Typography, withStyles, AppBar, Tabs, Tab } from '@material-ui/core';
+import TabContainer from './TabContainer';
+import { withStyles, AppBar, Tabs, Tab } from '@material-ui/core';
 import InfoOutline from '@material-ui/icons/InfoOutline';
 import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import GeneralInfo from '../GeneralInfo/GeneralInfo';
-
-const TabContainer = ({ children }) => {
-    return (
-        <Typography component="div" style={{ padding: 24 }}>
-            {children}
-        </Typography>
-    );
-}
-  
-TabContainer.propTypes = {
-    children: PropTypes.node.isRequired,
-};
+import { styles } from './styles';
 
 class TabsRoutine extends Component {
     constructor(props) {
@@ -60,13 +49,5 @@ class TabsRoutine extends Component {
       )
     }
 }
-
-const styles = theme => ({
-    root: {
-      flexGrow: 1,
-      width: '100%',
-      backgroundColor: theme.palette.background.paper,
-    },
-});
 
 export default withStyles(styles)(TabsRoutine);
