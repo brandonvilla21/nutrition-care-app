@@ -5,7 +5,6 @@ import theme from './material-theme';
 import { Switch, Route } from 'react-router-dom';
 
 import Dashboard from './containers/Dashboard';
-import Routine from './containers/Routine/Routine';
 import Login from './containers/Login';
 import Signin from './containers/Signin';
 
@@ -15,7 +14,6 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Switch>
           <Route path="/dashboard" component={Dashboard} />
-          {/* <Route path="/routine" component={Routine} /> */}
           <Route path="/login" component={Login} />
           <Route path="/signin" component={Signin} />
         </Switch>
