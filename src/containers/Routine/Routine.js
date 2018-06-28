@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import Layout from '../../layouts/Dashboard';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import Routines from './Routines/Routines';
 import CreateRoutine from './CreateRoutine/CreateRoutine';
