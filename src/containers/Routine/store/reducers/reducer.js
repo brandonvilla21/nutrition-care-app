@@ -9,7 +9,9 @@ import {
     CLOSE,
     GO_ROUTINES,
 } from '../actions/actionTypes';
-import { updateObject } from '../utility';
+import {
+    removeDay,
+} from './reducerOperations';
 
 const initialState = {
     description: '',
@@ -24,7 +26,10 @@ const initialState = {
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case ADD_DESCRIPTION: return { ...state, description: action.description };
-        // case SELECTED_DAYS: 
+        case SELECTED_DAYS: return { ...state, days: [...action.days] };
+        case REMOVE_DAY: return removeDay(state, action);
+        case CLEAR_REMOVED_DAY: return { ...state, removeDay: null };
+        // case ADD_EXERCISE_TO_DAY: return addExerciseToDay( state, action );
         default: return state;
     }
 }
