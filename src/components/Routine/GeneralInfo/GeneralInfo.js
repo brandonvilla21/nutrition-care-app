@@ -47,5 +47,4 @@ const mapDispatchToProps = dispatch => {
 
 GeneralInfo.propTypes = propTypes;
 
-export default  connect(mapStateToProps, mapDispatchToProps)
-                (withStyles(styles)(GeneralInfo));
+export default  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GeneralInfo));
