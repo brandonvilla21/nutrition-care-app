@@ -3,4 +3,7 @@ export const styles = theme => ({
         display: 'flex',
         justifyContent: 'space-between'
     },
+    daysContainer: {
+        padding: '1em 0',
+    }
 });
