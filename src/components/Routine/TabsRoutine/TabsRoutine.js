@@ -6,6 +6,7 @@ import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import GeneralInfo from '../GeneralInfo/GeneralInfo';
 import { styles } from './styles';
+import MyRoutine from '../MyRoutine/MyRoutine';
 
 class TabsRoutine extends Component {
     constructor(props) {
@@ -53,7 +54,15 @@ class TabsRoutine extends Component {
                     <GeneralInfo nextIndex={this.nextIndex} />
                 </TabContainer>
             }
-            {value === 1 && <TabContainer>Item Two</TabContainer>}
+            {
+                value === 1 &&
+                <TabContainer>
+                    <MyRoutine
+                        nextIndex={this.nextIndex}
+                        prevIndex={this.prevIndex}
+                    />
+                </TabContainer>
+            }
             {value === 2 && <TabContainer>Item Three</TabContainer>}
         </div>
       )
