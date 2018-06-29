@@ -3,11 +3,11 @@ import {
     SELECTED_DAYS,
     REMOVE_DAY,
     CLEAR_REMOVED_DAY,
-    ADD_EXERCISE_TO_DAY,
-    CHANGE_FIELD,
-    SUBMIT_ROUTINE,
-    CLOSE,
-    GO_ROUTINES,
+    // ADD_EXERCISE_TO_DAY,
+    // CHANGE_FIELD,
+    // SUBMIT_ROUTINE,
+    // CLOSE,
+    // GO_ROUTINES,
 } from '../actions/actionTypes';
 import {
     removeDay,
