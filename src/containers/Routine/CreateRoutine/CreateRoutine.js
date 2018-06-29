@@ -7,11 +7,9 @@ class CreateRoutine extends Component {
   render() {
     return (
       <div>
-        <PageBase>
           <div>
             <TabsRoutine />
           </div>
-        </PageBase>
       </div>
     )
   }
