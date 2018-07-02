@@ -24,5 +24,8 @@ export const styles = theme => ({
     avatar: {
       backgroundColor: red[500],
     },
+    button: {
+      margin: theme.spacing.unit,
+    },
 });
   

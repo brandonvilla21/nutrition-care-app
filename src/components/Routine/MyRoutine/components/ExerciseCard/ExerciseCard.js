@@ -8,7 +8,8 @@ import {
     Collapse,
     CardContent,
     Typography,
-    withStyles
+    withStyles,
+    Button
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { styles } from './styles';
@@ -37,29 +38,11 @@ class ExerciseCard extends Component {
                         image={logo}
                         title="Contemplative Reptile"
                     />
-                    <CardActions className={classes.actions} disableActionSpacing>
-                        <IconButton
-                        className={classNames(classes.expand, {
-                            [classes.expandOpen]: this.state.expanded,
-                        })}
-                        onClick={this.handleExpandClick}
-                        aria-expanded={this.state.expanded}
-                        aria-label="Show more"
-                        >
-                            <ExpandMoreIcon />
-                        </IconButton>
-                    </CardActions>
-                    <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                        <CardContent>
-                            <Typography paragraph variant="body2">
-                                Method:
-                            </Typography>
-                            <Typography paragraph>
-                                Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-                                minutes.
-                            </Typography>
-                        </CardContent>
-                    </Collapse>
+                    <CardContent>
+                        <Button variant="extendedFab" className={classes.button}>
+                            Extended
+                        </Button>
+                    </CardContent>
                 </Card>
             </div>
         );
