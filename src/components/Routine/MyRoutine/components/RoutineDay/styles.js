@@ -6,4 +6,9 @@ export const styles = theme => ({
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
     },
+    expansionPanelDetails: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around'
+    }
 });
