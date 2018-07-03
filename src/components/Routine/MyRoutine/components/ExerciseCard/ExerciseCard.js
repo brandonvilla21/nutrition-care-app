@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import {
     Card,
     CardMedia,
-    CardActions,
     CardHeader,
-    IconButton,
-    Collapse,
     CardContent,
-    Typography,
     withStyles,
     Button
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import NavigationIcon from '@material-ui/icons/Navigation';
 import { styles } from './styles';
-import classNames from 'classnames';
 import logo from '../../../../../logo.svg';
 
 class ExerciseCard extends Component {
@@ -27,24 +22,23 @@ class ExerciseCard extends Component {
         const { classes } = this.props;
 
         return (
-            <div>
-                <Card className={classes.card}>
-                    <CardHeader
-                        title="Shrimp and Chorizo Paella"
-                        subheader="September 14, 2016"
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image={logo}
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                        <Button variant="extendedFab" className={classes.button}>
-                            Extended
-                        </Button>
-                    </CardContent>
-                </Card>
-            </div>
+            <Card className={classes.card}>
+                <CardHeader
+                    title="Press militar de hombro"
+                    subheader="[brazo, triceps, hombro]"
+                />
+                <CardMedia
+                    className={classes.media}
+                    image={logo}
+                    title="Contemplative Reptile"
+                />
+                <CardContent className={classes.cardContent}>
+                    <Button variant="extendedFab" className={classes.button}>
+                        <NavigationIcon className={classes.extendedIcon} />
+                        Ver más
+                    </Button>
+                </CardContent>
+            </Card>
         );
     }
 };

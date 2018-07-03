@@ -2,7 +2,7 @@ import red from '@material-ui/core/colors/red';
 
 export const styles = theme => ({
     card: {
-      maxWidth: 400,
+      margin: 5
     },
     media: {
       height: 0,
@@ -24,8 +24,14 @@ export const styles = theme => ({
     avatar: {
       backgroundColor: red[500],
     },
+    extendedIcon: {
+      marginRight: theme.spacing.unit,
+    },
     button: {
       margin: theme.spacing.unit,
     },
+    cardContent: {
+      textAlign: 'center'
+    }
 });
   
