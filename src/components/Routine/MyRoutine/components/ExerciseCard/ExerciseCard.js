@@ -11,7 +11,7 @@ import { styles } from './styles';
 import logo from '../../../../../logo.svg';
 import ExerciseDialog from './components/ExerciseDialog';
 import IconButton from '@material-ui/core/IconButton';
-import ExerciseDescription from './components/ExerciseDescription/ExerciseDescription';
+import ExerciseInfo from './components/ExerciseInfo/ExerciseInfo';
 
 class ExerciseCard extends Component {
     state = { open: false };
@@ -45,7 +45,7 @@ class ExerciseCard extends Component {
                         image={logo}
                     />
                     <CardContent className={classes.cardContent}>
-                        <ExerciseDescription
+                        <ExerciseInfo
                             description="my desc"
                             series={5}
                             reps={20}
