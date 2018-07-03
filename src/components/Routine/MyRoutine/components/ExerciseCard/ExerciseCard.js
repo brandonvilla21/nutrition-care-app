@@ -5,42 +5,56 @@ import {
     CardHeader,
     CardContent,
     withStyles,
-    Button
 } from '@material-ui/core';
-import NavigationIcon from '@material-ui/icons/Navigation';
+import CreateIcon from '@material-ui/icons/Create';
 import { styles } from './styles';
 import logo from '../../../../../logo.svg';
+import ExerciseDialog from './components/ExerciseDialog';
+import IconButton from '@material-ui/core/IconButton';
+import ExerciseDescription from './components/ExerciseDescription/ExerciseDescription';
 
 class ExerciseCard extends Component {
-    state = { expanded: false };
+    state = { open: false };
 
-    handleExpandClick = () => {
-      this.setState(state => ({ expanded: !state.expanded }));
+    handleOpen = () => {
+        this.setState({ open: true });
+    };
+    
+    handleClose = () => {
+        this.setState({ open: false });
     };
 
     render() {
         const { classes } = this.props;
-
+        const { open } = this.state;
         return (
-            <Card className={classes.card}>
-                <CardHeader
-                    title="Press militar de hombro"
-                    subheader="[brazo, triceps, hombro]"
-                />
-                <CardMedia
-                    className={classes.media}
-                    image={logo}
-                    title="Contemplative Reptile"
-                />
-                <CardContent className={classes.cardContent}>
-                    <Button variant="extendedFab" className={classes.button}>
-                        <NavigationIcon className={classes.extendedIcon} />
-                        Ver más
-                    </Button>
-                </CardContent>
-            </Card>
+            <div>
+                <ExerciseDialog title="Press militar de hombro" open={open} handleClose={this.handleClose}/>
+                <Card className={classes.card}>
+                    <CardHeader
+                        action={
+                            <IconButton>
+                                <CreateIcon color="secondary" />
+                            </IconButton>
+                        }
+                        title="Press militar de hombro"
+                        subheader="[brazo, triceps, hombro]"
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image={logo}
+                    />
+                    <CardContent className={classes.cardContent}>
+                        <ExerciseDescription
+                            description="my desc"
+                            series={5}
+                            reps={20}
+                        />
+                    </CardContent>
+                </Card>
+            </div>
         );
     }
 };
 
-export default withStyles(styles)(ExerciseCard);
+export default withStyles(styles, { withTheme: true})(ExerciseCard);
