@@ -18,8 +18,12 @@ class RoutineDay extends Component  {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading}>Dia de la semana</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
+                <ExpansionPanelDetails className={classes.expansionPanelDetails}>
                     {/* All Cards and buttons here */}
+                    <ExerciseCard />
+                    <ExerciseCard />
+                    <ExerciseCard />
+                    <ExerciseCard />
                     <ExerciseCard />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
