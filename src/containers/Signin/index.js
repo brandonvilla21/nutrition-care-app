@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../layouts/Session';
+import Layout from '../../layouts/Session';
 
 const Signin = (props) => {
     return (
