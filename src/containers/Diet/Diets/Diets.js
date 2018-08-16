@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import PageBase from '../../components/PageBase';
+import PageBase from '../../../components/PageBase';
 import { withStyles } from '@material-ui/core/styles';
 import ContentAdd from '@material-ui/icons/Add';
 
@@ -18,8 +18,8 @@ import blueGrey from '@material-ui/core/colors/blueGrey';
 import 'react-table/react-table.css';
 import ReactTable from 'react-table';
 
-import filterCaseInsensitive from '../../shared/tableFiltering';
-import axios from '../../axios';
+import filterCaseInsensitive from '../../../shared/tableFiltering';
+import axios from '../../../axios';
 
 
 const blue500 = blue['500'];
@@ -107,7 +107,7 @@ const styles = {
 };
 
 
-class DietPage extends Component {
+class Diets extends Component {
   constructor( props ) {
     super( props );
     this.state = {
@@ -118,6 +118,7 @@ class DietPage extends Component {
   }
 
   componentDidMount() {
+    console.log( 'props', this.props );
     this.getOwnDiets().then( diets => {
       diets.forEach( diet =>
         diet.registerDate = new Date( diet.registerDate ).toLocaleDateString()
@@ -178,12 +179,12 @@ class DietPage extends Component {
 
   render() {
     const { diets } = this.state;
-    const { classes } = this.props;
+    const { classes, match } = this.props;
 
     return (
       <PageBase>
         <div>
-          <Link to="/create-diet">
+          <Link to={`${match.url}/create`}>
             <Button
               variant="fab"
               color="primary"
@@ -207,7 +208,7 @@ class DietPage extends Component {
                 sortable: false,
                 Cell: ({ original }) => {
                   return (
-                    <Link to={`edit-diet/${original.id}`}>
+                    <Link to={`${match.url}/edit/${original.id}`}>
                       <IconButton 
                       color="secondary" className={classes.editIconStyle}
                       // iconStyle={styles.editIconStyle}
@@ -274,4 +275,4 @@ class DietPage extends Component {
     );
   }
 }
-export default withStyles( styles )( DietPage );
+export default withStyles( styles )( Diets );
