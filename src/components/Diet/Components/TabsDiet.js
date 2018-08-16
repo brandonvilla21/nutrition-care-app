@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { withStyles } from '@material-ui/core/';
+
+import withWidth from '@material-ui/core/withWidth';
+
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
@@ -256,12 +260,23 @@ class TabsDiet extends Component {
 
   }
 
+  getTabsType() {
+    const sizes = ['sm', 'xs'];
+    const type = sizes.includes( this.props.width ) 
+      ? { scrollable: true, scrollButtons: 'auto' } 
+      : { centered: true };
+    
+    return type;
+  }
+
   render () {
+
 
     const { 
       foods, selectedFoods, totalCalories, 
       totalCarbohydrates, totalFats, totalProteins,
-      selectableFoodColumns, description, onChange
+      selectableFoodColumns, description, onChange,
+      classes
     } = this.props;
 
     const {
@@ -275,32 +290,38 @@ class TabsDiet extends Component {
       selectableFoodColumns,
     });
 
+    const tabsType = this.getTabsType();
+
     return (
       <div>
         <AppBar position="static" color="default">
       
-          <Tabs 
+          <Tabs
+            className={classes.tab}
+            scrollButtons="auto"
+            indicatorColor="primary"
+            textColor="primary"
             value={tabIndex}
+            {...tabsType}
             // disabled={true}
-            onChange={this.blockTapTabs}
+            // onChange={this.blockTapTabs}
             // initialSelectedIndex={0} 
-            style={styles.tabs}
             >
 
-            <Tab icon={<ActionShoppingBasket />} label="Alimentos disponibles"
-              // style={styles.tab} 
+            <Tab 
+              icon={<ActionShoppingBasket />} 
+              label="Alimentos disponibles"
             ></Tab>
             
-            <Tab label="Alimentos seleccionados"
-              // icon={<AvPlaylistAddCheck style={styles.iconStyles} color={blue500} />}
-              // style={styles.tab}
+            <Tab 
+              label="Alimentos seleccionados" 
+              icon={<AvPlaylistAddCheck />}
             ></Tab>
 
-            <Tab icon={<CheckCircle />}
-                label="Finalizar"
-                // value={2}
-                // style={styles.tab}
-              ></Tab>
+            <Tab 
+              icon={<CheckCircle />}
+              label="Finalizar"
+            ></Tab>
 
           </Tabs>
 
@@ -332,16 +353,6 @@ TabsDiet.propTypes = {
 
 
 const styles = {
-  tab: {
-    backgroundColor: blue500,
-    inkBarStyle: {
-      backgroundColor: 'white'
-    }
-  },
-  tabs: {
-    borderRadius: '10px red',
-    paddingTop: '18px'
-  },
   iconStyles: {
     marginRight: 24,
   },
@@ -365,4 +376,6 @@ const styles = {
   }
 };
 
-export default TabsDiet;
+export default withWidth()( 
+  withStyles( styles )( TabsDiet )
+);
