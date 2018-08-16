@@ -118,7 +118,6 @@ class Diets extends Component {
   }
 
   componentDidMount() {
-    console.log( 'props', this.props );
     this.getOwnDiets().then( diets => {
       diets.forEach( diet =>
         diet.registerDate = new Date( diet.registerDate ).toLocaleDateString()
