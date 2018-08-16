@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:jsx-a11y/recommended",
+    "eslint:recommended"
+  ],
+  "plugins": ["jsx-a11y"],
+  "rules": {
+    "linebreak-style": [
+        "error",
+        "unix"
+    ],
+    "quotes": [
+        "error",
+        "single"
+    ],
+    "semi": [
+        "error",
+        "always"
+    ],
+    "no-multiple-empty-lines": ["error", { "max": 3, "maxEOF": 1 }],
+    "object-curly-spacing": ["error", "always"],
+    "space-in-parens": [2, "always", { "exceptions": ["empty", "{}"] }],
+    "no-unused-vars": ["error", {"args": "none"}]
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    }
+}
+}
