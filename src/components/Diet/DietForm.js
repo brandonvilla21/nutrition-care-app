@@ -1,11 +1,16 @@
-import React, { Component, PropTypes } from 'react';
-import PageBase from '../../components/PageBase';
-import axios from 'axios';
-import urlConfig from '../../url-config';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+// import axios from 'axios';
+
+import PageBase from '../PageBase';
+
+// import urlConfig from '../../url-config';
 import 'react-table/react-table.css';
 
 import TabsDiet from './Components/TabsDiet';
 import debounce from 'lodash.debounce';
+
+import Typography from '@material-ui/core/Typography';
 
 import { 
   handleChange, onRecalculateTotals, toggleRow,
@@ -14,8 +19,8 @@ import {
 
 class DietForm extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor( props ) {
+        super( props );
         this.state = {
           foods: [],
           selectedFoods: [],
@@ -26,22 +31,22 @@ class DietForm extends Component {
           description: ''
         };
         
-        this.handleChange = handleChange.bind(this);
-        this.onRecalculateTotals = debounce(onRecalculateTotals.bind(this), 250);
-        this.toggleRow = toggleRow.bind(this);
-        this.onChangeDataTableFields = onChangeDataTableFields.bind(this);
-        this.calculateDataTableData = calculateDataTableData.bind(this);
-        this.onSubmitDiet = this.onSubmitDiet.bind(this);
+        this.handleChange = handleChange.bind( this );
+        this.onRecalculateTotals = debounce( onRecalculateTotals.bind( this ), 250 );
+        this.toggleRow = toggleRow.bind( this );
+        this.onChangeDataTableFields = onChangeDataTableFields.bind( this );
+        this.calculateDataTableData = calculateDataTableData.bind( this );
+        this.onSubmitDiet = this.onSubmitDiet.bind( this );
     }
 
 
     componentDidMount() {
-      this.getFoods().then(foods => this.setState({ foods }));
+      // this.getFoods().then( foods => this.setState({ foods }) );
     }
 
 
-    componentDidUpdate(prevProps, prevState) {
-      if (this.state.selectedFoods !== prevState.selectedFoods)
+    componentDidUpdate( prevProps, prevState ) {
+      if ( this.state.selectedFoods !== prevState.selectedFoods )
         this.onRecalculateTotals();
       
     }
@@ -54,51 +59,51 @@ class DietForm extends Component {
    * @param resetIndex - A callback to reset the Tabs' index when needed.
    */
     onSubmitDiet( resetIndex ) {
-      const url = `${urlConfig.baseUrl}/diets`;
-      const config = urlConfig.axiosConfig;
-      config.method = 'POST';
+      // const url = `${urlConfig.baseUrl}/diets`;
+      // const config = urlConfig.axiosConfig;
+      // config.method = 'POST';
 
-      const { 
-        totalCarbohydrates, totalProteins, totalFats,
-        totalCalories, description,
-      } = this.state;
+      // const { 
+      //   totalCarbohydrates, totalProteins, totalFats,
+      //   totalCalories, description,
+      // } = this.state;
       
-      const selectedFoods = [ ...this.state.selectedFoods ].map( food => {
-        return { 
-          food_id: food.id,
-          calories: food.calories,
-          carbohydrates: food.carbohydrates,
-          fats: food.fats,
-          proteins: food.proteins,
-          desiredGrams: food.desiredGrams,
-          description: food.description,
-        };
-      });
+      // const selectedFoods = [ ...this.state.selectedFoods ].map( food => {
+      //   return { 
+      //     food_id: food.id,
+      //     calories: food.calories,
+      //     carbohydrates: food.carbohydrates,
+      //     fats: food.fats,
+      //     proteins: food.proteins,
+      //     desiredGrams: food.desiredGrams,
+      //     description: food.description,
+      //   };
+      // });
         
-      const data = { 
-        totalCarbohydrates, totalProteins, totalFats,
-        totalCalories, selectedFoods, register_date: this.getDate(),
-        description,
-      };
+      // const data = { 
+      //   totalCarbohydrates, totalProteins, totalFats,
+      //   totalCalories, selectedFoods, register_date: this.getDate(),
+      //   description,
+      // };
 
-      axios.post(url, data, config)
-          .then( response => {
-            if (response.status === 200) {
-                  this.props.onSubmitted({ submitted: true, err: false });
-                  this.resetState();
-                  resetIndex();
-              } else 
-                this.props.onSubmitted({ submitted: false, err: true });
+      // axios.post( url, data, config )
+      //     .then( response => {
+      //       if ( response.status === 200 ) {
+      //             this.props.onSubmitted({ submitted: true, err: false });
+      //             this.resetState();
+      //             resetIndex();
+      //         } else 
+      //           this.props.onSubmitted({ submitted: false, err: true });
               
-          })
-          .catch(err => {
-            this.props.onSubmitted({ 
-              submitted: false, 
-              err: true, 
-              errorMessage: err.response.data.message
-            });
-            throw err.response.data.message;
-          });
+      //     })
+      //     .catch( err => {
+      //       this.props.onSubmitted({ 
+      //         submitted: false, 
+      //         err: true, 
+      //         errorMessage: err.response.data.message
+      //       });
+      //       throw err.response.data.message;
+      //     });
     }
 
   /**
@@ -108,21 +113,21 @@ class DietForm extends Component {
    * @author Marcos Barrera del Río <elyomarcos@gmail.com>
    */
     getFoods() {
-        const url = `${urlConfig.baseUrl}/foods`;
-        return fetch(url)
-            .then( data => data.json())
-            .then( response => response.data)
-            .then( foods => {
-              foods.forEach( food => {
-                food.desiredGrams = 1;
-                food.desiredProteins = food.proteins;
-                food.desiredFats = food.fats;
-                food.desiredCarbohydrates = food.carbohydrates;
-                food.desiredCalories = food.calories;
-              });
+        // const url = `${urlConfig.baseUrl}/foods`;
+        // return fetch( url )
+        //     .then( data => data.json() )
+        //     .then( response => response.data )
+        //     .then( foods => {
+        //       foods.forEach( food => {
+        //         food.desiredGrams = 1;
+        //         food.desiredProteins = food.proteins;
+        //         food.desiredFats = food.fats;
+        //         food.desiredCarbohydrates = food.carbohydrates;
+        //         food.desiredCalories = food.calories;
+        //       });
 
-              return foods;
-            });
+        //       return foods;
+        //     });
     }
 
     /**
@@ -163,25 +168,27 @@ class DietForm extends Component {
         } = this.state;
 
         return(
-            <PageBase
-                title="Registrar una dieta"
-                navigation="Dietas / Registro">
-                
+            <PageBase>
+
               <div>
-                  <TabsDiet 
-                    foods={foods}
-                    selectedFoods={selectedFoods}
-                    totalCalories={totalCalories}
-                    totalCarbohydrates={totalCarbohydrates}
-                    totalFats={totalFats}
-                    totalProteins={totalProteins}
-                    selectableFoodColumns={selectableFoodColumns}
-                    toggleRow={this.toggleRow}
-                    description={description}
-                    onChangeDataTableFields={this.onChangeDataTableFields}
-                    onSubmitDiet={this.onSubmitDiet}
-                    onChange={this.handleChange}
-                  />
+                <Typography variant="headline" component="h3">
+                  Registrar una dieta
+                </Typography>
+                  
+                <TabsDiet 
+                  foods={foods}
+                  selectedFoods={selectedFoods}
+                  totalCalories={totalCalories}
+                  totalCarbohydrates={totalCarbohydrates}
+                  totalFats={totalFats}
+                  totalProteins={totalProteins}
+                  selectableFoodColumns={selectableFoodColumns}
+                  toggleRow={this.toggleRow}
+                  description={description}
+                  onChangeDataTableFields={this.onChangeDataTableFields}
+                  onSubmitDiet={this.onSubmitDiet}
+                  onChange={this.handleChange}
+                />
               </div>
 
             </PageBase>
@@ -194,34 +201,34 @@ DietForm.propTypes = {
 
 const selectableFoodColumns = [
   {
-    Header: "ID",
-    accessor: "id",
+    Header: 'ID',
+    accessor: 'id',
     maxWidth: 100
   },
   {
-    Header: "Descripción",
-    accessor: "description",
+    Header: 'Descripción',
+    accessor: 'description',
     style: { whiteSpace: 'normal' }
   },
   {
-    Header: "Proteínas por g.",
-    accessor: "proteins",
+    Header: 'Proteínas por g.',
+    accessor: 'proteins',
     maxWidth: 150    
     
   },
   {
-    Header: "Carbohídratos por g.",
-    accessor: "carbohydrates",
+    Header: 'Carbohídratos por g.',
+    accessor: 'carbohydrates',
     maxWidth: 150    
   },
   {
-    Header: "Grasas por g.",
-    accessor: "fats",
+    Header: 'Grasas por g.',
+    accessor: 'fats',
     maxWidth: 150    
   },
   {
-    Header: "Calorías por g.",
-    accessor: "calories",
+    Header: 'Calorías por g.',
+    accessor: 'calories',
     maxWidth: 150    
   }
 ];

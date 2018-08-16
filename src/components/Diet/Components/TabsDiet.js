@@ -1,33 +1,44 @@
-import React, { Component, PropTypes } from 'react';
-import { Tabs, Tab, RaisedButton } from 'material-ui';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
-import ActionHelp from '@material-ui/icons/Help';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import AppBar from '@material-ui/core/AppBar';
+
+// import { RaisedButton } from 'material-ui';
+// import { Card, CardHeader, CardText } from 'material-ui/Card';
+
+// import ActionHelp from '@material-ui/icons/Help';
 import ActionShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import AvPlaylistAddCheck from '@material-ui/icons/PlaylistAddCheck';
 import CheckCircle from '@material-ui/icons/CheckCircle';
-import TextField from 'material-ui/TextField/TextField';
+
+// import TextField from '@material-ui/core/TextField';
+
 import blue from '@material-ui/core/colors/blue';
 import grey from '@material-ui/core/colors/grey';
+
+// import DietTotalsCard from './DietTotalsCard/DietTotalsCard';
+// import DietTableCalculator from './DietTableCalculator';
+import SelectableTable from '../../shared/SelectableTable';
+import TabContainer from '../../shared/TabContainer';
+
 const blue500 = blue['500'];
 const grey700 = grey['700'];
 
-import DietTotalsCard from './DietTotalsCard/DietTotalsCard';
-import DietTableCalculator from './DietTableCalculator';
-import SelectableTable from '../../SelectableTable';
-
 class TabsDiet extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
     this.state = {
       tabIndex: 0,
       resetToggle: false
     };
 
-    this.nextIndex = this.nextIndex.bind(this);
-    this.prevIndex = this.prevIndex.bind(this);
-    this.blockTapTabs = this.blockTapTabs.bind(this);
-    this.resetIndex = this.resetIndex.bind(this);
+    this.nextIndex = this.nextIndex.bind( this );
+    this.prevIndex = this.prevIndex.bind( this );
+    this.blockTapTabs = this.blockTapTabs.bind( this );
+    this.resetIndex = this.resetIndex.bind( this );
     
   }
 
@@ -62,33 +73,17 @@ class TabsDiet extends Component {
 
   resetIndex() {
     this.setState({ tabIndex: 0, resetToggle: true }, 
-                  () => this.setState({ resetToggle: false }));
+                  () => this.setState({ resetToggle: false }) );
   }
 
-  render () {
+  getTabs({ tabIndex, foods, selectedFoods, selectableFoodColumns }) {
 
-    const { 
-      foods, selectedFoods, totalCalories, 
-      totalCarbohydrates, totalFats, totalProteins,
-      selectableFoodColumns, description, onChange
-    } = this.props;
+    switch( tabIndex ) {
+      case 0: {
+        return (
+          <TabContainer>
 
-    return (
-      <Tabs 
-        value={this.state.tabIndex}
-        disabled={true}
-        onChange={this.blockTapTabs}
-        initialSelectedIndex={0} 
-        style={styles.tabs}
-        >
-
-        <Tab 
-          icon={<ActionShoppingBasket />}
-          value={0}
-          style={styles.tab} label="Alimentos disponibles">
-          <div>
-
-            <Card initiallyExpanded={true} style={styles.recomendationStyles}>
+            {/* <Card initiallyExpanded={true} style={styles.recomendationStyles}>
               <CardHeader 
                 title="Aviso"
                 subtitle="Recomendaciones"
@@ -107,7 +102,7 @@ class TabsDiet extends Component {
                   </li>
                 </ul>
               </CardText>
-            </Card>
+            </Card> */}
             
             <SelectableTable
               resetToggle={this.state.resetToggle} 
@@ -119,28 +114,28 @@ class TabsDiet extends Component {
               noDataTextMainTable="No hay datos actualmente :("
               noDataTextSecondaryTable="Selecciona un elemento de la otra tabla ;)"
               columns={selectableFoodColumns}
-              onToggleRow={this.props.toggleRow.bind(this)}
+              onToggleRow={this.props.toggleRow.bind( this )}
               enableSecondaryTable={false}
             />
 
-            <RaisedButton
+            {/* <RaisedButton
                     style={styles.raisedButtonNextStyle}
                     label="Siguiente"
                     primary={true}
                     disabled={this.disableCalculateDietButton()}
                     value={1}
-                    onClick={this.nextIndex} />
+                    onClick={this.nextIndex} /> */}
             
-          </div>
-        </Tab>
+          </TabContainer>
+        );
+      }
+      case 1: {
+        return (
+          <TabContainer>
 
-        <Tab 
-          style={styles.tab} label="Alimentos seleccionados"
-          value={1}
-          icon={<AvPlaylistAddCheck style={styles.iconStyles} color={blue500} />}>
-          <div>
+            test text
 
-            <Card initiallyExpanded={true} style={styles.recomendationStyles}>
+            {/* <Card initiallyExpanded={true} style={styles.recomendationStyles}>
               <CardHeader 
                 title="Aviso"
                 subtitle="Recomendaciones"
@@ -163,7 +158,7 @@ class TabsDiet extends Component {
 
             <DietTableCalculator 
               selectedFoods={selectedFoods}
-              onChangeTable={this.props.onChangeDataTableFields.bind(this)}
+              onChangeTable={this.props.onChangeDataTableFields.bind( this )}
             />
 
             <DietTotalsCard
@@ -171,10 +166,10 @@ class TabsDiet extends Component {
               totalCarbohydrates={totalCarbohydrates}
               totalFats={totalFats}
               totalProteins={totalProteins}
-            />
+            /> */}
 
             <div>
-              <RaisedButton
+              {/* <RaisedButton
                       style={styles.raisedButtonPrevStyle}
                       label="Regresar"
                       secondary={true}
@@ -188,48 +183,45 @@ class TabsDiet extends Component {
                       primary={true}
                       disabled={this.disableCalculateDietButton()}
                       value={1}
-                      onClick={this.nextIndex} />
+                      onClick={this.nextIndex} /> */}
             </div>
 
-          </div>
-        </Tab>
-
-        <Tab
-            icon={<CheckCircle />}
-            label="Finalizar"
-            value={2}
-            style={styles.tab}
-          >
-            <div>
-
-            <TextField
+          </TabContainer>
+        );
+      }
+      case 2: {
+        return (
+          <TabContainer>
+            
+            {/* <TextField
               floatingLabelStyle={styles.floatingLabelStyle}
               name="description"
               floatingLabelText="Agrega una descripción para tu dieta"
               fullWidth={true}
               value={description}
               onChange={onChange}
-            />
-              <div className="final-grid">
+            /> */}
 
-                <DietTotalsCard className="totals-card"
-                  totalCalories={totalCalories}
-                  totalCarbohydrates={totalCarbohydrates}
-                  totalFats={totalFats}
-                  totalProteins={totalProteins}
+            <div className="final-grid">
+
+              {/* <DietTotalsCard className="totals-card"
+                totalCalories={totalCalories}
+                totalCarbohydrates={totalCarbohydrates}
+                totalFats={totalFats}
+                totalProteins={totalProteins}
+              /> */}
+
+              {/* <Card className="recommendation-card" initiallyExpanded={true}>
+                <CardHeader 
+                  title="Aviso"
+                  subtitle="Recomendaciones"
+                  actAsExpander={true}
+                  showExpandableButton={true}
+                  avatar={<ActionHelp style={styles.actionHelpStyle}/>}
                 />
-
-                {/* <Card className="recommendation-card" initiallyExpanded={true}>
-                  <CardHeader 
-                    title="Aviso"
-                    subtitle="Recomendaciones"
-                    actAsExpander={true}
-                    showExpandableButton={true}
-                    avatar={<ActionHelp style={styles.actionHelpStyle}/>}
-                  />
-                  <CardText expandable={true}>
-                    <strong>AQUÍ VAN LAS RECOMENDACIONES</strong>
-                  </CardText>
+                <CardText expandable={true}>
+                  <strong>AQUÍ VAN LAS RECOMENDACIONES</strong>
+                </CardText>
               </Card> */}
 
                 <div>
@@ -238,7 +230,7 @@ class TabsDiet extends Component {
                     Cuando estés listo, da clic en 
                       <strong> Guardar</strong>
                   </p>
-                  <RaisedButton
+                  {/* <RaisedButton
                     style={styles.raisedButtonPrevStyle}
                     label="Regresar"
                     secondary={true}
@@ -251,17 +243,72 @@ class TabsDiet extends Component {
                     label="Guardar"
                     primary={true}
                     disabled={this.disableSaveButton()}
-                    onClick={this.props.onSubmitDiet.bind(this, this.resetIndex)} />
+                    onClick={this.props.onSubmitDiet.bind( this, this.resetIndex )} /> */}
                 </div> 
 
-              </div>
-              
-               
-            
             </div>
-          </Tab>
+          </TabContainer>
+        );
+      }
 
-      </Tabs>
+      default: return null;
+    }
+
+  }
+
+  render () {
+
+    const { 
+      foods, selectedFoods, totalCalories, 
+      totalCarbohydrates, totalFats, totalProteins,
+      selectableFoodColumns, description, onChange
+    } = this.props;
+
+    const {
+      tabIndex
+    } = this.state;
+
+    const currentTab = this.getTabs({
+      tabIndex, 
+      foods, 
+      selectedFoods, 
+      selectableFoodColumns,
+    });
+
+    return (
+      <div>
+        <AppBar position="static" color="default">
+      
+          <Tabs 
+            value={tabIndex}
+            // disabled={true}
+            onChange={this.blockTapTabs}
+            // initialSelectedIndex={0} 
+            style={styles.tabs}
+            >
+
+            <Tab icon={<ActionShoppingBasket />} label="Alimentos disponibles"
+              // style={styles.tab} 
+            ></Tab>
+            
+            <Tab label="Alimentos seleccionados"
+              // icon={<AvPlaylistAddCheck style={styles.iconStyles} color={blue500} />}
+              // style={styles.tab}
+            ></Tab>
+
+            <Tab icon={<CheckCircle />}
+                label="Finalizar"
+                // value={2}
+                // style={styles.tab}
+              ></Tab>
+
+          </Tabs>
+
+        </AppBar>
+
+        {currentTab}
+
+      </div>
     );
   }
 }

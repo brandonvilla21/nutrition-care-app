@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
 import { Link } from 'react-router-dom';
-// import DietForm from '../../../../components/Diet/DietForm';
+import DietForm from '../../../components/Diet/DietForm';
 
 
 class CreateDiet extends Component {
@@ -107,7 +107,7 @@ class CreateDiet extends Component {
 
             </Dialog>
           
-          {/* <DietForm onSubmitted={this.isSubmitted} /> */}
+          <DietForm onSubmitted={this.isSubmitted} />
         </div>
       );
     }
