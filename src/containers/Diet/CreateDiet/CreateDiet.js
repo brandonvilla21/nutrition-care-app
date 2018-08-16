@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
 import { Link } from 'react-router-dom';
-// import DietForm from '../../../components/Diet/DietForm';
+// import DietForm from '../../../../components/Diet/DietForm';
 
 
 class CreateDiet extends Component {
@@ -91,7 +91,7 @@ class CreateDiet extends Component {
             <Dialog
               aria-labelledby="create-diet-error"
               disableBackdropClick
-              open={!this.state.isThereAnError}
+              open={this.state.isThereAnError}
               onClose={this.handleClose}>
 
                 <DialogTitle id="create-diet-error">
