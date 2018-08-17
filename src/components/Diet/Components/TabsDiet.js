@@ -9,12 +9,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
 
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 // import { RaisedButton } from 'material-ui';
 // import { Card, CardHeader, CardText } from 'material-ui/Card';
 
@@ -32,6 +26,9 @@ import grey from '@material-ui/core/colors/grey';
 // import DietTableCalculator from './DietTableCalculator';
 import SelectableTable from '../../shared/SelectableTable';
 import TabContainer from '../../shared/TabContainer';
+
+import SimpleExpandibleCard from '../../shared/SimpleExpandibleCard';
+
 
 const blue500 = blue['500'];
 const grey700 = grey['700'];
@@ -94,27 +91,21 @@ class TabsDiet extends Component {
       case 0: {
         return (
           <TabContainer>
-
-            {/* <Card initiallyExpanded={true} style={styles.recomendationStyles}>
-              <CardHeader 
-                title="Aviso"
-                subtitle="Recomendaciones"
-                actAsExpander={true}
-                showExpandableButton={true}
-                avatar={<ActionHelp style={styles.actionHelpStyle}/>}
-              />
-              <CardContent expandable={true} style={{ color: grey700, fontSize: 16 }}>
-                <ul>
-                  <li>
-                    Selecciona los alimentos que quieras incorporar en tu dieta.
-                  </li>
-                  <li>
-                    Puedes seleccionar todos los alimentos que quieras en la tabla de alimentos
-                    de abajo.
-                  </li>
-                </ul>
-              </CardContent>
-            </Card> */}
+            <SimpleExpandibleCard 
+              title={
+                <strong className={classes.cardTitle}>Recomendaciones</strong>
+              }
+            >
+              <ul>
+                <li>
+                  Selecciona los alimentos que quieras incorporar en tu dieta.
+                </li>
+                <li>
+                  Puedes seleccionar todos los alimentos que quieras en la tabla de alimentos
+                  de abajo.
+                </li>
+              </ul>
+            </SimpleExpandibleCard>
             
             <SelectableTable
               resetToggle={this.state.resetToggle} 
@@ -385,6 +376,9 @@ const styles = {
   },
   floatingLabelStyle: {
     fontSize: 19,
+  },
+  cardTitle: {
+    color: grey700,
   }
 };
 
