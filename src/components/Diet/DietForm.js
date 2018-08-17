@@ -17,6 +17,10 @@ import {
   onChangeDataTableFields, calculateDataTableData,
 } from './diet-utils';
 
+import sendLoopbackParams from '../../shared/sendLoopbackParams';
+import axios from '../../axios';
+
+
 class DietForm extends Component {
 
     constructor( props ) {
@@ -41,7 +45,7 @@ class DietForm extends Component {
 
 
     componentDidMount() {
-      // this.getFoods().then( foods => this.setState({ foods }) );
+      this.getFoods().then( foods => this.setState({ foods }) );
     }
 
 
@@ -113,10 +117,20 @@ class DietForm extends Component {
    * @author Marcos Barrera del Río <elyomarcos@gmail.com>
    */
     getFoods() {
-        // const url = `${urlConfig.baseUrl}/foods`;
-        // return fetch( url )
-        //     .then( data => data.json() )
-        //     .then( response => response.data )
+
+        const config = sendLoopbackParams({ limit: 5 });
+
+        const url = 'Foods';
+
+        return axios.get( url, config )
+          .then( response => response.data )
+          .catch( err => { throw err.response.data; });
+
+        // return fetch( url, config )
+        //     .then( response => {
+        //       console.log({ response });
+        //       return response.data;
+        //     })
         //     .then( foods => {
         //       foods.forEach( food => {
         //         food.desiredGrams = 1;

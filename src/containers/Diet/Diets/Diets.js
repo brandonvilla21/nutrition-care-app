@@ -20,6 +20,7 @@ import ReactTable from 'react-table';
 
 import filterCaseInsensitive from '../../../shared/tableFiltering';
 import axios from '../../../axios';
+import sendLoopbackParams from '../../../shared/sendLoopbackParams';
 
 
 const blue500 = blue['500'];
@@ -170,8 +171,9 @@ class Diets extends Component {
 
   getOwnDiets() {
     const url = '/Diets';
+    const config = sendLoopbackParams({ limit: 5 });
 
-    return axios.get( url, { params: { filter: { limit: 5 } } })
+    return axios.get( url, config )
         .then( response => response.data )
         .catch( err => { throw err.response.data; });
   }

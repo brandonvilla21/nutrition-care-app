@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from '@material-ui/core/';
+import { withStyles, Button } from '@material-ui/core/';
 
 import withWidth from '@material-ui/core/withWidth';
 
@@ -9,10 +9,16 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
 
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
 // import { RaisedButton } from 'material-ui';
 // import { Card, CardHeader, CardText } from 'material-ui/Card';
 
-// import ActionHelp from '@material-ui/icons/Help';
+import ActionHelp from '@material-ui/icons/Help';
 import ActionShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import AvPlaylistAddCheck from '@material-ui/icons/PlaylistAddCheck';
 import CheckCircle from '@material-ui/icons/CheckCircle';
@@ -82,6 +88,8 @@ class TabsDiet extends Component {
 
   getTabs({ tabIndex, foods, selectedFoods, selectableFoodColumns }) {
 
+    const { classes } = this.props;
+
     switch( tabIndex ) {
       case 0: {
         return (
@@ -95,7 +103,7 @@ class TabsDiet extends Component {
                 showExpandableButton={true}
                 avatar={<ActionHelp style={styles.actionHelpStyle}/>}
               />
-              <CardText expandable={true} style={{ color: grey700, fontSize: 16 }}>
+              <CardContent expandable={true} style={{ color: grey700, fontSize: 16 }}>
                 <ul>
                   <li>
                     Selecciona los alimentos que quieras incorporar en tu dieta.
@@ -105,7 +113,7 @@ class TabsDiet extends Component {
                     de abajo.
                   </li>
                 </ul>
-              </CardText>
+              </CardContent>
             </Card> */}
             
             <SelectableTable
@@ -122,13 +130,17 @@ class TabsDiet extends Component {
               enableSecondaryTable={false}
             />
 
-            {/* <RaisedButton
-                    style={styles.raisedButtonNextStyle}
-                    label="Siguiente"
-                    primary={true}
-                    disabled={this.disableCalculateDietButton()}
-                    value={1}
-                    onClick={this.nextIndex} /> */}
+            <Button
+              className={classes.raisedButtonNextStyle}
+              variant="contained"
+              color="primary"
+              // disabled={this.disableCalculateDietButton()}
+              value={1}
+              onClick={this.nextIndex}>
+
+              Siguiente
+
+            </Button>
             
           </TabContainer>
         );
