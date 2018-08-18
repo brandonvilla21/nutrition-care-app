@@ -59,7 +59,7 @@ class DietForm extends Component {
    */
     onSubmitDiet( resetIndex ) {
 
-      const url = '/diets';
+      // const url = '/diets';
 
       const { 
         totalCarbohydrates, totalProteins, totalFats,

@@ -59,7 +59,7 @@ export function toggleRow( currentSelectedObject ) {
   let selectedFoods = [
     ...this.state.selectedFoods
   ];
-  const elementIndex = selectedFoods.findIndex( element => element.id == currentSelectedObject.id );
+  const elementIndex = selectedFoods.findIndex( element => element.id === currentSelectedObject.id );
   // check to see if the key exists
   if ( elementIndex >= 0 ) {
     // it does exist so we will remove it using destructing
@@ -94,7 +94,7 @@ export function onChangeDataTableFields( currentSelectedObject, accessor, event 
 
   const value = event.target.value;
   const selectedFoods = [ ...this.state.selectedFoods ];
-  const index = selectedFoods.findIndex( element => element.id == currentSelectedObject.id );
+  const index = selectedFoods.findIndex( element => element.id === currentSelectedObject.id );
 
 
   selectedFoods[index][accessor] = Number( value );

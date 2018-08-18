@@ -142,7 +142,7 @@ class Diets extends Component {
   deleteDietFromArray() {
     let diets = [...this.state.diets];
     const index = diets.findIndex(
-      element => element.id == this.state.dietToDelete.id
+      element => element.id === this.state.dietToDelete.id
     );
 
     diets = [...diets.slice( 0, index ), ...diets.slice( index + 1 )];
