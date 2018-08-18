@@ -5,116 +5,105 @@ import ReactTable from 'react-table';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-class DietTableCalculator extends Component {
+const DietTableCalculator = ( props ) => {
 
-    constructor( props ) {
-        super( props );
-    }
+  const { 
+    onChangeTable, selectedFoods,
+    handleOpenEliminationModal, onEdit,
+    } = props;
 
-    componentWillMount() { }
-
-    render() {
-      
-      const { 
-        onChangeTable, selectedFoods,
-        handleOpenEliminationModal, onEdit,
-       } = this.props;
-
-      //Just for edit porpuses.
-      let finalColumns = [
-        ...selectedFoodColumns,
-        {
-          Header: 'Gramos',
-          id: 'text',
-          accessor: '',
-          filterable: false,
-          sortable: false,
-          Cell: ({ original }) => {
-            return (
-              <input
-                min="0.0"
-                step="any"
-                type="number"
-                value={original[EDITABLE_PROPERTY_ACCESORS.GRAMS]}
-                onChange={onChangeTable.bind( this, original, EDITABLE_PROPERTY_ACCESORS.GRAMS )}
-              />
-            );
-          },
-          width: 200
-        },
-        {
-          Header: 'Calorías',
-          id: 'text',
-          accessor: '',
-          filterable: false,
-          sortable: false,
-          Cell: ({ original }) => {
-            return (
-              <input
-                min="0.0"
-                step="any"
-                type="number"
-                value={original[EDITABLE_PROPERTY_ACCESORS.CALORIES]}
-                onChange={onChangeTable.bind( this, original, EDITABLE_PROPERTY_ACCESORS.CALORIES )}
-              />
-            );
-          },
-          width: 200
-        },
-      ];
-
-      if( onEdit === true ) {
-
-        finalColumns = [
-          ...finalColumns,
-          {
-            Header: 'Eliminar',
-            id: 'text',
-            accessor: '',
-            filterable: false,
-            sortable: false,
-            Cell: ({ original }) => {
-              return (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  // disabled={this.disableCalculateDietButton()}
-                  onClick={handleOpenEliminationModal.bind( this, original )}>
-
-                  X
-
-                </Button>
-              );
-            },
-            minWidth: 70,
-            maxWidth: 100,
-          },
-        ];
-
-      }
-
-      return(
-
-
-          <div>
-            <ReactTable
-              data={selectedFoods}
-              columns={[
-
-                {
-                  Header: <Typography variant="subheading">INTRODUCE LOS GRAMOS DE CADA UNO DE LOS ALIMENTOS QUE SELECCIONASTE</Typography>,
-                  columns: [
-                    ...finalColumns
-                  ]
-                },
-              ]}
-              defaultPageSize={6}
-              noDataText="SELECCIONA LOS ALIMENTOS EN LA TABLA ANTERIOR PARA CONTINUAR ;)"
-            />
-          </div>
+  //Just for edit porpuses.
+  let finalColumns = [
+    ...selectedFoodColumns,
+    {
+      Header: 'Gramos',
+      id: 'text',
+      accessor: '',
+      filterable: false,
+      sortable: false,
+      Cell: ({ original }) => {
+        return (
+          <input
+            min="0.0"
+            step="any"
+            type="number"
+            value={original[EDITABLE_PROPERTY_ACCESORS.GRAMS]}
+            onChange={onChangeTable.bind( this, original, EDITABLE_PROPERTY_ACCESORS.GRAMS )}
+          />
         );
-    }
-}
+      },
+      width: 200
+    },
+    {
+      Header: 'Calorías',
+      id: 'text',
+      accessor: '',
+      filterable: false,
+      sortable: false,
+      Cell: ({ original }) => {
+        return (
+          <input
+            min="0.0"
+            step="any"
+            type="number"
+            value={original[EDITABLE_PROPERTY_ACCESORS.CALORIES]}
+            onChange={onChangeTable.bind( this, original, EDITABLE_PROPERTY_ACCESORS.CALORIES )}
+          />
+        );
+      },
+      width: 200
+    },
+  ];
+
+  if( onEdit === true ) {
+
+    finalColumns = [
+      ...finalColumns,
+      {
+        Header: 'Eliminar',
+        id: 'text',
+        accessor: '',
+        filterable: false,
+        sortable: false,
+        Cell: ({ original }) => {
+          return (
+            <Button
+              variant="contained"
+              color="secondary"
+              // disabled={this.disableCalculateDietButton()}
+              onClick={handleOpenEliminationModal.bind( this, original )}>
+
+              X
+
+            </Button>
+          );
+        },
+        minWidth: 70,
+        maxWidth: 100,
+      },
+    ];
+
+  }
+
+  return(
+    <div>
+      <ReactTable
+        data={selectedFoods}
+        columns={[
+
+          {
+            Header: <Typography variant="subheading">INTRODUCE LOS GRAMOS DE CADA UNO DE LOS ALIMENTOS QUE SELECCIONASTE</Typography>,
+            columns: [
+              ...finalColumns
+            ]
+          },
+        ]}
+        defaultPageSize={6}
+        noDataText="SELECCIONA LOS ALIMENTOS EN LA TABLA ANTERIOR PARA CONTINUAR ;)"
+      />
+    </div>
+  );
+};
 
 DietTableCalculator.propTypes = {
   handleOpenEliminationModal: PropTypes.func,
