@@ -30,11 +30,11 @@ class DietForm extends Component {
           description: ''
         };
         
+        this.onRecalculateTotals = debounce( onRecalculateTotals.bind( this ), 500 );
+        this.calculateDataTableData = debounce( calculateDataTableData.bind( this ), 500 );
         this.handleChange = handleChange.bind( this );
-        this.onRecalculateTotals = debounce( onRecalculateTotals.bind( this ), 250 );
         this.toggleRow = toggleRow.bind( this );
         this.onChangeDataTableFields = onChangeDataTableFields.bind( this );
-        this.calculateDataTableData = calculateDataTableData.bind( this );
         this.onSubmitDiet = this.onSubmitDiet.bind( this );
     }
 
