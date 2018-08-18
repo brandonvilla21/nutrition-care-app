@@ -173,10 +173,17 @@ class DietForm extends Component {
             <PageBase>
 
               <div>
-                <Typography variant="headline" component="h3">
+                <Typography
+                  style={{ 
+                    margin: '15px 0 35px 0',
+                    textAlign: 'center',
+                  }} 
+                  variant="headline" 
+                  component="h4"
+                >
                   Registrar una dieta
                 </Typography>
-                  
+
                 <TabsDiet 
                   foods={foods}
                   selectedFoods={selectedFoods}
