@@ -12,13 +12,13 @@ import IconButton from '@material-ui/core/IconButton';
 import EditorModeEdit from '@material-ui/icons/ModeEdit';
 import ActionDelete from '@material-ui/icons/Delete';
 
+import ReactTable from 'react-table';
+
 import blue from '@material-ui/core/colors/blue';
 import blueGrey from '@material-ui/core/colors/blueGrey';
 
-import 'react-table/react-table.css';
-import ReactTable from 'react-table';
-
 import filterCaseInsensitive from '../../../shared/tableFiltering';
+
 import axios from '../../../axios';
 import sendLoopbackParams from '../../../shared/sendLoopbackParams';
 
@@ -185,15 +185,13 @@ class Diets extends Component {
     return (
       <PageBase>
         <div>
-          <Link to={`${match.url}/create`}>
-            <Button
+            <Button component={Link} to={`${match.url}/create`}
               variant="fab"
               color="primary"
               className={classes.floatingActionButton}
             >
               <ContentAdd />
             </Button>
-          </Link>
           <ReactTable
             className="-striped -highlight"
             data={diets}

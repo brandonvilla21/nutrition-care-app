@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
+
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -11,10 +13,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 const styles = theme => ({
-  card: {
-    marginBottom: '10px',
-    marginTop: '10px',
-  },
   actions: {
     display: 'flex',
   },
@@ -35,7 +33,7 @@ const styles = theme => ({
 
 class ExpandibleCard extends React.Component {
   
-  state = { expanded: true };
+  state = { expanded: false };
 
   handleExpandClick = () => {
     this.setState( state => ({ expanded: !state.expanded }) );
@@ -45,9 +43,9 @@ class ExpandibleCard extends React.Component {
 
     const show = true;
 
-    const { classes, title, children } = this.props;
+    const { classes, title, children, cardStyle } = this.props;
 
-    const card = <Card className={classes.card}>
+    const card = <Card style={cardStyle}>
       <CardActions className={classes.actions}>
         {title}
         <IconButton
@@ -78,8 +76,8 @@ class ExpandibleCard extends React.Component {
 }
 
 ExpandibleCard.propTypes = {
-  classes: PropTypes.object.isRequired,
   title: PropTypes.element.isRequired,
+  cardStyle: PropTypes.object,
 };
 
 export default withStyles( styles )( ExpandibleCard );

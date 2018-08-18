@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import PageBase from '../../components/PageBase';
 import axios from 'axios';
 import urlConfig from '../../url-config';
-import 'react-table/react-table.css';
 
 import EditTabsDiet from './Components/EditTabsDiet';
 import debounce from 'lodash.debounce';
@@ -15,8 +16,8 @@ import {
 
 class DietForm extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor( props ) {
+        super( props );
         this.state = {
           foods: [],
           selectedFoods: [],
@@ -28,14 +29,14 @@ class DietForm extends Component {
           manualRemovedFood: {},
         };
         
-        this.handleChange = handleChange.bind(this);
-        this.onRecalculateTotals = debounce(onRecalculateTotals.bind(this), 250);
-        this.toggleRow = toggleRow.bind(this);
-        this.onChangeDataTableFields = onChangeDataTableFields.bind(this);
-        this.calculateDataTableData = calculateDataTableData.bind(this);
-        this.onSubmitDiet = this.onSubmitDiet.bind(this);
-        this.removeFoodRow = this.removeFoodRow.bind(this);
-        this.clearManualRemovedFoodState = this.clearManualRemovedFoodState.bind(this);
+        this.handleChange = handleChange.bind( this );
+        this.onRecalculateTotals = debounce( onRecalculateTotals.bind( this ), 250 );
+        this.toggleRow = toggleRow.bind( this );
+        this.onChangeDataTableFields = onChangeDataTableFields.bind( this );
+        this.calculateDataTableData = calculateDataTableData.bind( this );
+        this.onSubmitDiet = this.onSubmitDiet.bind( this );
+        this.removeFoodRow = this.removeFoodRow.bind( this );
+        this.clearManualRemovedFoodState = this.clearManualRemovedFoodState.bind( this );
     }
 
 
@@ -44,15 +45,15 @@ class DietForm extends Component {
       const currentFoodsOnDietPromise = this.setDietFoodsToEdit();
       const getFoodsPromise = this.getFoods();
 
-      this.removeRepeatedFoods(currentFoodsOnDietPromise, getFoodsPromise)
-        .then(foods => this.setState({ foods }));
+      this.removeRepeatedFoods( currentFoodsOnDietPromise, getFoodsPromise )
+        .then( foods => this.setState({ foods }) );
 
     }
 
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate( prevProps, prevState ) {
 
-      if (this.state.selectedFoods !== prevState.selectedFoods)
+      if ( this.state.selectedFoods !== prevState.selectedFoods )
         this.onRecalculateTotals();
       
     }
@@ -69,20 +70,20 @@ class DietForm extends Component {
    */
     removeRepeatedFoods( currentFoodsOnDietPromise, getFoodsPromise ) {
       
-      return Promise.all([currentFoodsOnDietPromise, getFoodsPromise])
-        .then(([foodsToCompare, foodsFromAPI]) => {
+      return Promise.all( [currentFoodsOnDietPromise, getFoodsPromise] )
+        .then( ( [foodsToCompare, foodsFromAPI] ) => {
 
           const repeatedFoodIdsToRemove = [];
 
           //Find the repeated foods checking the 'id' and 'description'
           const lengthFoodsFromAPI = foodsFromAPI.length;
-          for (let i = 0; i < lengthFoodsFromAPI; i++) {
+          for ( let i = 0; i < lengthFoodsFromAPI; i++ ) {
 
             const lengthFoodsToCompare = foodsToCompare.length;
-            for (let x = 0; x < lengthFoodsToCompare; x++) {
+            for ( let x = 0; x < lengthFoodsToCompare; x++ ) {
               if( foodsFromAPI[i].id === foodsToCompare[x].id && 
-                foodsFromAPI[i].description === foodsToCompare[x].description) {
-                repeatedFoodIdsToRemove.push(foodsToCompare[x].id);
+                foodsFromAPI[i].description === foodsToCompare[x].description ) {
+                repeatedFoodIdsToRemove.push( foodsToCompare[x].id );
                 break;
               }
             }
@@ -91,7 +92,7 @@ class DietForm extends Component {
           //--------------------------------------
 
           //Unique foods.
-          return foodsFromAPI.filter( food => !repeatedFoodIdsToRemove.includes(food.id));
+          return foodsFromAPI.filter( food => !repeatedFoodIdsToRemove.includes( food.id ) );
 
         });
 
@@ -108,15 +109,15 @@ class DietForm extends Component {
    * of every food from the Diet details.
    */
     setDietFoodsToEdit() {
-      return this.getDietToEdit().then(({ data }) => {
+      return this.getDietToEdit().then( ({ data }) => {
         const diet = data;
 
-        const selectedFoods = diet.foods.map( food => food.pivot);
+        const selectedFoods = diet.foods.map( food => food.pivot );
         selectedFoods.forEach( food => {
-          food.desiredCalories = roundNumber(food.calories * food.desiredGrams);
-          food.desiredCarbohydrates = roundNumber(food.carbohydrates * food.desiredGrams);
-          food.desiredFats = roundNumber(food.fats * food.desiredGrams);
-          food.desiredProteins = roundNumber(food.proteins * food.desiredGrams);
+          food.desiredCalories = roundNumber( food.calories * food.desiredGrams );
+          food.desiredCarbohydrates = roundNumber( food.carbohydrates * food.desiredGrams );
+          food.desiredFats = roundNumber( food.fats * food.desiredGrams );
+          food.desiredProteins = roundNumber( food.proteins * food.desiredGrams );
           
           //Only to reuse the second table from the DietForm without any problem with the
           //column id.
@@ -159,16 +160,16 @@ class DietForm extends Component {
         totalCalories, selectedFoods, description,
       };
       
-      axios.put(url, data, config)
+      axios.put( url, data, config )
           .then( response => {
-            if (response.status === 200) {
+            if ( response.status === 200 ) {
                   this.props.onSubmitted({ submitted: true, err: false });
                   resetIndex();
               } else 
                 this.props.onSubmitted({ submitted: false, err: true });
               
           })
-          .catch(err => {
+          .catch( err => {
             this.props.onSubmitted({ 
               submitted: false, 
               err: true, 
@@ -192,9 +193,9 @@ class DietForm extends Component {
       const config = urlConfig.axiosConfig;
       config.method = 'GET';
 
-      return axios.get(url, config)
-        .then( response => response.data)
-        .catch(err => {
+      return axios.get( url, config )
+        .then( response => response.data )
+        .catch( err => {
           throw err.response.data.message;
         });
     }
@@ -208,9 +209,9 @@ class DietForm extends Component {
    */
     getFoods() {
       const url = `${urlConfig.baseUrl}/foods`;
-      return fetch(url)
-        .then( data => data.json())
-        .then( response => response.data)
+      return fetch( url )
+        .then( data => data.json() )
+        .then( response => response.data )
         .then( foods => {
           foods.forEach( food => {
             food.desiredGrams = 1;
@@ -230,13 +231,13 @@ class DietForm extends Component {
     removeFoodRow( selectedRow ) {
 
       if( selectedRow.foodFromFoodsTable === true )
-        this.removeFromFirstFoodsTableManually(selectedRow.id);
+        this.removeFromFirstFoodsTableManually( selectedRow.id );
 
       
       const selectedFoods = [ ...this.state.selectedFoods ];
       const index = selectedFoods.findIndex( element => element.id == selectedRow.id );
 
-      selectedFoods.splice(index, 1);
+      selectedFoods.splice( index, 1 );
 
       
 
@@ -293,42 +294,42 @@ class DietForm extends Component {
 }
 DietForm.propTypes = {
     onSubmitted: PropTypes.func,
-    idToEdit: PropTypes.oneOfType([
+    idToEdit: PropTypes.oneOfType( [
       PropTypes.string,
       PropTypes.number
-    ]).isRequired,
+    ] ).isRequired,
 };
 
 const selectableFoodColumns = [
   {
-    Header: "ID",
-    accessor: "id",
+    Header: 'ID',
+    accessor: 'id',
     maxWidth: 100
   },
   {
-    Header: "Descripción",
-    accessor: "description",
+    Header: 'Descripción',
+    accessor: 'description',
     style: { whiteSpace: 'normal' }
   },
   {
-    Header: "Proteínas por g.",
-    accessor: "proteins",
+    Header: 'Proteínas por g.',
+    accessor: 'proteins',
     maxWidth: 150    
     
   },
   {
-    Header: "Carbohídratos por g.",
-    accessor: "carbohydrates",
+    Header: 'Carbohídratos por g.',
+    accessor: 'carbohydrates',
     maxWidth: 150    
   },
   {
-    Header: "Grasas por g.",
-    accessor: "fats",
+    Header: 'Grasas por g.',
+    accessor: 'fats',
     maxWidth: 150    
   },
   {
-    Header: "Calorías por g.",
-    accessor: "calories",
+    Header: 'Calorías por g.',
+    accessor: 'calories',
     maxWidth: 150    
   }
 ];

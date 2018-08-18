@@ -8,6 +8,8 @@ import Dashboard from './containers/Dashboard';
 import Login from './containers/Login';
 import Signin from './containers/Signin';
 
+import 'react-table/react-table.css';
+
 class App extends Component {
   render() {  
     return (

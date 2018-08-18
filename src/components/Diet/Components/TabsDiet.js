@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles, Button } from '@material-ui/core/';
+import { withStyles, Button, TextField } from '@material-ui/core/';
 
 import withWidth from '@material-ui/core/withWidth';
 
@@ -9,16 +9,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
 
-// import { RaisedButton } from 'material-ui';
-// import { Card, CardHeader, CardText } from 'material-ui/Card';
 
 import ActionShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import AvPlaylistAddCheck from '@material-ui/icons/PlaylistAddCheck';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 
-// import TextField from '@material-ui/core/TextField';
-
-import blue from '@material-ui/core/colors/blue';
 import grey from '@material-ui/core/colors/grey';
 
 import DietTotalsCard from './DietTotalsCard/DietTotalsCard';
@@ -42,7 +37,6 @@ class TabsDiet extends Component {
 
     this.nextIndex = this.nextIndex.bind( this );
     this.prevIndex = this.prevIndex.bind( this );
-    this.blockTapTabs = this.blockTapTabs.bind( this );
     this.resetIndex = this.resetIndex.bind( this );
     
   }
@@ -58,13 +52,6 @@ class TabsDiet extends Component {
       const { tabIndex } = this.state;
       this.setState({ tabIndex: tabIndex - 1 });
   }
-
-
-  blockTapTabs() {
-    const { tabIndex } = this.state;
-    this.setState({ tabIndex });
-  }
-
 
   disableCalculateDietButton() {
     return this.props.selectedFoods.length < 1;
@@ -86,7 +73,7 @@ class TabsDiet extends Component {
     const { 
       foods, selectedFoods, totalCalories, 
       totalCarbohydrates, totalFats, totalProteins,
-      selectableFoodColumns,
+      selectableFoodColumns, description, onChange,
       classes
     } = this.props;
 
@@ -94,7 +81,7 @@ class TabsDiet extends Component {
       case 0: {
         return (
           <TabContainer>
-            <SimpleExpandibleCard 
+            <SimpleExpandibleCard cardStyle={styles.recomendationStyles}
               title={
                 <strong className={classes.cardTitle}>Recomendaciones</strong>
               }
@@ -145,7 +132,7 @@ class TabsDiet extends Component {
         return (
           <TabContainer>
 
-             <SimpleExpandibleCard 
+             <SimpleExpandibleCard cardStyle={styles.recomendationStyles}
               title={
                 <strong className={classes.cardTitle}>Recomendaciones</strong>
                 }
@@ -172,6 +159,14 @@ class TabsDiet extends Component {
               totalFats={totalFats}
               totalProteins={totalProteins}/>
 
+            <TextField className={classes.descriptionTextField} 
+              name="description"
+              label="Agrega el nombre de tu dieta"
+              value={description}
+              onChange={onChange}
+              fullWidth
+            />
+
             <div>
               
             </div>
@@ -190,7 +185,7 @@ class TabsDiet extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                disabled={this.disableCalculateDietButton()}
+                disabled={this.disableSaveButton()}
                 onClick={this.nextIndex}>
 
                 Siguiente
@@ -205,60 +200,41 @@ class TabsDiet extends Component {
         return (
           <TabContainer>
             
-            {/* <TextField
-              floatingLabelStyle={styles.floatingLabelStyle}
-              name="description"
-              floatingLabelText="Agrega una descripción para tu dieta"
-              fullWidth={true}
-              value={description}
-              onChange={onChange}
-            /> */}
+            <DietTotalsCard
+              totalCalories={totalCalories}
+              totalCarbohydrates={totalCarbohydrates}
+              totalFats={totalFats}
+              totalProteins={totalProteins}/>
 
-            <div className="final-grid">
+            <p style={{ textAlign: 'center' }}>
+              Te pedimos que confirmes los datos antes de continuar. 
+              Cuando estés listo, da clic en 
+                <strong> Guardar</strong>
+            </p>
 
-              {/* <DietTotalsCard className="totals-card"
-                totalCalories={totalCalories}
-                totalCarbohydrates={totalCarbohydrates}
-                totalFats={totalFats}
-                totalProteins={totalProteins}
-              /> */}
+            <div className={classes.generalTabButtonContainer}>
+              <Button
+                variant="contained"
+                color="secondary"
+                disabled={this.disableCalculateDietButton()}
+                onClick={this.prevIndex}>
 
-              {/* <Card className="recommendation-card" initiallyExpanded={true}>
-                <CardHeader 
-                  title="Aviso"
-                  subtitle="Recomendaciones"
-                  actAsExpander={true}
-                  showExpandableButton={true}
-                  avatar={<ActionHelp style={styles.actionHelpStyle}/>}
-                />
-                <CardText expandable={true}>
-                  <strong>AQUÍ VAN LAS RECOMENDACIONES</strong>
-                </CardText>
-              </Card> */}
+                Regresar
 
-                <div>
-                  <p>
-                    Te pedimos que confirmes los datos antes de continuar. 
-                    Cuando estés listo, da clic en 
-                      <strong> Guardar</strong>
-                  </p>
-                  {/* <RaisedButton
-                    style={styles.raisedButtonPrevStyle}
-                    label="Regresar"
-                    secondary={true}
-                    disabled={this.disableCalculateDietButton()}
-                    value={1}
-                    onClick={this.prevIndex} />
+              </Button>
 
-                  <RaisedButton
-                    style={styles.raisedButtonNextStyle}
-                    label="Guardar"
-                    primary={true}
-                    disabled={this.disableSaveButton()}
-                    onClick={this.props.onSubmitDiet.bind( this, this.resetIndex )} /> */}
-                </div> 
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={this.disableCalculateDietButton()}
+                onClick={this.props.onSubmitDiet.bind( this, this.resetIndex )}
+                >
 
+                Guardar
+
+              </Button>
             </div>
+
           </TabContainer>
         );
       }
@@ -279,9 +255,6 @@ class TabsDiet extends Component {
 
   render () {
 
-
-    const { classes } = this.props;
-
     const {
       tabIndex
     } = this.state;
@@ -295,16 +268,12 @@ class TabsDiet extends Component {
         <AppBar position="static" color="default">
       
           <Tabs
-            className={classes.tab}
             scrollButtons="auto"
             indicatorColor="primary"
             textColor="primary"
             value={tabIndex}
             {...tabsType}
-            // disabled={true}
-            // onChange={this.blockTapTabs}
-            // initialSelectedIndex={0} 
-            >
+          >
 
             <Tab 
               icon={<ActionShoppingBasket />} 
@@ -367,18 +336,17 @@ const styles = {
     marginBottom: '10px',
     justifyContent: 'space-between',
   },
-  actionHelpStyle: {
-    marginTop: 10, 
-    color: grey700
-  },
   recomendationStyles: {
-    margin: '10px 0px 10px 0px'
+    margin: '10px 0 10px 0',
   },
   floatingLabelStyle: {
     fontSize: 19,
   },
   cardTitle: {
     color: grey700,
+  },
+  descriptionTextField: {
+    margin: '15px 0 15px 0',
   }
 };
 

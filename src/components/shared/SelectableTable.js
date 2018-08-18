@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 
 import filterCaseInsensitive from '../../shared/tableFiltering';
 
-
 class SelectableTable extends Component {
   constructor( props ) {
     super( props );

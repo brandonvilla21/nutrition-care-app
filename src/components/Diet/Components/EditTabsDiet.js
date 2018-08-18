@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { Tabs, Tab, RaisedButton, Dialog, FlatButton } from 'material-ui';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import ActionHelp from '@material-ui/icons/Help';
 import ActionShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import AvPlaylistAddCheck from '@material-ui/icons/PlaylistAddCheck';
@@ -17,21 +19,21 @@ import SelectableTable from '../../SelectableTable';
 
 class EditTabsDiet extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
     this.state = {
       tabIndex: 1,
       resetToggle: false,
       openModalElimination: false,
     };
 
-    this.nextIndex = this.nextIndex.bind(this);
-    this.prevIndex = this.prevIndex.bind(this);
-    this.blockTapTabs = this.blockTapTabs.bind(this);
-    this.resetIndex = this.resetIndex.bind(this);
-    this.handleCloseEliminationModal = this.handleCloseEliminationModal.bind(this);
-    this.handleOpenEliminationModal = this.handleOpenEliminationModal.bind(this);
-    this.handleRemoveRow = this.handleRemoveRow.bind(this);
+    this.nextIndex = this.nextIndex.bind( this );
+    this.prevIndex = this.prevIndex.bind( this );
+    this.blockTapTabs = this.blockTapTabs.bind( this );
+    this.resetIndex = this.resetIndex.bind( this );
+    this.handleCloseEliminationModal = this.handleCloseEliminationModal.bind( this );
+    this.handleOpenEliminationModal = this.handleOpenEliminationModal.bind( this );
+    this.handleRemoveRow = this.handleRemoveRow.bind( this );
   }
 
   handleCloseEliminationModal() {
@@ -59,7 +61,7 @@ class EditTabsDiet extends Component {
   }
 
   handleRemoveRow() {
-    this.props.removeFoodRow(this.state.selectedFoodToEliminate);
+    this.props.removeFoodRow( this.state.selectedFoodToEliminate );
     this.setState({
       openModalElimination: false, 
       selectedFoodToEliminate: {},
@@ -97,7 +99,7 @@ class EditTabsDiet extends Component {
 
   resetIndex() {
     this.setState({ tabIndex: 1, resetToggle: true }, 
-                  () => this.setState({ resetToggle: false }));
+                  () => this.setState({ resetToggle: false }) );
   }
 
   render () {
@@ -154,10 +156,10 @@ class EditTabsDiet extends Component {
               noDataTextMainTable="No hay datos actualmente :("
               noDataTextSecondaryTable="Selecciona un elemento de la otra tabla ;)"
               columns={selectableFoodColumns}
-              onToggleRow={this.props.toggleRow.bind(this)}
+              onToggleRow={this.props.toggleRow.bind( this )}
               enableSecondaryTable={false}
               manualRemovedFood={this.props.manualRemovedFood}
-              clearManualRemovedFoodState={this.props.clearManualRemovedFoodState.bind(this)}
+              clearManualRemovedFoodState={this.props.clearManualRemovedFoodState.bind( this )}
             />
 
             <RaisedButton
@@ -201,7 +203,7 @@ class EditTabsDiet extends Component {
 
             <DietTableCalculator
               selectedFoods={selectedFoods}
-              onChangeTable={this.props.onChangeDataTableFields.bind(this)}
+              onChangeTable={this.props.onChangeDataTableFields.bind( this )}
               handleOpenEliminationModal={this.handleOpenEliminationModal}
               onEdit={true}              
             />
@@ -214,14 +216,14 @@ class EditTabsDiet extends Component {
                   // style={styles.raisedButtonNextStyle}
                   label="Cancelar"
                   secondary={true}
-                  key={1} onClick={this.handleCloseEliminationModal.bind(this)}
+                  key={1} onClick={this.handleCloseEliminationModal.bind( this )}
                   />,
 
                 <FlatButton 
                   label="Eliminar" 
                   secondary={true}
                   key={0}
-                  onClick={this.handleRemoveRow.bind(this)}/>,
+                  onClick={this.handleRemoveRow.bind( this )}/>,
                 
               ]}
               modal={true}
@@ -318,7 +320,7 @@ class EditTabsDiet extends Component {
                     label="Editar dieta"
                     primary={true}
                     disabled={this.disableSaveButton()}
-                    onClick={this.props.onSubmitDiet.bind(this, this.resetIndex)} />
+                    onClick={this.props.onSubmitDiet.bind( this, this.resetIndex )} />
                 </div> 
 
               </div>

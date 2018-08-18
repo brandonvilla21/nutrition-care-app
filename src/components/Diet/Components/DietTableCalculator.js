@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import 'react-table/react-table.css';
 import ReactTable from 'react-table';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';

@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
@@ -6,16 +8,16 @@ import EditDietForm from '../../../components/Diet/EditDietForm';
 
 
 class EditDietPage extends Component {
-    constructor(props) {
-        super(props);
+    constructor( props ) {
+        super( props );
         this.state = {
           submitted: false,
           isThereAnError: false,
           errorMessage: ''
         };
 
-        this.handleClose = this.handleClose.bind(this);
-        this.isSubmitted = this.isSubmitted.bind(this);
+        this.handleClose = this.handleClose.bind( this );
+        this.isSubmitted = this.isSubmitted.bind( this );
     }
 
     componentDidMount() {
