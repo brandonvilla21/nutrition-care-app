@@ -120,7 +120,7 @@ class SelectableTable extends Component {
                           height: '100%', 
                         }}
                         checked={this.state.selected[original.id] === true}
-                        onChange={() => this.handleStateCheckboxs( original )}
+                        onChange={this.handleStateCheckboxs.bind( this, original )}
                       />
                     );
                   },
