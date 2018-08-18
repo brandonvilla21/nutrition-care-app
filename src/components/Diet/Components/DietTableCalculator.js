@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import ReactTable from 'react-table';
@@ -24,7 +24,8 @@ const DietTableCalculator = ( props ) => {
       Cell: ({ original }) => {
         return (
           <input
-            min="0.0"
+            style={styles.input}
+            min="1.0"
             step="any"
             type="number"
             value={original[EDITABLE_PROPERTY_ACCESORS.GRAMS]}
@@ -32,18 +33,20 @@ const DietTableCalculator = ( props ) => {
           />
         );
       },
-      width: 200
+      maxWidth: 100
     },
     {
       Header: 'Calorías',
       id: 'text',
       accessor: '',
       filterable: false,
+      maxWidth: 100,
       sortable: false,
       Cell: ({ original }) => {
         return (
           <input
-            min="0.0"
+            style={styles.input}
+            min="1.0"
             step="any"
             type="number"
             value={original[EDITABLE_PROPERTY_ACCESORS.CALORIES]}
@@ -51,7 +54,6 @@ const DietTableCalculator = ( props ) => {
           />
         );
       },
-      width: 200
     },
   ];
 
@@ -112,6 +114,12 @@ DietTableCalculator.propTypes = {
   onEdit:        PropTypes.bool,
 };
 
+const styles = {
+  input: { 
+    width: '88px',
+    margin: '0 5px 0 5px',
+  },
+};
 
 const selectedFoodColumns = [
   {
