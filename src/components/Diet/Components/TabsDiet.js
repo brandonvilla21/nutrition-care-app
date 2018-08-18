@@ -23,6 +23,7 @@ import TabContainer from '../../shared/TabContainer';
 
 import SimpleExpandibleCard from '../../shared/SimpleExpandibleCard';
 
+import classNames from 'classnames';
 
 const grey700 = grey['700'];
 
@@ -71,63 +72,12 @@ class TabsDiet extends Component {
   getTabs({ tabIndex }) {
 
     const { 
-      foods, selectedFoods, totalCalories, 
+      selectedFoods, totalCalories, 
       totalCarbohydrates, totalFats, totalProteins,
-      selectableFoodColumns, description, onChange,
-      classes
+      description, onChange, classes
     } = this.props;
 
     switch( tabIndex ) {
-      case 0: {
-        return (
-          <TabContainer>
-            <SimpleExpandibleCard cardStyle={styles.recomendationStyles}
-              title={
-                <strong className={classes.cardTitle}>Recomendaciones</strong>
-              }
-            >
-              <ul>
-                <li>
-                  Selecciona los alimentos que quieras incorporar en tu dieta.
-                </li>
-                <li>
-                  Puedes seleccionar todos los alimentos que quieras en la tabla de alimentos
-                  de abajo.
-                </li>
-              </ul>
-            </SimpleExpandibleCard>
-            
-            <SelectableTable
-              resetToggle={this.state.resetToggle} 
-              elements={foods}
-              selectedElements={selectedFoods}
-              mainTableHeader="SELECCIONA LOS ALIMENTOS QUE DESEAS AGREGAR A TU DIETA :)"
-              secondaryTableHeader="ALIMENTOS SELECCIONADOS"
-              defaultPageSize={10}
-              noDataTextMainTable="No hay datos actualmente :("
-              noDataTextSecondaryTable="Selecciona un elemento de la otra tabla ;)"
-              columns={selectableFoodColumns}
-              onToggleRow={this.props.toggleRow.bind( this )}
-              enableSecondaryTable={false}
-            />
-
-            <div className={classes.firstTabButtonContainer}>
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={this.disableCalculateDietButton()}
-                onClick={this.nextIndex}>
-
-                Siguiente
-
-              </Button>
-            </div>
-
-           
-            
-          </TabContainer>
-        );
-      }
       case 1: {
         return (
           <TabContainer>
@@ -255,10 +205,65 @@ class TabsDiet extends Component {
 
   render () {
 
+    const { 
+      selectableFoodColumns, foods,
+      selectedFoods, classes, 
+    } = this.props;
+
     const {
-      tabIndex
+       tabIndex, 
     } = this.state;
 
+    const firstTab = 
+      <TabContainer 
+        className={classNames({ 
+          [classes.hideTab]: tabIndex !== 0 
+        })}
+      >
+        <SimpleExpandibleCard cardStyle={styles.recomendationStyles}
+        title={
+          <strong className={classes.cardTitle}>Recomendaciones</strong>
+        }
+        >
+          <ul>
+            <li>
+              Selecciona los alimentos que quieras incorporar en tu dieta.
+            </li>
+            <li>
+              Puedes seleccionar todos los alimentos que quieras en la tabla de alimentos
+              de abajo.
+            </li>
+          </ul>
+        </SimpleExpandibleCard>
+      
+        <SelectableTable
+          resetToggle={this.state.resetToggle} 
+          elements={foods}
+          selectedElements={selectedFoods}
+          mainTableHeader="SELECCIONA LOS ALIMENTOS QUE DESEAS AGREGAR A TU DIETA :)"
+          secondaryTableHeader="ALIMENTOS SELECCIONADOS"
+          defaultPageSize={10}
+          noDataTextMainTable="No hay datos actualmente :("
+          noDataTextSecondaryTable="Selecciona un elemento de la otra tabla ;)"
+          columns={selectableFoodColumns}
+          onToggleRow={this.props.toggleRow.bind( this )}
+          enableSecondaryTable={false}
+        />
+
+        <div className={classes.firstTabButtonContainer}>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={this.disableCalculateDietButton()}
+            onClick={this.nextIndex}>
+
+            Siguiente
+
+          </Button>
+        </div>
+      </TabContainer>;
+
+    
     const currentTab = this.getTabs({ tabIndex });
 
     const tabsType = this.getTabsType();
@@ -294,7 +299,10 @@ class TabsDiet extends Component {
 
         </AppBar>
 
+        {firstTab}
+
         {currentTab}
+
 
       </div>
     );
@@ -320,6 +328,9 @@ TabsDiet.propTypes = {
 
 
 const styles = {
+  hideTab: {
+    display: 'none',
+  },
   iconStyles: {
     marginRight: 24,
   },
