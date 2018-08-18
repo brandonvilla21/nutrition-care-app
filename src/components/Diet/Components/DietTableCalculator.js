@@ -1,12 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import 'react-table/react-table.css';
 import ReactTable from 'react-table';
-import { Subheader, FlatButton } from 'material-ui';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 class DietTableCalculator extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor( props ) {
+        super( props );
     }
 
     componentWillMount() { }
@@ -22,9 +25,9 @@ class DietTableCalculator extends Component {
       let finalColumns = [
         ...selectedFoodColumns,
         {
-          Header: "Gramos",
-          id: "text",
-          accessor: "",
+          Header: 'Gramos',
+          id: 'text',
+          accessor: '',
           filterable: false,
           sortable: false,
           Cell: ({ original }) => {
@@ -34,16 +37,16 @@ class DietTableCalculator extends Component {
                 step="any"
                 type="number"
                 value={original[EDITABLE_PROPERTY_ACCESORS.GRAMS]}
-                onChange={onChangeTable.bind(this, original, EDITABLE_PROPERTY_ACCESORS.GRAMS)}
+                onChange={onChangeTable.bind( this, original, EDITABLE_PROPERTY_ACCESORS.GRAMS )}
               />
             );
           },
           width: 200
         },
         {
-          Header: "Calorías",
-          id: "text",
-          accessor: "",
+          Header: 'Calorías',
+          id: 'text',
+          accessor: '',
           filterable: false,
           sortable: false,
           Cell: ({ original }) => {
@@ -53,7 +56,7 @@ class DietTableCalculator extends Component {
                 step="any"
                 type="number"
                 value={original[EDITABLE_PROPERTY_ACCESORS.CALORIES]}
-                onChange={onChangeTable.bind(this, original, EDITABLE_PROPERTY_ACCESORS.CALORIES)}
+                onChange={onChangeTable.bind( this, original, EDITABLE_PROPERTY_ACCESORS.CALORIES )}
               />
             );
           },
@@ -61,23 +64,27 @@ class DietTableCalculator extends Component {
         },
       ];
 
-      if(onEdit === true) {
+      if( onEdit === true ) {
 
         finalColumns = [
           ...finalColumns,
           {
-            Header: "Eliminar",
-            id: "text",
-            accessor: "",
+            Header: 'Eliminar',
+            id: 'text',
+            accessor: '',
             filterable: false,
             sortable: false,
-            Cell: ({original}) => {
+            Cell: ({ original }) => {
               return (
-                <FlatButton 
-                  label="X" 
-                  secondary={true}
-                  onClick={handleOpenEliminationModal.bind(this, original)}
-                />
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  // disabled={this.disableCalculateDietButton()}
+                  onClick={handleOpenEliminationModal.bind( this, original )}>
+
+                  X
+
+                </Button>
               );
             },
             minWidth: 70,
@@ -96,7 +103,7 @@ class DietTableCalculator extends Component {
               columns={[
 
                 {
-                  Header: <Subheader inset={true}>INTRODUCE LOS GRAMOS DE CADA UNO DE LOS ALIMENTOS QUE SELECCIONASTE</Subheader>,
+                  Header: <Typography variant="subheading">INTRODUCE LOS GRAMOS DE CADA UNO DE LOS ALIMENTOS QUE SELECCIONASTE</Typography>,
                   columns: [
                     ...finalColumns
                   ]
@@ -120,29 +127,29 @@ DietTableCalculator.propTypes = {
 
 const selectedFoodColumns = [
   {
-    Header: "ID",
-    accessor: "id",
+    Header: 'ID',
+    accessor: 'id',
     maxWidth: 100
   },
   {
-    Header: "Descripción",
-    accessor: "description",
+    Header: 'Descripción',
+    accessor: 'description',
     style: { whiteSpace: 'normal' }
   },
   {
-    Header: "Proteínas",
-    accessor: "desiredProteins",
+    Header: 'Proteínas',
+    accessor: 'desiredProteins',
     maxWidth: 100    
     
   },
   {
-    Header: "Carbohídratos",
-    accessor: "desiredCarbohydrates",
+    Header: 'Carbohídratos',
+    accessor: 'desiredCarbohydrates',
     maxWidth: 115    
   },
   {
-    Header: "Grasas",
-    accessor: "desiredFats",
+    Header: 'Grasas',
+    accessor: 'desiredFats',
     maxWidth: 100    
   }
 ];

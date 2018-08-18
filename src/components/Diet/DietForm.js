@@ -124,24 +124,18 @@ class DietForm extends Component {
 
         return axios.get( url, config )
           .then( response => response.data )
+          .then( foods => foods.map( food => {
+            return {
+              ...food,
+              desiredGrams: 1,
+              desiredProteins: food.proteins,
+              desiredFats: food.fats,
+              desiredCarbohydrates: food.carbohydrates,
+              desiredCalories:food.calories,
+            };
+          }) )
           .catch( err => { throw err.response.data; });
 
-        // return fetch( url, config )
-        //     .then( response => {
-        //       console.log({ response });
-        //       return response.data;
-        //     })
-        //     .then( foods => {
-        //       foods.forEach( food => {
-        //         food.desiredGrams = 1;
-        //         food.desiredProteins = food.proteins;
-        //         food.desiredFats = food.fats;
-        //         food.desiredCarbohydrates = food.carbohydrates;
-        //         food.desiredCalories = food.calories;
-        //       });
-
-        //       return foods;
-        //     });
     }
 
     /**

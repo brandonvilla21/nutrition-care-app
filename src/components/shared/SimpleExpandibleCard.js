@@ -35,7 +35,7 @@ const styles = theme => ({
 
 class ExpandibleCard extends React.Component {
   
-  state = { expanded: false };
+  state = { expanded: true };
 
   handleExpandClick = () => {
     this.setState( state => ({ expanded: !state.expanded }) );

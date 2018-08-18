@@ -12,7 +12,6 @@ import AppBar from '@material-ui/core/AppBar';
 // import { RaisedButton } from 'material-ui';
 // import { Card, CardHeader, CardText } from 'material-ui/Card';
 
-import ActionHelp from '@material-ui/icons/Help';
 import ActionShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import AvPlaylistAddCheck from '@material-ui/icons/PlaylistAddCheck';
 import CheckCircle from '@material-ui/icons/CheckCircle';
@@ -22,15 +21,14 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import blue from '@material-ui/core/colors/blue';
 import grey from '@material-ui/core/colors/grey';
 
-// import DietTotalsCard from './DietTotalsCard/DietTotalsCard';
-// import DietTableCalculator from './DietTableCalculator';
+import DietTotalsCard from './DietTotalsCard/DietTotalsCard';
+import DietTableCalculator from './DietTableCalculator';
 import SelectableTable from '../../shared/SelectableTable';
 import TabContainer from '../../shared/TabContainer';
 
 import SimpleExpandibleCard from '../../shared/SimpleExpandibleCard';
 
 
-const blue500 = blue['500'];
 const grey700 = grey['700'];
 
 class TabsDiet extends Component {
@@ -83,9 +81,14 @@ class TabsDiet extends Component {
                   () => this.setState({ resetToggle: false }) );
   }
 
-  getTabs({ tabIndex, foods, selectedFoods, selectableFoodColumns }) {
+  getTabs({ tabIndex }) {
 
-    const { classes } = this.props;
+    const { 
+      foods, selectedFoods, totalCalories, 
+      totalCarbohydrates, totalFats, totalProteins,
+      selectableFoodColumns,
+      classes
+    } = this.props;
 
     switch( tabIndex ) {
       case 0: {
@@ -121,17 +124,19 @@ class TabsDiet extends Component {
               enableSecondaryTable={false}
             />
 
-            <Button
-              className={classes.raisedButtonNextStyle}
-              variant="contained"
-              color="primary"
-              // disabled={this.disableCalculateDietButton()}
-              value={1}
-              onClick={this.nextIndex}>
+            <div className={classes.firstTabButtonContainer}>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={this.disableCalculateDietButton()}
+                onClick={this.nextIndex}>
 
-              Siguiente
+                Siguiente
 
-            </Button>
+              </Button>
+            </div>
+
+           
             
           </TabContainer>
         );
@@ -140,17 +145,11 @@ class TabsDiet extends Component {
         return (
           <TabContainer>
 
-            test text
-
-            {/* <Card initiallyExpanded={true} style={styles.recomendationStyles}>
-              <CardHeader 
-                title="Aviso"
-                subtitle="Recomendaciones"
-                actAsExpander={true}
-                showExpandableButton={true}
-                avatar={<ActionHelp style={styles.actionHelpStyle}/>}
-              />
-              <CardText expandable={true} style={{ color: grey700, fontSize: 16 }}>
+             <SimpleExpandibleCard 
+              title={
+                <strong className={classes.cardTitle}>Recomendaciones</strong>
+                }
+              >
                 <ul>
                   <li>
                     Elige los gramos o calorías que deseas agregar para cada alimento de la tabla.
@@ -160,8 +159,7 @@ class TabsDiet extends Component {
                     así como también de las calorías totales.
                   </li>
                 </ul>
-              </CardText>
-            </Card>
+            </SimpleExpandibleCard>
 
             <DietTableCalculator 
               selectedFoods={selectedFoods}
@@ -172,25 +170,32 @@ class TabsDiet extends Component {
               totalCalories={totalCalories}
               totalCarbohydrates={totalCarbohydrates}
               totalFats={totalFats}
-              totalProteins={totalProteins}
-            /> */}
+              totalProteins={totalProteins}/>
 
             <div>
-              {/* <RaisedButton
-                      style={styles.raisedButtonPrevStyle}
-                      label="Regresar"
-                      secondary={true}
-                      disabled={this.disableCalculateDietButton()}
-                      value={1}
-                      onClick={this.prevIndex} />
+              
+            </div>
 
-              <RaisedButton
-                      style={styles.raisedButtonNextStyle}
-                      label="Siguiente"
-                      primary={true}
-                      disabled={this.disableCalculateDietButton()}
-                      value={1}
-                      onClick={this.nextIndex} /> */}
+            <div className={classes.generalTabButtonContainer}>
+              <Button
+                variant="contained"
+                color="secondary"
+                disabled={this.disableCalculateDietButton()}
+                onClick={this.prevIndex}>
+
+                Regresar
+
+              </Button>
+
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={this.disableCalculateDietButton()}
+                onClick={this.nextIndex}>
+
+                Siguiente
+
+              </Button>
             </div>
 
           </TabContainer>
@@ -275,23 +280,13 @@ class TabsDiet extends Component {
   render () {
 
 
-    const { 
-      foods, selectedFoods, totalCalories, 
-      totalCarbohydrates, totalFats, totalProteins,
-      selectableFoodColumns, description, onChange,
-      classes
-    } = this.props;
+    const { classes } = this.props;
 
     const {
       tabIndex
     } = this.state;
 
-    const currentTab = this.getTabs({
-      tabIndex, 
-      foods, 
-      selectedFoods, 
-      selectableFoodColumns,
-    });
+    const currentTab = this.getTabs({ tabIndex });
 
     const tabsType = this.getTabsType();
 
@@ -359,13 +354,18 @@ const styles = {
   iconStyles: {
     marginRight: 24,
   },
-  raisedButtonNextStyle: {
-    marginTop: 20,
-    float: 'right'
+  firstTabButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    marginTop: '10px',
+    marginBottom: '10px',
   },
-  raisedButtonPrevStyle: {
-    marginTop: 20,
-    float: 'left'
+  generalTabButtonContainer: {
+    display: 'flex',
+    flexDirection: 'space-between',
+    marginTop: '10px',
+    marginBottom: '10px',
+    justifyContent: 'space-between',
   },
   actionHelpStyle: {
     marginTop: 10, 

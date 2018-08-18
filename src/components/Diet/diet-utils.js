@@ -30,10 +30,10 @@ export function onRecalculateTotals() {
 
     const totals = 
       selectedFoods
-        .reduce((accumulator, currentFood) => {
+        .reduce( ( accumulator, currentFood ) => {
           return { 
-            totalCalories: roundNumber(currentFood.desiredCalories + accumulator.totalCalories),
-            totalCarbohydrates: roundNumber(currentFood.desiredCarbohydrates + accumulator.totalCarbohydrates ),
+            totalCalories: roundNumber( currentFood.desiredCalories + accumulator.totalCalories ),
+            totalCarbohydrates: roundNumber( currentFood.desiredCarbohydrates + accumulator.totalCarbohydrates ),
             totalFats: roundNumber( currentFood.desiredFats + accumulator.totalFats ),
             totalProteins: roundNumber( currentFood.desiredProteins + accumulator.totalProteins ),
           };
@@ -54,23 +54,23 @@ export function onRecalculateTotals() {
  * @author Marcos Barrera del Río <elyomarcos@gmail.com>
  * @param currentSelectedObject - The object (in this case a food) that is being selected.
  */
-export function toggleRow(currentSelectedObject) {
+export function toggleRow( currentSelectedObject ) {
       
   let selectedFoods = [
     ...this.state.selectedFoods
   ];
   const elementIndex = selectedFoods.findIndex( element => element.id == currentSelectedObject.id );
   // check to see if the key exists
-  if (elementIndex >= 0) {
+  if ( elementIndex >= 0 ) {
     // it does exist so we will remove it using destructing
     selectedFoods = [
-      ...selectedFoods.slice(0, elementIndex),
-      ...selectedFoods.slice(elementIndex + 1)
+      ...selectedFoods.slice( 0, elementIndex ),
+      ...selectedFoods.slice( elementIndex + 1 )
     ];
 
   } else {
     // it does not exist so add it
-    selectedFoods.push(currentSelectedObject);
+    selectedFoods.push( currentSelectedObject );
   }
   // update the state
   this.setState({ selectedFoods });
@@ -90,14 +90,14 @@ export function toggleRow(currentSelectedObject) {
  * @param event - The event that contains the value's input from the Grams and Calories inputs
  * in every single row from the DietTableCalculator component.
  */
-export function onChangeDataTableFields(currentSelectedObject, accessor, event) {
+export function onChangeDataTableFields( currentSelectedObject, accessor, event ) {
 
   const value = event.target.value;
   const selectedFoods = [ ...this.state.selectedFoods ];
   const index = selectedFoods.findIndex( element => element.id == currentSelectedObject.id );
 
 
-  selectedFoods[index][accessor] = Number(value);
+  selectedFoods[index][accessor] = Number( value );
 
   //Calculate remaining columns.
   const current = selectedFoods[index];
@@ -125,17 +125,17 @@ export function calculateDataTableData( current, accessor ) {
 
   if( accessor === 'desiredCalories' ) {
 
-    current.desiredProteins = roundNumber((current.proteins / current.calories) * current[accessor]);
-    current.desiredCarbohydrates = roundNumber((current.carbohydrates / current.calories) * current[accessor]);
-    current.desiredFats = roundNumber((current.fats / current.calories) * current[accessor]);
-    current.desiredGrams = roundNumber((1 / current.calories) * current[accessor]);
+    current.desiredProteins = roundNumber( ( current.proteins / current.calories ) * current[accessor] );
+    current.desiredCarbohydrates = roundNumber( ( current.carbohydrates / current.calories ) * current[accessor] );
+    current.desiredFats = roundNumber( ( current.fats / current.calories ) * current[accessor] );
+    current.desiredGrams = roundNumber( ( 1 / current.calories ) * current[accessor] );
 
   } else {//accessor is equals to desiredGrams
     
-    current.desiredProteins = roundNumber(current.proteins * current[accessor]);
-    current.desiredFats = roundNumber(current.fats * current[accessor]);
-    current.desiredCarbohydrates = roundNumber(current.carbohydrates * current[accessor]);
-    current.desiredCalories = roundNumber(current.calories * current.desiredGrams);
+    current.desiredProteins = roundNumber( current.proteins * current[accessor] );
+    current.desiredFats = roundNumber( current.fats * current[accessor] );
+    current.desiredCarbohydrates = roundNumber( current.carbohydrates * current[accessor] );
+    current.desiredCalories = roundNumber( current.calories * current.desiredGrams );
   
   }
 
@@ -149,4 +149,4 @@ export function calculateDataTableData( current, accessor ) {
  * @param num - Number to round.
  * @returns number - Rounded number.
  */
-export function roundNumber( num ) { return Math.round(num * 100) / 100; }
+export function roundNumber( num ) { return Math.round( num * 100 ) / 100; }

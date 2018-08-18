@@ -1,20 +1,21 @@
-import React, { Component, PropTypes } from 'react';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
 import indigo from '@material-ui/core/colors/indigo';
+import TextField from '@material-ui/core/TextField';
+import './DietTotalsCard.scss';
+import { Card, CardContent, withStyles, CardHeader } from '@material-ui/core';
+
 const grey700 = grey['700'];
 const blue500 = blue['500'];
 const indigo50 = indigo['50'];
-import ActionTrendingFlat from '@material-ui/icons/TrendingFlat';
-import { TextField } from 'material-ui';
-import './DietTotalsCard.scss';
-
 
 class DietTotalsCard extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor( props ) {
+        super( props );
     }
 
 
@@ -23,61 +24,57 @@ class DietTotalsCard extends Component {
 
     render() {
 
-      const { totalCalories, totalCarbohydrates, totalFats, totalProteins } = this.props;
+      const { 
+        totalCalories, 
+        totalCarbohydrates, 
+        totalFats, 
+        totalProteins, 
+        classes 
+      } = this.props;
       
       return(
 
-          <div>
-            <Card initiallyExpanded={true} style={{ marginTop: 14 }}>
-              <CardHeader
-                title="Totales"
-                subtitle="Total de macronutrientes y calorías en la dieta"
-                titleStyle={{ fontSize: 18 }}
-                avatar={<ActionTrendingFlat style={styles.iconActionTrandingStyles}/>}
-                actAsExpander={true}
-                showExpandableButton={true}
+          <Card className={classes.card}>
+          <CardHeader 
+            title="Totales"
+            subheader="Total de macronutrientes y calorías en la dieta"
+            />
+            <CardContent className={classes.flexContainer}>
+              
+              <TextField 
+                name="totalProteins"
+                label="Proteínas"
+                readOnly
+                value={totalProteins}
               />
-              <CardText expandable={true} style={{ color: grey700, fontSize: 16 }}>
 
-                <div className="grid-totals">
+              <TextField
+                name="totalCarbohydrates"
+                label="Carbohidratos"
+                readOnly
+                value={totalCarbohydrates}
+              />
 
-                  <TextField
-                    floatingLabelStyle={styles.floatingLabelStyle}
-                    name="totalProteins"
-                    floatingLabelText="Proteínas"
-                    readOnly
-                    value={totalProteins}
-                  />
+              <TextField
+                name="totalFats"
+                label="Grasas"
+                readOnly
+                value={totalFats}
+              />
 
-                  <TextField
-                    floatingLabelStyle={styles.floatingLabelStyle}
-                    name="totalCarbohydrates"
-                    floatingLabelText="Carbohidratos"
-                    readOnly
-                    value={totalCarbohydrates}
-                  />
+              <TextField
+                name="totalCalories"
+                label="Calorías"
+                readOnly
+                value={totalCalories}
+              />
 
-                  <TextField
-                    floatingLabelStyle={styles.floatingLabelStyle}
-                    name="totalFats"
-                    floatingLabelText="Grasas"
-                    readOnly
-                    value={totalFats}
-                  />
+            </CardContent>
 
-                  <TextField
-                    floatingLabelStyle={styles.floatingLabelStyle}
-                    name="totalCalories"
-                    floatingLabelText="Calorías"
-                    readOnly
-                    value={totalCalories}
-                  />
+              
+          </Card>
+            
 
-                </div>
-
-              </CardText>
-            </Card>
-          </div>
         );
     }
 }
@@ -90,17 +87,24 @@ DietTotalsCard.propTypes = {
 };
 
 const styles = {
-    iconActionTrandingStyles: { 
-      marginTop: 10, 
-      color: blue500, 
-      background: indigo50, 
-      border: `2px solid ${indigo50}`, 
-      borderRadius: '25px' 
-    },
-    floatingLabelStyle: {
-      fontSize: 22,
-      color: blue500
+  card: {
+    boxSizing: 'border-box',
+    marginBottom: '10px',
+    marginTop: '10px',
+    padding: '10px'
+
+  },
+  flexContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    '& div': {
+      margin: '10px',
     }
+  },
+  textField: {
+    margin: '10px'
+  }
 };
 
-export default DietTotalsCard;
+export default withStyles( styles )( DietTotalsCard );
