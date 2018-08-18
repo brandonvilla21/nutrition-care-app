@@ -114,6 +114,11 @@ class SelectableTable extends Component {
                   Cell: ({ original }) => {
                     return (
                       <Checkbox
+                        color="primary"
+                        style={{ 
+                          width: '100%', 
+                          height: '100%', 
+                        }}
                         checked={this.state.selected[original.id] === true}
                         onChange={() => this.handleStateCheckboxs( original )}
                       />
