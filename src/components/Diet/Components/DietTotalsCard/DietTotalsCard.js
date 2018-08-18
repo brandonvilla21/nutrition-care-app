@@ -5,17 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import { Card, CardContent, withStyles, CardHeader } from '@material-ui/core';
 
 
-class DietTotalsCard extends Component {
+const DietTotalsCard = ( props ) => {
 
-    constructor( props ) {
-        super( props );
-    }
-
-
-    componentWillMount() { }
-
-
-    render() {
 
       const { 
         totalCalories, 
@@ -23,7 +14,7 @@ class DietTotalsCard extends Component {
         totalFats, 
         totalProteins, 
         classes 
-      } = this.props;
+      } = props;
       
       return(
 
@@ -69,8 +60,7 @@ class DietTotalsCard extends Component {
             
 
         );
-    }
-}
+};
 
 DietTotalsCard.propTypes = {
   totalCalories: PropTypes.number.isRequired,
