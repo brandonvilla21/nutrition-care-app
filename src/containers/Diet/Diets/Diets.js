@@ -121,7 +121,7 @@ class Diets extends Component {
   componentDidMount() {
     this.getOwnDiets().then( diets => {
       diets.forEach( diet =>
-        diet.registerDate = new Date( diet.registerDate ).toLocaleDateString()
+        diet.registerDate = new Date( diet.createdAt ).toLocaleDateString()
       );
       this.setState({ diets });
     });

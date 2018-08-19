@@ -59,7 +59,7 @@ class DietForm extends Component {
    */
     onSubmitDiet( resetIndex ) {
 
-      // const url = '/diets';
+      const url = '/Diets';
 
       const { 
         totalCarbohydrates, totalProteins, totalFats,
@@ -83,25 +83,24 @@ class DietForm extends Component {
         totalCalories, selectedFoods, description,
       };
       
-      console.log( 'data: ', data );
-      // axios.post( url, data )
-      //   .then( response => {
-      //     if ( response.status === 200 ) {
-      //           this.props.onSubmitted({ submitted: true, err: false });
-      //           this.resetState();
-      //           resetIndex();
-      //       } else 
-      //         this.props.onSubmitted({ submitted: false, err: true });
+      axios.post( url, data )
+        .then( response => {
+          if ( response.status === 200 ) {
+                this.props.onSubmitted({ submitted: true, err: false });
+                this.resetState();
+                resetIndex();
+            } else 
+              this.props.onSubmitted({ submitted: false, err: true });
             
-      //   })
-      //   .catch( err => {
-      //     this.props.onSubmitted({ 
-      //       submitted: false, 
-      //       err: true, 
-      //       errorMessage: err.response.data.message
-      //     });
-      //     throw err.response.data.message;
-      //   });
+        })
+        .catch( err => {
+          this.props.onSubmitted({ 
+            submitted: false, 
+            err: true, 
+            errorMessage: err.response.data.error.message
+          });
+          throw err.response.data;
+        });
     }
 
   /**
