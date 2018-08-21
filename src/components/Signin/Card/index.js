@@ -23,7 +23,7 @@ const Card = ({ classes, Icon, iconColor, title, body }) => {
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 Card.propTypes = {
@@ -32,6 +32,6 @@ Card.propTypes = {
     iconColor: PropTypes.string,
     title: PropTypes.string,
     body: PropTypes.string,
-}
+};
 
-export default withStyles(styles)(Card);
+export default withStyles( styles )( Card );
