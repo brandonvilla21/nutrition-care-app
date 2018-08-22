@@ -1,9 +1,14 @@
 import axios from '../../axios';
-
-const setCredentials = ( email, password ) => {
+/**
+ * @param {string} email User email
+ * @param {string} password User password
+ * @param {string} type User type, either ADMINISTRATOR or CUSTOMER
+ */
+const setCredentials = ( email, password, type ) => {
     return new Promise( ( resolve, reject ) => {
         const data = { email, password };
-        axios.post( '/Administrators/login', data )
+        const endpoint = type === 'ADMINISTRATOR' ? 'Administrators' : 'Customers';
+        axios.post( `/${endpoint}/login`, data )
             .then( res => {
                 storeToken( res.data );
                 resolve( res.data );
