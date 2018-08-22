@@ -3,7 +3,7 @@
 import React from 'react';
 import { render, wait } from 'react-testing-library';
 
-import mockAxios from 'axios';
+import axios from 'axios';
 import CreateDiet from '../CreateDiet/CreateDiet';
 
 it( 'renders the selectable table with the given foods', async () => {
@@ -29,7 +29,7 @@ it( 'renders the selectable table with the given foods', async () => {
 
   expect.assertions( 1 );
 
-  mockAxios.get.mockImplementationOnce( () => Promise.resolve({ data: foods }) );
+  axios.__mock.instance.get.mockImplementationOnce( () => Promise.resolve({ data: foods }) );
 
   const isSubmitted = jest.fn();
 
