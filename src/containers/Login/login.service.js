@@ -2,7 +2,8 @@ import axios from '../../axios';
 /**
  * @param {string} email User email
  * @param {string} password User password
- * @param {string} type User type, either ADMINISTRATOR or CUSTOMER
+ * @param {string} type User  type,  either  ADMINISTRATOR  or CUSTOMER in
+ *                      order to know wich endpoint will axios be reaching
  */
 const setCredentials = ( email, password, type ) => {
     return new Promise( ( resolve, reject ) => {
