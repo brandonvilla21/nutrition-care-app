@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import BodyAreas from './BodyAreas/BodyAreas';
+import CreateBodyArea from './CreateBodyArea/CreateBodyArea';
 
 const BodyArea = ({ match }) => {
     return (
@@ -10,10 +11,10 @@ const BodyArea = ({ match }) => {
                 path={match.url}
                 render={() => <BodyAreas />}
             />
-            {/* <Route
+            <Route
                 path={`${match.url}/create`}
-                component={CreateFood}
-            /> */}
+                component={CreateBodyArea}
+            />
         </div>
     );
 }
