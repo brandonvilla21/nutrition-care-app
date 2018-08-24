@@ -4,34 +4,42 @@ import fieldDescription from './fieldDescription';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
+import { submitFood } from '../../../containers/Food/food.service';
+
+const initialState = {
+    description: '',
+    carbohydrates: '',
+    proteins: '',
+    fats: '',
+    calories: '',
+};
 
 class FoodForm extends Component {
-    state = {
-        form: {
-            description: '',
-            carbohydrates: '',
-            proteins: '',
-            fats: '',
-            calories: '',
-        }
-    }
+    state = initialState;
     
     handleInput = event => {
         const { name, value } = event.target;
-        this.setState( state => ({
-            form: {
-                ...state.form,
-                [name]: value,
-            }
-        }));
+        this.setState({ [name]: value });
     }
 
-    handleClick = () => {
-        console.log('Submit new food');
+    handleSubmit = event => {
+        event.preventDefault();
+        submitFood( this.state )
+            .then( food => {
+                if ( food.id ) {
+                    this.wasSubmitted( true );
+                    this.setState({ ...initialState });
+                } else {
+                    this.wasSubmitted( false );
+                }
+            })
+            .catch( err => this.wasSubmitted( false ) );
     }
+
+    wasSubmitted = submitted => this.props.onSubmit( submitted )
 
     renderTextFields = () => (
-        Object.keys(this.state.form).map(( el, index ) =>
+        Object.keys( this.state ).map( ( el, index ) =>
             <TextField
                 key={index}
                 name={el}
@@ -39,7 +47,7 @@ class FoodForm extends Component {
                 placeholder={fieldDescription[el].placeholder}
                 margin="normal"
                 fullWidth
-                value={this.state.form[el]}
+                value={this.state[el]}
                 onChange={this.handleInput}
                 type={fieldDescription[el].type}
             />
@@ -49,10 +57,11 @@ class FoodForm extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div>
+            <form onSubmit={this.handleSubmit}>
                 { this.renderTextFields() }
                 <div className={classes.buttonContainer}>
                     <Button
+                        type="submit"
                         className={classes.button}
                         color="primary"
                         variant="contained"
@@ -61,9 +70,9 @@ class FoodForm extends Component {
                         Registrar Alimento
                     </Button>
                 </div>
-            </div>
-        )
+            </form>
+        );
     }
-};
+}
 
-export default withStyles(styles, { withTheme: true })(FoodForm);
+export default withStyles( styles, { withTheme: true })( FoodForm );
