@@ -23,6 +23,7 @@ class BodyAreas extends React.Component {
     }
     render() {
         const { classes } = this.props;
+        const { bodyAreas } = this.state;
         return (
             <div>
                 <Typography className={classes.title} variant="headline">Áreas del cuerpo</Typography>
@@ -31,27 +32,19 @@ class BodyAreas extends React.Component {
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Description</TableCell>
-                                <TableCell>Fecha de creación</TableCell>
+                                <TableCell>Descripción</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {/* {
-                                bodyAreas.map( b =>  */}
-                                    <TableRow>
+                            {
+                                bodyAreas.map( b => 
+                                    <TableRow key={b.id}>
                                         <TableCell component="th" scope="row">
-                                            Biceps
+                                            {b.description}
                                         </TableCell>
-                                        <TableCell>2018-01-01</TableCell>
                                     </TableRow>
-                                    <TableRow>
-                                        <TableCell component="th" scope="row">
-                                            Femoral
-                                        </TableCell>
-                                        <TableCell>2018-01-01</TableCell>
-                                    </TableRow>
-                                {/* )
-                            } */}
+                                )
+                            }
                         </TableBody>
                     </Table>
                 </Paper>
