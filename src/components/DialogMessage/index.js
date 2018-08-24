@@ -11,7 +11,7 @@ const Transition = props => {
     return <Slide direction="up" {...props} />;
 };
 
-const DialogError = ({ open, title, body, handleClose }) => {
+const DialogMessage = ({ open, title, body, handleClose }) => {
     return (
         <Dialog
             open={open}
@@ -38,4 +38,4 @@ const DialogError = ({ open, title, body, handleClose }) => {
     );
 };
 
-export default DialogError;
+export default DialogMessage;
