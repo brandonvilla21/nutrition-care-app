@@ -4,7 +4,7 @@ import LoginForm from '../../components/Login/LoginForm';
 import Typography from '@material-ui/core/Typography';
 import { setCredentials } from './login.service';
 import { Redirect } from 'react-router';
-import DialogError from '../../components/DialogError';
+import DialogMessage from '../../components/DialogMessage';
 
 class Login extends React.Component {
     state = {
@@ -47,7 +47,7 @@ class Login extends React.Component {
             return <Redirect to="/dashboard" />;
         return (
             <Layout>
-                <DialogError
+                <DialogMessage
                     open={isError}
                     title="Error"
                     body="Ha ocurrido un problema al intenar iniciar sesión. Verifica tus credenciales."
