@@ -12,15 +12,15 @@ import {
     Divider
 } from '@material-ui/core';
 import AddButton from '../../../components/AddButton';
-
+import { getBodyAreas } from '../body-area.service';
 
 class BodyAreas extends React.Component {
     state = { bodyAreas: [] };
-    // componentDidMount() {
-    //     getBodyAreas()
-    //         .then( food => this.setState({ bodyAreas }) )
-    //         .catch( err => err );
-    // }
+    componentDidMount() {
+        getBodyAreas()
+            .then( bodyAreas => this.setState({ bodyAreas }) )
+            .catch( err => err );
+    }
     render() {
         const { classes } = this.props;
         return (

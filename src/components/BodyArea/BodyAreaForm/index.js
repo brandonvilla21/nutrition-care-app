@@ -4,6 +4,7 @@ import fieldDescription from './fieldDescription';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
+import { submitBodyArea } from '../../../containers/BodyArea/body-area.service';
 
 const initialState = {
     description: ''
@@ -19,16 +20,16 @@ class BodyAreaForm extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        // submitBodyArea( this.state )
-        //     .then( bodyArea => {
-        //         if ( bodyArea.id ) {
-        //             this.wasSubmitted( true );
-        //             this.setState({ ...initialState });
-        //         } else {
-        //             this.wasSubmitted( false );
-        //         }
-        //     })
-        //     .catch( err => this.wasSubmitted( false ) );
+        submitBodyArea( this.state )
+            .then( bodyArea => {
+                if ( bodyArea.id ) {
+                    this.wasSubmitted( true );
+                    this.setState({ ...initialState });
+                } else {
+                    this.wasSubmitted( false );
+                }
+            })
+            .catch( err => this.wasSubmitted( false ) );
     }
 
     wasSubmitted = submitted => this.props.onSubmit( submitted )
