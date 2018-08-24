@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Layout from '../layouts/Dashboard';
 import Routine from './Routine/Routine';
 import Food from './Food/Food';
+import BodyArea from './BodyArea/BodyArea';
 
 const DashboardContent = ({ match }) => {
     return (
@@ -15,6 +16,7 @@ const DashboardContent = ({ match }) => {
             />
             <Route path={`${match.url}/routine`} component={Routine}/>
             <Route path={`${match.url}/food`} component={Food}/>
+            <Route path={`${match.url}/body-area`} component={BodyArea}/>
         </Layout>
     );
 }
