@@ -11,14 +11,18 @@ const setCredentials = ( email, password, type ) => {
         const endpoint = type === 'ADMINISTRATOR' ? 'Administrators' : 'Customers';
         axios.post( `/${endpoint}/login`, data )
             .then( res => {
-                storeToken( res.data );
+                storeCredentials( res.data );
                 resolve( res.data );
             })
             .catch( err => reject( err ) );
     });
 };
 
-const storeToken = data => localStorage.setItem( 'NC_token', data.id );
+const storeCredentials = data => {
+    localStorage.setItem( 'NC_token', data.id );
+    localStorage.setItem( 'NC_userId', data.userId );
+    localStorage.setItem( 'NC_type', data.type );
+};
 
 export {
     setCredentials

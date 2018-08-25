@@ -4,6 +4,8 @@ import Layout from '../layouts/Dashboard';
 import Routine from './Routine/Routine';
 import Food from './Food/Food';
 import BodyArea from './BodyArea/BodyArea';
+import ProtectedRoute from '../components/ProtectedRoute';
+import { ADMINISTRATOR, CUSTOMER } from '../shared/user-roles';
 
 const DashboardContent = ({ match }) => {
     return (
@@ -14,11 +16,11 @@ const DashboardContent = ({ match }) => {
                 path={match.url}
                 render={() => <h5>Dashboard Content</h5>}
             />
-            <Route path={`${match.url}/routine`} component={Routine}/>
-            <Route path={`${match.url}/food`} component={Food}/>
-            <Route path={`${match.url}/body-area`} component={BodyArea}/>
+            <ProtectedRoute path={`${match.url}/routine`} type={[CUSTOMER]} component={Routine}/>
+            <ProtectedRoute path={`${match.url}/food`} type={[ADMINISTRATOR]} component={Food}/>
+            <ProtectedRoute path={`${match.url}/body-area`} type={[ADMINISTRATOR]} component={BodyArea}/>
         </Layout>
     );
-}
+};
 
 export default DashboardContent;
