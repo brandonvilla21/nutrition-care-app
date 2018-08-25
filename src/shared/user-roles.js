@@ -1,2 +1,3 @@
 export const ADMINISTRATOR = 'ADMINISTRATOR';
-export const CUSTOMER = 'CUSTOMER';
+export const REGULAR = 'REGULAR';
+export const PREMIUM = 'PREMIUM';

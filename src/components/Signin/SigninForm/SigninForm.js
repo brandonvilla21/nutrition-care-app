@@ -5,12 +5,13 @@ import NavigationIcon from '@material-ui/icons/Navigation';
 import fieldValues from './filedValues';
 import { withStyles } from '@material-ui/core';
 import styles from './syles';
+import { createNewUser } from '../../../containers/Signin/signin.service';
 
 class SigninForm extends React.Component {
     state = {
         form: {
             name: '',
-            lastname: '',
+            lastName: '',
             email: '',
             password: '',
             passwordConfirm: ''
@@ -29,6 +30,9 @@ class SigninForm extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
+        createNewUser( this.state.form )
+            .then( res => console.log(res))
+            .catch( err => console.log(err));
     }
 
     renderFileds = () => {

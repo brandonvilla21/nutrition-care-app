@@ -10,7 +10,7 @@ export default [
         required: true
     },
     {
-        name: 'lastname',
+        name: 'lastName',
         label: 'Apellidos',
         margin: 'normal',
         fullWidth: true,
