@@ -6,7 +6,13 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import classNames from 'classnames';
-import { drawerItems } from './drawerItems';
+import customerDrawerItems from './customerDrawerItems';
+import adminDrawerItems from './adminDrawerItems';
+
+const renderIcons = () =>
+    localStorage.getItem( 'NC_type' ) === 'ADMINISTRATOR'
+        ? adminDrawerItems
+        : customerDrawerItems;
 
 class LeftDrawer extends Component {
     render() {
@@ -15,7 +21,7 @@ class LeftDrawer extends Component {
             <Drawer
                 variant="permanent"
                 classes={{
-                    paper: classNames(classes.drawerPaper, !this.props.open && classes.drawerPaperClose),
+                    paper: classNames( classes.drawerPaper, !this.props.open && classes.drawerPaperClose ),
                 }}
                 open={this.props.open}
             >
@@ -26,10 +32,10 @@ class LeftDrawer extends Component {
                 </div>
                 <Divider />
                 <List>
-                    {drawerItems}
+                    {renderIcons()}
                 </List>
             </Drawer>
-        )
+        );
     }
 }
 
