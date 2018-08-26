@@ -9,6 +9,7 @@ import Login from './containers/Login';
 import Signin from './containers/Signin';
 import { ADMINISTRATOR, REGULAR } from './shared/user-roles';
 import ProtectedRoute from './components/ProtectedRoute';
+import SessionRoute from './components/SessionRoute/SessionRoute';
 
 class App extends Component {
   render() {
@@ -20,11 +21,11 @@ class App extends Component {
               type={[ADMINISTRATOR, REGULAR]}
               path="/dashboard"
               component={Dashboard} />
-          <Route path="/admin-login"
+          <SessionRoute path="/admin-login"
             render={() => <Login type={ADMINISTRATOR} header="Inicia Sesión como administrador"/> }/>
-          <Route path="/login"
+          <SessionRoute path="/login"
             render={() => <Login type={REGULAR} header="Inicia Sesión"/> }/>
-          <Route path="/signin" component={Signin} />
+          <SessionRoute path="/signin" component={Signin} />
         </Switch>
       </BrowserRouter>
       </MuiThemeProvider>
