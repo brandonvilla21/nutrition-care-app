@@ -3,6 +3,12 @@
  */
 const isAuthenticated = type => type.includes( localStorage.getItem( 'NC_type' ) );
 
+const logout = cb => {
+    localStorage.clear();
+    return cb();
+};
+
 export {
-    isAuthenticated
+    isAuthenticated,
+    logout
 };

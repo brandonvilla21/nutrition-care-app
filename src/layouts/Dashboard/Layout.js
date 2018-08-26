@@ -3,27 +3,19 @@ import Header from '../../components/Header/';
 import LeftDrawer from '../../components/LeftDrawer';
 import { withStyles } from '@material-ui/core';
 import { styles } from './styles';
+import { logout } from '../../services/user.service';
+import { withRouter } from 'react-router';
 
 class Layout extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            open: false
-        };
 
-        this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
-        this.handleDrawerClose = this.handleDrawerClose.bind(this);
-    }
-    
-    handleDrawerOpen() {
-        this.setState({ open: true });
-    };
-    
-    handleDrawerClose() {
-        this.setState({ open: false });
-    };
-    
+    state = { open: false };
+
+    handleDrawerOpen = () => this.setState({ open: true })
+
+    handleDrawerClose =() => this.setState({ open: false })
+
+    handleSession = () => logout( () => this.props.history.push( '/login' ) )
+
     render() {
         const { classes, theme } = this.props;
         const { open } = this.state;
@@ -33,6 +25,7 @@ class Layout extends Component {
                     open={open}
                     classes={classes}
                     handleDrawerOpen={this.handleDrawerOpen}
+                    logout={this.handleSession}
                 />
                 <LeftDrawer
                     open={open}
@@ -49,4 +42,4 @@ class Layout extends Component {
     }
 }
 
-export default withStyles(styles, { withTheme: true })(Layout);
+export default withRouter( withStyles( styles, { withTheme: true })( Layout ) );
