@@ -8,6 +8,7 @@ const __mock = {
       post: jest.fn( () => Promise.resolve( defaultResponse ) ),
       delete: jest.fn( () => Promise.resolve( defaultResponse ) ),
       defaults: { headers: { common: {} } },
+      interceptors: { request: { use: jest.fn() } },
     });
   },
   instance: {},

@@ -133,17 +133,6 @@ class DietForm extends Component {
 
     /**
      * 
-     * Generate the today's date on the needed format for the API.
-     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
-     */
-    getDate() {
-      const date = new Date();
-      return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-    }
-
-
-    /**
-     * 
      * Reset the component state.
      * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
