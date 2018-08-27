@@ -111,11 +111,9 @@ class DietForm extends Component {
    */
     getFoods() {
 
-        const config = sendLoopbackParams({ limit: 5 });
-
         const url = 'Foods';
 
-        return axios.get( url, config )
+        return axios.get( url )
           .then( response => response.data )
           .then( foods => foods.map( food => {
             return {
