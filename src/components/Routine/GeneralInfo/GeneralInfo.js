@@ -7,7 +7,7 @@ import { addDescription } from '../../../containers/Routine/store/actions/action
 
 const GeneralInfo = ({ classes, description, handleInput, nextIndex }) => {
     return (
-        <div>
+        <React.Fragment>
             <Typography variant="headline">
                 Información acerca de la rutina
             </Typography>
@@ -29,13 +29,13 @@ const GeneralInfo = ({ classes, description, handleInput, nextIndex }) => {
                     Siguiente
                 </Button>
             </div>
-        </div>
+        </React.Fragment>
     );
 };
 
-const mapStateToProps = store => {
+const mapStateToProps = ({ routine }) => {
     return {
-        description: store.description,
+        description: routine.description,
     };
 };
 
@@ -47,4 +47,4 @@ const mapDispatchToProps = dispatch => {
 
 GeneralInfo.propTypes = propTypes;
 
-export default  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GeneralInfo));
+export default  connect( mapStateToProps, mapDispatchToProps )( withStyles( styles )( GeneralInfo ) );

@@ -8,11 +8,11 @@ import RoutineDay from './components/RoutineDay/RoutineDay';
 
 const MyRoutine = ({ classes, nextIndex, prevIndex, days }) => {
     return (
-        <div>
+        <React.Fragment>
             <SelectDay />
             <div className={classes.daysContainer}>
                 {
-                    days.map(( day, index ) => 
+                    days.map( ( day, index ) => 
                         <RoutineDay key={index}/>
                     )
                 }
@@ -31,11 +31,11 @@ const MyRoutine = ({ classes, nextIndex, prevIndex, days }) => {
                     Siguiente
                 </Button>
             </div>
-        </div>
+        </React.Fragment>
     );
 };
-const mapStateToProps = state => ({
-    days: state.days
+const mapStateToProps = ({ routine }) => ({
+    days: routine.days
 });
 
 MyRoutine.propTypes = {
@@ -43,4 +43,4 @@ MyRoutine.propTypes = {
     prevIndex: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(MyRoutine));
+export default connect( mapStateToProps )( withStyles( styles )( MyRoutine ) );

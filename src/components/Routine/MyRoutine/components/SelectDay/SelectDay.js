@@ -24,7 +24,7 @@ class SelectDay extends Component {
         // Get the new day to add to <SelectField />
         const addDayToSelect = days.filter( day => day.id === removedDay.id );
         // Get the days that are currently in <SelectField />
-        const restOfDays = days.filter(day => day.id !== removedDay.id );
+        const restOfDays = days.filter( day => day.id !== removedDay.id );
 
         // Change the selected property to false, because now this day has not been selected
         addDayToSelect[0].selected = false;
@@ -32,7 +32,7 @@ class SelectDay extends Component {
         // Merge both elements
         const sortedDays = [...restOfDays, addDayToSelect[0]];
         // Sorts the elements by its id
-        sortedDays.sort((a,b) => a.id - b.id);
+        sortedDays.sort( ( a, b ) => a.id - b.id );
         
         // Update the state with the new days
         this.setState({ days: [...sortedDays] });
@@ -59,7 +59,7 @@ class SelectDay extends Component {
                         {day.name}
                     </MenuItem>
                 : null
-        ))
+        ) )
     );
 
     render() {
@@ -76,7 +76,7 @@ class SelectDay extends Component {
                     </Select>
                 </FormControl>
             </div>
-        )
+        );
     }
 }
 
@@ -85,8 +85,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    selectedDays: days => dispatch(selectedDays(days)),
-    clearRemovedDay: () => dispatch(clearRemovedDay()),
+    selectedDays: days => dispatch( selectedDays( days ) ),
+    clearRemovedDay: () => dispatch( clearRemovedDay() ),
 });
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(SelectDay));
+export default withStyles( styles )( connect( mapStateToProps, mapDispatchToProps )( SelectDay ) );
