@@ -5,7 +5,7 @@ import propTypes from './propTypes';
 import { connect } from 'react-redux';
 import { addDescription } from '../../../containers/Routine/store/actions/actions';
 
-const GeneralInfo = ({ classes, description, handleInput, nextIndex }) => {
+const GeneralInfo = ({ classes, description, addDescription, nextIndex }) => {
     return (
         <React.Fragment>
             <Typography variant="headline">
@@ -18,7 +18,7 @@ const GeneralInfo = ({ classes, description, handleInput, nextIndex }) => {
                 margin="normal"
                 fullWidth
                 value={description}
-                onChange={handleInput}
+                onChange={addDescription}
             />
             <div className={classes.buttonContainer}>
                 <Button
@@ -33,16 +33,12 @@ const GeneralInfo = ({ classes, description, handleInput, nextIndex }) => {
     );
 };
 
-const mapStateToProps = ({ routine }) => {
-    return {
-        description: routine.description,
-    };
-};
+const mapStateToProps = ({ routine }) => ({
+    description: routine.description,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        handleInput: event => dispatch(addDescription(event.target.value))
-    }
+const mapDispatchToProps = {
+    addDescription
 };
 
 GeneralInfo.propTypes = propTypes;

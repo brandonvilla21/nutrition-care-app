@@ -9,36 +9,20 @@ export const removeDay = ( state, action ) => {
     return removeExercisesFromDay( newState, day );
 };
 
+export const selectDay = ( state, action ) => {
+    const { days } = state;
+    const { payload: dayId } = action;
+    const updatedDays = days.map( day => {
+        return day.id !== dayId
+        ? day
+        : { ...day, selected: true };
+    });
+    return { ...state, days: updatedDays };
+};
+
+
 function removeExercisesFromDay( state, day ) {
     if( day.exercises )
         delete day.exercises;
-    return updateObject( state, { removedDay: day } );
+    return updateObject( state, { removedDay: day });
 }
-
-// Problem: not modifying the state properly
-
-// export const addExerciseToDay = ( state, action ) => {
-//     const { days } = state;
-//     const { day, exercise } = action;
-//     const index = days.indexOf( day );
-//     pushExercise( days[index], exercise );
-// }
-
-// function pushExercise( day, exercise ) {
-//     return new Promise((resolve, reject) => {
-//         const prop = 'exercises';
-//         // If there's not such property in object,
-//         // it will be created as an array
-//         if ( !(prop in day) )
-//             day[prop] = [];
-
-//         // Verify if the exercise has not
-//         // been added to this array before
-//         if ( day[prop] && day[prop].filter(ex => ex.id === exercise.id).length > 0 ) {
-//             reject({ message: 'Este ejercicio ya se encuentra agregado en este día'});
-//         } else {
-//             day[prop].push(exercise);
-//             resolve(day);
-//         }
-//     })
-// }

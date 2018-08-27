@@ -13,7 +13,7 @@ const MyRoutine = ({ classes, nextIndex, prevIndex, days }) => {
             <div className={classes.daysContainer}>
                 {
                     days.map( ( day, index ) => 
-                        <RoutineDay key={index}/>
+                        day.selected && <RoutineDay key={index}/>
                     )
                 }
             </div>
@@ -34,6 +34,7 @@ const MyRoutine = ({ classes, nextIndex, prevIndex, days }) => {
         </React.Fragment>
     );
 };
+
 const mapStateToProps = ({ routine }) => ({
     days: routine.days
 });
