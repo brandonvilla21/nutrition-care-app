@@ -5,12 +5,8 @@ class CreateRoutine extends Component {
 
   render() {
     return (
-      <div>
-          <div>
-            <TabsRoutine />
-          </div>
-      </div>
-    )
+        <TabsRoutine />
+    );
   }
 }
 

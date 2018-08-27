@@ -5,9 +5,9 @@ import propTypes from './propTypes';
 import { connect } from 'react-redux';
 import { addDescription } from '../../../containers/Routine/store/actions/actions';
 
-const GeneralInfo = ({ classes, description, handleInput, nextIndex }) => {
+const GeneralInfo = ({ classes, description, addDescription, nextIndex }) => {
     return (
-        <div>
+        <React.Fragment>
             <Typography variant="headline">
                 Información acerca de la rutina
             </Typography>
@@ -18,7 +18,7 @@ const GeneralInfo = ({ classes, description, handleInput, nextIndex }) => {
                 margin="normal"
                 fullWidth
                 value={description}
-                onChange={handleInput}
+                onChange={addDescription}
             />
             <div className={classes.buttonContainer}>
                 <Button
@@ -29,22 +29,18 @@ const GeneralInfo = ({ classes, description, handleInput, nextIndex }) => {
                     Siguiente
                 </Button>
             </div>
-        </div>
+        </React.Fragment>
     );
 };
 
-const mapStateToProps = store => {
-    return {
-        description: store.description,
-    };
-};
+const mapStateToProps = ({ routine }) => ({
+    description: routine.description,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        handleInput: event => dispatch(addDescription(event.target.value))
-    }
+const mapDispatchToProps = {
+    addDescription
 };
 
 GeneralInfo.propTypes = propTypes;
 
-export default  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GeneralInfo));
+export default  connect( mapStateToProps, mapDispatchToProps )( withStyles( styles )( GeneralInfo ) );

@@ -7,3 +7,4 @@ export const CHANGE_FIELD = 'CHANGE_FIELD';
 export const SUBMIT_ROUTINE = 'SUBMIT_ROUTINE';
 export const CLOSE = 'CLOSE';
 export const GO_ROUTINES = 'GO_ROUTINES';
+export const SELECT_DAY = 'SELECT_DAY';

@@ -3,9 +3,7 @@ import { Route } from 'react-router-dom';
 import Routines from './Routines/Routines';
 import CreateRoutine from './CreateRoutine/CreateRoutine';
 
-const Routine = ({ match }) => {
-
-  return (
+const Routine = ({ match }) => (
     <div>
       <Route
         exact
@@ -13,7 +11,6 @@ const Routine = ({ match }) => {
         render={() => <Routines /> }/>
       <Route path={`${match.url}/create`} component={CreateRoutine} />
     </div>
-  )
-}
+);
 
 export default Routine;

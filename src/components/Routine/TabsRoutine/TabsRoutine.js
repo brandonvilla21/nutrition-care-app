@@ -9,63 +9,58 @@ import { styles } from './styles';
 import MyRoutine from '../MyRoutine/MyRoutine';
 
 class TabsRoutine extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: 0,
-        };
 
-        this.nextIndex = this.nextIndex.bind(this);
-        this.prevIndex = this.prevIndex.bind(this);
-    }
+    state = {
+        value: 0,
+    };
 
-    nextIndex() {
+    nextIndex = () => {
         const { value } = this.state;
         this.setState({ value: value + 1 });
     }
 
-    prevIndex() {
+    prevIndex = () => {
         const { value } = this.state;
         this.setState({ value: value - 1 });
     }
 
     render() {
         const { value } = this.state;
-      return (
-        <div>
-            <AppBar position="static" color="default">
-                <Tabs
-                    value={value}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    fullWidth
-                    scrollable
-                    scrollButtons="auto"
-                >
-                    <Tab label="Información general" icon={<InfoOutline />}/>
-                    <Tab label="Mi Rutina" icon={<FitnessCenter />}/>
-                    <Tab label="Finalizar" icon={<CheckCircle />}/>
-                </Tabs>
-            </AppBar>
-            {
-                value === 0 &&
-                <TabContainer>
-                    <GeneralInfo nextIndex={this.nextIndex} />
-                </TabContainer>
-            }
-            {
-                value === 1 &&
-                <TabContainer>
-                    <MyRoutine
-                        nextIndex={this.nextIndex}
-                        prevIndex={this.prevIndex}
-                    />
-                </TabContainer>
-            }
-            {value === 2 && <TabContainer>Item Three</TabContainer>}
-        </div>
-      )
+        return (
+            <React.Fragment>
+                <AppBar position="static" color="default">
+                    <Tabs
+                        value={value}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        fullWidth
+                        scrollable
+                        scrollButtons="auto"
+                    >
+                        <Tab label="Información general" icon={<InfoOutline />}/>
+                        <Tab label="Mi Rutina" icon={<FitnessCenter />}/>
+                        <Tab label="Finalizar" icon={<CheckCircle />}/>
+                    </Tabs>
+                </AppBar>
+                {
+                    value === 0 &&
+                    <TabContainer>
+                        <GeneralInfo nextIndex={this.nextIndex} />
+                    </TabContainer>
+                }
+                {
+                    value === 1 &&
+                    <TabContainer>
+                        <MyRoutine
+                            nextIndex={this.nextIndex}
+                            prevIndex={this.prevIndex}
+                        />
+                    </TabContainer>
+                }
+                {value === 2 && <TabContainer>Item Three</TabContainer>}
+            </React.Fragment>
+        );
     }
 }
 
-export default withStyles(styles)(TabsRoutine);
+export default withStyles( styles )( TabsRoutine );

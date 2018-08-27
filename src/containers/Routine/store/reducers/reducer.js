@@ -1,37 +1,30 @@
 import {
     ADD_DESCRIPTION,
-    SELECTED_DAYS,
-    REMOVE_DAY,
-    CLEAR_REMOVED_DAY,
-    // ADD_EXERCISE_TO_DAY,
-    // CHANGE_FIELD,
-    // SUBMIT_ROUTINE,
-    // CLOSE,
-    // GO_ROUTINES,
+    SELECT_DAY,
 } from '../actions/actionTypes';
 import {
-    removeDay,
+    selectDay
 } from './reducerOperations';
 
 const initialState = {
     description: '',
-    days: [],
-    removedDay: null,
-    open: false,
-    modalMessage: '',
-    action: null,
-    modal: false
+    days: [
+        { id: 0, name: 'Lunes', selected: false },
+        { id: 1, name: 'Martes', selected: false },
+        { id: 2, name: 'Miércoles', selected: false },
+        { id: 3, name: 'Jueves', selected: false },
+        { id: 4, name: 'Viernes', selected: false },
+        { id: 5, name: 'Sábado', selected: false },
+        { id: 6, name: 'Domingo', selected: false },
+    ]
 };
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
-        case ADD_DESCRIPTION: return { ...state, description: action.description };
-        case SELECTED_DAYS: return { ...state, days: [...action.days] };
-        case REMOVE_DAY: return removeDay(state, action);
-        case CLEAR_REMOVED_DAY: return { ...state, removeDay: null };
-        // case ADD_EXERCISE_TO_DAY: return addExerciseToDay( state, action );
+        case ADD_DESCRIPTION: return { ...state, description: action.payload };
+        case SELECT_DAY: return selectDay( state, action );
         default: return state;
     }
-}
+};
 
 export default reducer;
