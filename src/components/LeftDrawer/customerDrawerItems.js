@@ -1,12 +1,12 @@
 import React from 'react';
-import { ListItem, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
+import { ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
 import PermIdentity from '@material-ui/icons/PermIdentity';
 import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import Restaurant from '@material-ui/icons/Restaurant';
 import { Link } from 'react-router-dom';
 
-export const drawerItems = (
-    <div>
+export default (
+    <React.Fragment>
         <ListItem button component={Link} to="/dashboard/routine" >
             <ListItemIcon>
                 <FitnessCenter />
@@ -26,5 +26,5 @@ export const drawerItems = (
             </ListItemIcon>
             <ListItemText primary="Mi información" />
         </ListItem>
-    </div>
+    </React.Fragment>
 );

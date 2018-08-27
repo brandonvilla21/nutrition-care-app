@@ -4,17 +4,13 @@ import fieldDescription from './fieldDescription';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
-import { submitFood } from '../../../containers/Food/food.service';
+import { submitBodyArea } from '../../../containers/BodyArea/body-area.service';
 
 const initialState = {
-    description: '',
-    carbohydrates: '',
-    proteins: '',
-    fats: '',
-    calories: '',
+    description: ''
 };
 
-class FoodForm extends Component {
+class BodyAreaForm extends Component {
     state = initialState;
     
     handleInput = event => {
@@ -24,9 +20,9 @@ class FoodForm extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        submitFood( this.state )
-            .then( food => {
-                if ( food.id ) {
+        submitBodyArea( this.state )
+            .then( bodyArea => {
+                if ( bodyArea.id ) {
                     this.wasSubmitted( true );
                     this.setState({ ...initialState });
                 } else {
@@ -67,7 +63,7 @@ class FoodForm extends Component {
                         variant="contained"
                         onClick={this.handleClick}
                     >
-                        Registrar Alimento
+                        Registrar Área del Cuerpo
                     </Button>
                 </div>
             </form>
@@ -75,4 +71,4 @@ class FoodForm extends Component {
     }
 }
 
-export default withStyles( styles, { withTheme: true })( FoodForm );
+export default withStyles( styles, { withTheme: true })( BodyAreaForm );

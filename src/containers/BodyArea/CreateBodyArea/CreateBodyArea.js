@@ -1,9 +1,9 @@
 import React from 'react';
 import PageBase from '../../../components/PageBase';
-import FoodForm from '../../../components/Food/FoodForm';
 import DialogMessage from '../../../components/DialogMessage';
+import BodyAreaForm from '../../../components/BodyArea/BodyAreaForm';
 
-class CreateFood extends React.Component {
+class CreateBodyArea extends React.Component {
     state = { open: false };
     
     isSubmitted = submitted => this.setState({ open: submitted });
@@ -15,16 +15,16 @@ class CreateFood extends React.Component {
             <React.Fragment>
                 <DialogMessage
                     open={this.state.open}
-                    title="Alimento agregado"
-                    body="Se ha creado un nuevo alimento correctamente!"
+                    title="Área del cuerpo agregado"
+                    body="Se ha creado una nueva área del cuerpo correctamente!"
                     handleClose={this.handleClose}
                 />
-                <PageBase title="Registrar un alimento">
-                    <FoodForm onSubmit={this.isSubmitted}/>
+                <PageBase title="Registrar una área del cuerpo">
+                    <BodyAreaForm onSubmit={this.isSubmitted}/>
                 </PageBase>    
             </React.Fragment>            
         );
     }
 }
 
-export default CreateFood;
+export default CreateBodyArea;

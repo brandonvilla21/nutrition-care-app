@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { withStyles, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, Divider } from '@material-ui/core';
 import styles from './styles';
 import AddButton from '../../../components/AddButton';
-import axios from '../../../axios';
+import { getFoods } from '../food.service';
 
 class Foods extends Component {
-    constructor(props) {
-        super(props);
+    constructor( props ) {
+        super( props );
         this.state = {
             food: []
-        }
+        };
     }
     componentDidMount() {
-        axios.get('/Food')
-            .then(res => this.setState({ food: res.data }))
-            .catch(err => err);
+        getFoods()
+            .then( food => this.setState({ food }) )
+            .catch( err => err );
     }
 
     render() {
@@ -58,4 +58,4 @@ class Foods extends Component {
     }
 }
 
-export default  withStyles(styles, { withTheme: true })(Foods);
+export default  withStyles( styles, { withTheme: true })( Foods );
