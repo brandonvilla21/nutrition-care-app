@@ -170,10 +170,11 @@ class Diets extends Component {
   }
 
   getOwnDiets() {
-    const url = '/Diets';
-    const config = sendLoopbackParams({ limit: 5 });
+    const userId = localStorage.getItem( 'NC_userId' );
 
-    return axios.get( url, config )
+    const url = `Customers/${userId}/diets`;
+
+    return axios.get( url )
         .then( response => response.data )
         .catch( err => { throw err.response.data; });
   }
