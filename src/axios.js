@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const accesToken = () => localStorage.getItem( 'NC_token' );
+const accessToken = () => localStorage.getItem( 'NC_token' );
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
@@ -10,8 +10,8 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use( config => {
-    if ( accesToken() )
-        config.headers.authorization = accesToken();
+    if ( accessToken() )
+        config.headers.Authorization = accessToken();
     return config;
 }, error => Promise.reject( error ) );
 

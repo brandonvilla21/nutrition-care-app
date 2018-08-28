@@ -10,6 +10,8 @@ import { ADMINISTRATOR, REGULAR } from './shared/user-roles';
 import ProtectedRoute from './components/ProtectedRoute';
 import SessionRoute from './components/SessionRoute/SessionRoute';
 
+import 'react-table/react-table.css';
+
 class App extends Component {
   render() {
     return (
