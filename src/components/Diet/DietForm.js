@@ -61,6 +61,8 @@ class DietForm extends Component {
 
       const url = '/Diets';
 
+      const userId = localStorage.getItem( 'NC_userId' );
+
       const { 
         totalCarbohydrates, totalProteins, totalFats,
         totalCalories, description,
@@ -81,6 +83,7 @@ class DietForm extends Component {
       const data = { 
         totalCarbohydrates, totalProteins, totalFats,
         totalCalories, selectedFoods, description,
+        customerId: userId,
       };
       
       axios.post( url, data )
