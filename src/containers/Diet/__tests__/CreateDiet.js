@@ -1,15 +1,16 @@
 'use strict';
 
 import React from 'react';
-import { render, waitForElement, wait, fireEvent, within, prettyDOM, queryAllByText } from 'react-testing-library';
+import { render, waitForElement, fireEvent, within } from 'react-testing-library';
+import { MemoryRouter } from 'react-router-dom';
 
 import mockAxios from 'axios';
 import CreateDiet from '../CreateDiet/CreateDiet';
 
+//Original import
 import { roundNumber } from '../../../components/Diet/diet-utils';
+
 jest.mock( 'lodash.debounce', () => jest.fn( ( fn ) => fn ) );
-
-
 
 const setup = ( overrides ) => {
 
@@ -38,16 +39,33 @@ const setup = ( overrides ) => {
 
 };
 
-it( 'select foods on the selectable table and calculate all the items properly', async () => {
+beforeEach( () => {
+  // values stored in tests will also be available in other tests unless you run
+  localStorage.clear();
+  // or individually reset a mock used
+  localStorage.setItem.mockClear();
+});
+
+
+it( 'should calculate and register all a diet record properly', async () => {
 
   const { foods } = setup();
   mockAxios.__mock.instance.get.mockImplementationOnce( () => Promise.resolve({ data: foods }) );
   const isSubmitted = jest.fn();
-  const { getByLabelText, getByText, getByTestId, getAllByTestId } = render( <CreateDiet onSubmitted={isSubmitted} /> );
-
-
+  const { 
+    getByLabelText, 
+    getByText, 
+    getByTestId, 
+    getAllByTestId,
+  } = render( 
+    <MemoryRouter>
+      <CreateDiet onSubmitted={isSubmitted} />
+    </MemoryRouter> 
+  );
 
   //--------->Checks if the Cheese row was properly render into the DOM.
+  //It will wait for the 'get.mockImplementationOnce' to be run on the 
+  //Event Loop as much as possible.
   await waitForElement( () => getByText( 'Cheese' ) );
   expect( getByText( 'Cheese' ) ).toBeInTheDocument();
 
@@ -196,11 +214,32 @@ it( 'select foods on the selectable table and calculate all the items properly',
   //Clicks on the 'Finalizar dieta' button.
   fireEvent.click( getByText( 'Finalizar dieta', { exact: false }) );
 
+  //-----------------------------------------------------------------------------------
+  //Mocks the axios post method that is going to be called when clicking on the 
+  //'Guardar dieta' button.
+  mockAxios.__mock.instance.post.mockImplementationOnce( 
+      () => Promise.resolve({ status: 200 }) 
+  );
+
+  //Returns an user ID when the 'getItem' function is called (just once).
+  localStorage.getItem.mockImplementationOnce( () => 1 );
+
+  fireEvent.click( getByText( 'Guardar dieta', { exact: false }) );
+  
+  //--------->Validates if the 'getItem' function from localStorage was called.
+  expect( localStorage.getItem ).toHaveBeenCalledTimes( 1 );
+  expect( localStorage.getItem ).toHaveBeenLastCalledWith( 'NC_userId' );
 
 
   //-----------------------------------------------------------------------------------
-  // fireEvent.click( getByText( 'Guardar dieta', { exact: false }) );
+  //Checks if the success modal is render after the diet registration.
+  const dietRegistered = await waitForElement( () => 
+    getByTestId( 'successful-created-diet-modal' )
+  );
 
+  //--------->Validates if the a success message is rendered.
+  expect( within( dietRegistered ).getByText( 'dieta registrada', { exact: false }) )
+    .toBeInTheDocument();
 
 });
 

@@ -70,18 +70,19 @@ class CreateDiet extends Component {
       return (
         <div>
             <Dialog
-              aria-labelledby="create-diet-registered"
+              aria-labelledby="successful-created-diet-modal"
               disableBackdropClick
               open={this.state.submitted}
               onClose={this.handleClose}>
 
                 <DialogTitle 
-                  id="create-diet-registered">
+                  data-testid="successful-created-diet-modal"
+                  id="successful-created-diet-modal">
                   Dieta registrada
                 </DialogTitle>
 
                 <DialogContent>
-                  La dieta ha sido registrado con éxito.
+                  La dieta ha sido registrada con éxito.
                 </DialogContent>
 
                 <DialogActions> {actions} </DialogActions>
@@ -89,12 +90,13 @@ class CreateDiet extends Component {
             </Dialog>
 
             <Dialog
-              aria-labelledby="create-diet-error"
+              aria-labelledby="create-diet-error-modal"
               disableBackdropClick
+              data-testid="create-diet-error-modal"
               open={this.state.isThereAnError}
               onClose={this.handleClose}>
 
-                <DialogTitle id="create-diet-error">
+                <DialogTitle id="create-diet-error-modal">
                   Aviso
                 </DialogTitle>
 

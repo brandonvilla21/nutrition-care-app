@@ -6,3 +6,4 @@ import 'react-testing-library/cleanup-after-each';
 // this is basically: afterEach(cleanup)
 import 'jest-dom/extend-expect';
 
+import 'jest-localstorage-mock';
