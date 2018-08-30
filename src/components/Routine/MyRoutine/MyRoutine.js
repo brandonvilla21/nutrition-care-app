@@ -13,7 +13,7 @@ const MyRoutine = ({ classes, nextIndex, prevIndex, days }) => {
             <div className={classes.daysContainer}>
                 {
                     days.map( ( day, index ) => 
-                        day.selected && <RoutineDay key={index}/>
+                        day.selected && <RoutineDay day={day.name} key={index}/>
                     )
                 }
             </div>
