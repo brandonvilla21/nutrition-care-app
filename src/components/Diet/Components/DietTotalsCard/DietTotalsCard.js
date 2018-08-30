@@ -13,7 +13,7 @@ const DietTotalsCard = ( props ) => {
         totalCarbohydrates, 
         totalFats, 
         totalProteins, 
-        classes 
+        classes,
       } = props;
       
       return(
@@ -25,7 +25,9 @@ const DietTotalsCard = ( props ) => {
             />
             <CardContent className={classes.flexContainer}>
               
-              <TextField 
+              <TextField
+                id="totalProteins"
+                InputLabelProps={{ htmlFor: 'totalProteins' }}
                 name="totalProteins"
                 label="Proteínas"
                 readOnly
@@ -33,6 +35,8 @@ const DietTotalsCard = ( props ) => {
               />
 
               <TextField
+                id="totalCarbohydrates"
+                InputLabelProps={{ htmlFor: 'totalCarbohydrates' }}
                 name="totalCarbohydrates"
                 label="Carbohidratos"
                 readOnly
@@ -40,6 +44,8 @@ const DietTotalsCard = ( props ) => {
               />
 
               <TextField
+                id="totalFats"
+                InputLabelProps={{ htmlFor: 'totalFats' }}
                 name="totalFats"
                 label="Grasas"
                 readOnly
@@ -47,6 +53,8 @@ const DietTotalsCard = ( props ) => {
               />
 
               <TextField
+                id="totalCalories"
+                InputLabelProps={{ htmlFor: 'totalCalories' }}
                 name="totalCalories"
                 label="Calorías"
                 readOnly

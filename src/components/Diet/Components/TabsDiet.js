@@ -103,15 +103,19 @@ class TabsDiet extends Component {
               onChangeTable={this.props.onChangeDataTableFields.bind( this )}
             />
 
-            <DietTotalsCard
-              totalCalories={totalCalories}
-              totalCarbohydrates={totalCarbohydrates}
-              totalFats={totalFats}
-              totalProteins={totalProteins}/>
+            <div data-testid="total-card-calculator">
+              <DietTotalsCard
+                totalCalories={totalCalories}
+                totalCarbohydrates={totalCarbohydrates}
+                totalFats={totalFats}
+                totalProteins={totalProteins}/>
+            </div>
 
             <TextField className={classes.descriptionTextField} 
               name="description"
-              label="Agrega el nombre de tu dieta"
+              id="description"
+              InputLabelProps={{ htmlFor: 'description' }}
+              label="Agrega la descripción de tu dieta"
               value={description}
               onChange={onChange}
               fullWidth
@@ -138,7 +142,7 @@ class TabsDiet extends Component {
                 disabled={this.disableSaveButton()}
                 onClick={this.nextIndex}>
 
-                Siguiente
+                Finalizar dieta
 
               </Button>
             </div>
@@ -180,7 +184,7 @@ class TabsDiet extends Component {
                 onClick={this.props.onSubmitDiet.bind( this, this.resetIndex )}
                 >
 
-                Guardar
+                Guardar dieta
 
               </Button>
             </div>
