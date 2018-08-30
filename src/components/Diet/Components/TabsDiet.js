@@ -257,7 +257,7 @@ class TabsDiet extends Component {
             disabled={this.disableCalculateDietButton()}
             onClick={this.nextIndex}>
 
-            Siguiente
+            Calcular nutrientes
 
           </Button>
         </div>
