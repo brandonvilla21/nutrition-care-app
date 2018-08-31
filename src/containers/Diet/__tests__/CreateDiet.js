@@ -47,7 +47,7 @@ beforeEach( () => {
 });
 
 
-it( 'should calculate and register all a diet record properly', async () => {
+it( 'should calculate and register a new diet record properly', async () => {
 
   const { foods } = setup();
   mockAxios.__mock.instance.get.mockImplementationOnce( () => Promise.resolve({ data: foods }) );
