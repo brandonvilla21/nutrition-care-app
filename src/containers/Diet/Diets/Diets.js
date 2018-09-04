@@ -20,7 +20,6 @@ import blueGrey from '@material-ui/core/colors/blueGrey';
 import filterCaseInsensitive from '../../../shared/tableFiltering';
 
 import axios from '../../../axios';
-import sendLoopbackParams from '../../../shared/sendLoopbackParams';
 
 
 const blue500 = blue['500'];

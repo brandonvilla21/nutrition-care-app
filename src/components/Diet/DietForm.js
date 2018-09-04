@@ -12,7 +12,6 @@ import {
   onChangeDataTableFields, calculateDataTableData,
 } from './diet-utils';
 
-import sendLoopbackParams from '../../shared/sendLoopbackParams';
 import axios from '../../axios';
 
 
