@@ -12,7 +12,6 @@ import {
   onChangeDataTableFields, calculateDataTableData,
 } from './diet-utils';
 
-import sendLoopbackParams from '../../shared/sendLoopbackParams';
 import axios from '../../axios';
 
 
@@ -59,7 +58,7 @@ class DietForm extends Component {
    */
     onSubmitDiet( resetIndex ) {
 
-      const url = '/Diets';
+      const url = '/Diets/fullDietRegistration';
 
       const userId = localStorage.getItem( 'NC_userId' );
 
@@ -82,11 +81,11 @@ class DietForm extends Component {
         
       const data = { 
         totalCarbohydrates, totalProteins, totalFats,
-        totalCalories, selectedFoods, description,
+        totalCalories, description,
         customerId: userId,
       };
-      
-      axios.post( url, data )
+
+      axios.post( url, { diet: data, dietDetails: selectedFoods })
         .then( response => {
           if ( response.status === 200 ) {
                 this.props.onSubmitted({ submitted: true, err: false });

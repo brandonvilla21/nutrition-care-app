@@ -24,6 +24,7 @@ const DietTableCalculator = ( props ) => {
       Cell: ({ original }) => {
         return (
           <input
+            data-testid={`input-grams`}
             style={styles.input}
             min="1.0"
             step="any"
@@ -45,6 +46,7 @@ const DietTableCalculator = ( props ) => {
       Cell: ({ original }) => {
         return (
           <input
+            data-testid={`input-calories`}
             style={styles.input}
             min="1.0"
             step="any"

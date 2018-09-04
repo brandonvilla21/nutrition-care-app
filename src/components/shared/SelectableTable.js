@@ -54,7 +54,6 @@ class SelectableTable extends Component {
 
   }
 
-
   render() {
     const { 
       elements, selectedElements, mainTableHeader,
@@ -114,6 +113,7 @@ class SelectableTable extends Component {
                   Cell: ({ original }) => {
                     return (
                       <Checkbox
+                        data-testid={`selectable-item-${original.id}`}
                         color="primary"
                         style={{ 
                           width: '100%', 
