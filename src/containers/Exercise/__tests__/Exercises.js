@@ -46,7 +46,9 @@ it( 'should render a table of exercises items', async () => {
   const { exercises } = setup();
   mockAxios.__mock.instance.get.mockImplementationOnce( () => Promise.resolve({ data: exercises }) );
   const { 
-    getByText, 
+    getByText,
+    getByTestId,
+
   } = render( 
     <MemoryRouter>
       <Exercises match={{ url: '/dashboard/exercise' }}/>
@@ -61,5 +63,23 @@ it( 'should render a table of exercises items', async () => {
   expect( getByText( 'Deadlift' ) ).toBeInTheDocument();
   expect( getByText( 'Squat' ) ).toBeInTheDocument();
 
+});
+
+it( 'should render a floating button to create a new exercise', async () => {
+
+  const { exercises } = setup();
+  mockAxios.__mock.instance.get.mockImplementationOnce( () => Promise.resolve({ data: exercises }) );
+  const { 
+    getByTestId,
+  } = render( 
+    <MemoryRouter>
+      <Exercises match={{ url: '/dashboard/exercise' }}/>
+    </MemoryRouter> 
+  );
+
+  const createExerciseBtn = getByTestId( 'create-exercise-button' );
+
+  expect( createExerciseBtn ).toBeInTheDocument();
+  
 });
 

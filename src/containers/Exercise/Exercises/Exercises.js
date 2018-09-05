@@ -172,7 +172,10 @@ class Exercises extends Component {
             <Button component={Link} to={`${match.url}/create`}
               variant="fab"
               color="primary"
+              data-testid="create-exercise-button"
               className={classes.floatingActionButton}
+              id="create-exercise-button"
+              
             >
               <ContentAdd />
             </Button>
