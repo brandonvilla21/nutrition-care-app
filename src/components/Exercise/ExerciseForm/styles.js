@@ -5,4 +5,9 @@ export default theme => ({
     button: {
         margin: theme.spacing.unit,
     },
+    rightIcon: {
+      marginLeft: theme.spacing.unit,
+      opacity: 0.8
+    },
+    
 });

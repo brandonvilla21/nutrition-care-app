@@ -1,6 +1,7 @@
 import React, { Component } from 'react/';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import AddAPhoto from '@material-ui/icons/AddAPhoto';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
@@ -12,6 +13,7 @@ const initialState = {
   srcImage: '',
   bodyAreas: [],
   selectedTableElements: [],
+  selectedImage: null,
 };
 
 class ExerciseForm extends Component {
@@ -25,6 +27,24 @@ class ExerciseForm extends Component {
   handleInput = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+  };
+
+  handleImageSelectedHandler = event => {
+    this.setState({ selectedImage: event.target.files[0] });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.submitExercise( this.state )
+      .then( exercise => {
+        if ( exercise.id ) {
+          this.props.onSubmit( true );
+          this.setState({ ...initialState });
+        } else {
+          this.props.onSubmit( false );
+        }
+      })
+      .catch( err => this.props.onSubmit( false ) );
   };
 
   getBodyAreas = () => {
@@ -66,20 +86,11 @@ class ExerciseForm extends Component {
     this.setState({ selectedTableElements });
 
   }
+  
+  setFileInputRef = inputFile => this.fileInput = inputFile;
 
-  handleSubmit = event => {
-    event.preventDefault();
-    this.submitExercise( this.state )
-      .then( exercise => {
-        if ( exercise.id ) {
-          this.props.onSubmit( true );
-          this.setState({ ...initialState });
-        } else {
-          this.props.onSubmit( false );
-        }
-      })
-      .catch( err => this.props.onSubmit( false ) );
-  };
+  selectFile = () => this.fileInput.click()
+
 
   render() {
 
@@ -87,26 +98,40 @@ class ExerciseForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        
+
         <TextField
           name='name'
-          label='Nombre'
+          label='Nombre del ejercicio'
           placeholder='Ingrese el nombre del ejercicio'
           margin='normal'
-          fullWidth
           value={this.state.name}
           onChange={this.handleInput}
           type="text"
+        />
+
+        <Button 
+          variant="contained" 
+          color="default" 
+          className={classes.button}
+          onClick={this.selectFile}>
+            Selecciona una imagen
+            <AddAPhoto className={classes.rightIcon} />
+        </Button>
+
+        <input 
+          style={{ display: 'none' }}
+          ref={this.setFileInputRef}
+          type="file" 
+          onChange={this.handleImageSelectedHandler} 
+          accept="image/png, image/jpeg"
         />
 
         <SelectableTable
           elements={this.state.bodyAreas}
           selectedElements={this.state.selectedTableElements}
           mainTableHeader="SELECCIONA LAS PARTES DEL CUERPO RELACIONADAS A ESTE EJECICIO"
-          secondaryTableHeader="PARTES DE CUERPO SELECCIONADAS"
-          defaultPageSize={10}
+          defaultPageSize={5}
           noDataTextMainTable="No hay datos actualmente :("
-          noDataTextSecondaryTable="Selecciona un elemento de la otra tabla ;)"
           columns={reactTablecolumns}
           onToggleRow={this.toggleRow.bind( this )}
           enableSecondaryTable={false}
