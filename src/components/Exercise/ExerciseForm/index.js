@@ -98,8 +98,14 @@ class ExerciseForm extends Component {
   
   setFileInputRef = inputFile => this.fileInput = inputFile;
 
-  selectFile = () => this.fileInput.click()
+  selectFile = () => this.fileInput.click();
 
+  isValidExercise() {
+
+    const { selectedImage, selectedTableElements, name } = this.state;
+    return selectedImage !== null && selectedTableElements.length > 0 && name.length > 0;
+
+  }
 
   render() {
 
@@ -171,7 +177,7 @@ class ExerciseForm extends Component {
             className={classes.button}
             color="primary"
             variant="contained"
-            disabled
+            disabled={!this.isValidExercise()}
             onClick={this.handleClick}
           >
             Registrar ejercicio
