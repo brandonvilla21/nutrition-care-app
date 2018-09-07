@@ -115,7 +115,9 @@ class ExerciseForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
 
-        <div className={classes.inputContainer}>
+        <div className={classes.generalContainer}>
+
+          <div className={classes.inputContainer}>
 
           <TextField
             name='name'
@@ -137,9 +139,11 @@ class ExerciseForm extends Component {
               <AddAPhoto className={classes.rightIcon} />
           </Button>
 
-        </div>
+          </div>
 
           {image}
+
+        </div>
         
 
         <input 

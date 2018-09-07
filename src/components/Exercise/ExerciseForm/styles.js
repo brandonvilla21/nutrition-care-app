@@ -17,6 +17,16 @@ export default theme => ({
       height: 250,
       justifyContent: 'center',
     },
+    [theme.breakpoints.up( 'lg' )]: {
+      generalContainer: {
+        boxShadow: '0 10px 6px -6px #e2e0e0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginBottom: 15,
+      },
+    },
+    
     media: {
       maxWidth: '100%',
       maxHeight: '100%',
@@ -30,6 +40,7 @@ export default theme => ({
       flexWrap: 'wrap',
     },
     textFieldName: {
-      flexGrow: 3
+      flexGrow: 3,
+      minWidth: 300,
     }
 });
