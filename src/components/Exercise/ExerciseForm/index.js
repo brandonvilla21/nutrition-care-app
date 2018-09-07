@@ -10,10 +10,10 @@ import SelectableTable from '../../shared/SelectableTable';
 
 const initialState = {
   name: '',
-  srcImage: '',
   bodyAreas: [],
   selectedTableElements: [],
   selectedImage: null,
+  srcImage: null
 };
 
 class ExerciseForm extends Component {
@@ -30,7 +30,14 @@ class ExerciseForm extends Component {
   };
 
   handleImageSelectedHandler = event => {
-    this.setState({ selectedImage: event.target.files[0] });
+    
+    if ( event.target.files && event.target.files[0] ) {
+      let reader = new FileReader();
+      reader.readAsDataURL( event.target.files[0] );
+      reader.onload = ( e ) => this.setState({ srcImage: e.target.result });
+      this.setState({ selectedImage: event.target.files[0] });
+    }
+
   }
 
   handleSubmit = event => {
@@ -108,6 +115,8 @@ class ExerciseForm extends Component {
           onChange={this.handleInput}
           type="text"
         />
+
+        <img src={this.state.srcImage} alt="Exercise" />
 
         <Button 
           variant="contained" 
