@@ -2,6 +2,8 @@ import React, { Component } from 'react/';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
+import Card from '@material-ui/core/Card';
+
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
@@ -103,6 +105,13 @@ class ExerciseForm extends Component {
 
     const { classes } = this.props;
 
+    let image = null;
+
+    if( this.state.srcImage !== null )
+      image = <Card className={classes.card}>
+                <img className={classes.media} src={this.state.srcImage} alt="Exercise"/>
+              </Card>;
+
     return (
       <form onSubmit={this.handleSubmit}>
 
@@ -116,7 +125,7 @@ class ExerciseForm extends Component {
           type="text"
         />
 
-        <img src={this.state.srcImage} alt="Exercise" />
+        {image}
 
         <Button 
           variant="contained" 
