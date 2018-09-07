@@ -115,26 +115,32 @@ class ExerciseForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
 
-        <TextField
-          name='name'
-          label='Nombre del ejercicio'
-          placeholder='Ingrese el nombre del ejercicio'
-          margin='normal'
-          value={this.state.name}
-          onChange={this.handleInput}
-          type="text"
-        />
+        <div className={classes.inputContainer}>
 
-        {image}
+          <TextField
+            name='name'
+            label='Nombre del ejercicio'
+            placeholder='Ingrese el nombre del ejercicio'
+            margin='normal'
+            value={this.state.name}
+            onChange={this.handleInput}
+            type="text"
+            className={classes.textFieldName}            
+          />
 
-        <Button 
-          variant="contained" 
-          color="default" 
-          className={classes.button}
-          onClick={this.selectFile}>
-            Selecciona una imagen
-            <AddAPhoto className={classes.rightIcon} />
-        </Button>
+          <Button 
+            variant="contained" 
+            color="default" 
+            className={classes.button}
+            onClick={this.selectFile}>
+              { this.state.srcImage ? 'Cambiar imagen' : 'Selecciona una imagen'} 
+              <AddAPhoto className={classes.rightIcon} />
+          </Button>
+
+        </div>
+
+          {image}
+        
 
         <input 
           style={{ display: 'none' }}

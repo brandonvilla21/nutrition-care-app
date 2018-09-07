@@ -10,13 +10,26 @@ export default theme => ({
       opacity: 0.8
     },
     card: {
-      maxWidth: '50%',
+      marginTop: 20,
+      marginBottom: 20,
+      display: 'flex',
+      maxWidth: '100%',
       height: 250,
+      justifyContent: 'center',
     },
     media: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'contain', 
+      maxWidth: '100%',
+      maxHeight: '100%',
+      objectFit: 'contain',
+      flexGrow: 2 
     },
-
+    inputContainer: {
+      display: 'flex',
+      alignItems: 'flex-end',
+      justifyContent: 'space-around',
+      flexWrap: 'wrap',
+    },
+    textFieldName: {
+      flexGrow: 3
+    }
 });
