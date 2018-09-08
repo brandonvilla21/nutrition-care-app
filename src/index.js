@@ -9,8 +9,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 
-console.log('URL: ', process.env.REACT_APP_BASE_URL)
-
 const app = (
     <div>
         <CssBaseline />
@@ -22,5 +20,5 @@ const app = (
     </div>
 );
 
-ReactDOM.render( app, document.getElementById('root') );
+ReactDOM.render( app, document.getElementById( 'root' ) );
 registerServiceWorker();
