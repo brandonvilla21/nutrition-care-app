@@ -2,10 +2,13 @@
   "name": "nutrition-care-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://brandonvilla21.github.io/nutrition-care-app",
   "dependencies": {
     "@material-ui/core": "^1.4.0",
     "@material-ui/icons": "^1.1.0",
     "axios": "^0.18.0",
+    "express": "^4.16.3",
+    "gh-pages": "^1.2.0",
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
@@ -19,10 +22,13 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node server.js"
   },
   "devDependencies": {
     "@material-ui/codemod": "^1.1.0",
