@@ -6,6 +6,8 @@ import fieldValues from './filedValues';
 import { withStyles } from '@material-ui/core';
 import styles from './syles';
 import { createNewUser } from '../../../containers/Signin/signin.service';
+import DialogMessage from '../../DialogMessage';
+import { Redirect } from 'react-router';
 
 class SigninForm extends React.Component {
     state = {
@@ -15,8 +17,12 @@ class SigninForm extends React.Component {
             email: '',
             password: '',
             passwordConfirm: ''
-        }
+        },
+        modal: false,
+        login: false
     }
+
+    handleCloseDialog = () => this.setState({ login: true })
 
     handleChange = event => {
         const { name, value } = event.target;
@@ -31,8 +37,8 @@ class SigninForm extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         createNewUser( this.state.form )
-            .then( res => console.log(res))
-            .catch( err => console.log(err));
+            .then( res => this.setState({ modal: true }) )
+            .catch( err => err );
     }
 
     renderFileds = () => {
@@ -49,14 +55,26 @@ class SigninForm extends React.Component {
         
     render() {
         const { classes } = this.props;
+        if ( this.state.login )
+            return <Redirect to="/login" />
+
         return(
-            <form onSubmit={this.handleSubmit}>
-                {this.renderFileds()}
-                <Button type="submit" className={classes.button} variant="extendedFab">
-                    <NavigationIcon/>
-                    Registrarme
-                </Button>
-            </form>
+            <React.Fragment>
+                <DialogMessage
+                    open={this.state.modal}
+                    title="Usuario registrado"
+                    body="Se ha registrado correctamente"
+                    buttonMessage="Iniciar sesión"
+                    handleClose={this.handleCloseDialog}
+                />
+                <form onSubmit={this.handleSubmit}>
+                    {this.renderFileds()}
+                    <Button type="submit" className={classes.button} variant="extendedFab">
+                        <NavigationIcon/>
+                        Registrarme
+                    </Button>
+                </form>
+            </React.Fragment>
         );
     }
 
