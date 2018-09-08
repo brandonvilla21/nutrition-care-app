@@ -2,7 +2,6 @@
   "name": "nutrition-care-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://brandonvilla21.github.io/nutrition-care-app",
   "dependencies": {
     "@material-ui/core": "^1.4.0",
     "@material-ui/icons": "^1.1.0",
