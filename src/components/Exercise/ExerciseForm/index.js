@@ -7,8 +7,18 @@ import Card from '@material-ui/core/Card';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-import axios from '../../../axios';
+import axios, { post } from 'axios';
 import SelectableTable from '../../shared/SelectableTable';
+
+const accessToken = localStorage.getItem( 'NC_token' );
+
+const customAxiosConfig = {
+    baseURL: process.env.REACT_APP_BASE_URL,
+    headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': accessToken,
+    }
+};
 
 const initialState = {
   name: '',
@@ -37,14 +47,14 @@ class ExerciseForm extends Component {
       let reader = new FileReader();
       reader.readAsDataURL( event.target.files[0] );
       reader.onload = ( e ) => this.setState({ srcImage: e.target.result });
-      this.setState({ selectedImage: event.target.files[0] });
+      this.setState({ selectedImage: event.target.files[0]  });
     }
 
   }
 
   handleSubmit = event => {
     event.preventDefault();
-    this.submitExercise( this.state )
+    this.submitExercise()
       .then( exercise => {
         if ( exercise.id ) {
           this.props.onSubmit( true );
@@ -60,17 +70,31 @@ class ExerciseForm extends Component {
 
     const url = '/BodyAreas';
 
-    axios.get( url )
+    const customAxios = axios.create( customAxiosConfig );
+    customAxios.get( url )
       .then( response => response.data )
       .then( bodyAreas => this.setState({ bodyAreas }) )
-      .catch( err =>  {
-        throw err;
+      .catch( err =>  { console.log( 'err',err );
       });
   }
 
-  submitExercise = exercise => {
-    // return axios.post( '/Exercises', exercise )
-    //     .then( res => res.data ); 
+  submitExercise = () => {
+    console.log( 'ajalas' );
+    const url = '/Exercises/fullExerciseRegistration';
+    const formData = new FormData();
+    formData.append( 'exercise', { name: this.state.name });
+    formData.append( 'bodyAreaDetails', this.state.selectedTableElements );
+    formData.append( 'fileImage', this.state.selectedImage );
+
+    //This new instance was used instead of importing the
+    //custom axios instance, because of this issue.
+    // https://github.com/axios/axios/pull/1395
+    //This is a workaround to avoid changes on the global
+    //axios instance.
+    const customAxios = axios.create( customAxiosConfig );
+
+    return customAxios.post( url, formData )
+        .then( res => res.data ); 
   };
 
   toggleRow( original ) {
@@ -119,7 +143,7 @@ class ExerciseForm extends Component {
               </Card>;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
 
         <div className={classes.generalContainer}>
 
@@ -178,7 +202,7 @@ class ExerciseForm extends Component {
             color="primary"
             variant="contained"
             disabled={!this.isValidExercise()}
-            onClick={this.handleClick}
+            onClick={this.handleSubmit}
           >
             Registrar ejercicio
           </Button>
