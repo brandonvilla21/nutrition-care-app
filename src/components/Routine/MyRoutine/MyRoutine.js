@@ -5,19 +5,20 @@ import { styles } from './styles';
 import SelectDay from './components/SelectDay/SelectDay';
 import { connect } from 'react-redux';
 import RoutineDay from './components/RoutineDay/RoutineDay';
+import Container from '../../shared/Container/Container';
 
 const MyRoutine = ({ classes, nextIndex, prevIndex, days }) => {
     return (
         <React.Fragment>
             <SelectDay />
-            <div className={classes.daysContainer}>
+            <Container className={classes.daysContainer}>
                 {
                     days.map( ( day, index ) => 
                         day.selected && <RoutineDay day={day.name} key={index}/>
                     )
                 }
-            </div>
-            <div className={classes.buttonsContainer}>
+            </Container>
+            <Container className={classes.buttonsContainer}>
                 <Button
                     onClick={prevIndex}
                     variant="raised"
@@ -30,7 +31,7 @@ const MyRoutine = ({ classes, nextIndex, prevIndex, days }) => {
                     color="primary">
                     Siguiente
                 </Button>
-            </div>
+            </Container>
         </React.Fragment>
     );
 };
