@@ -7,7 +7,8 @@ import Card from '@material-ui/core/Card';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-import axios, { post } from 'axios';
+import axios from 'axios';
+// import globalAxios 
 import SelectableTable from '../../shared/SelectableTable';
 
 const accessToken = localStorage.getItem( 'NC_token' );
@@ -55,15 +56,18 @@ class ExerciseForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.submitExercise()
-      .then( exercise => {
-        if ( exercise.id ) {
+      .then( ({ exerciseId }) => {
+        if ( exerciseId ) {
           this.props.onSubmit( true );
           this.setState({ ...initialState });
         } else {
           this.props.onSubmit( false );
         }
       })
-      .catch( err => this.props.onSubmit( false ) );
+      .catch( err => {
+        console.log( 'err: ', err );
+        this.props.onSubmit( false );
+      });
   };
 
   getBodyAreas = () => {
@@ -79,11 +83,11 @@ class ExerciseForm extends Component {
   }
 
   submitExercise = () => {
-    console.log( 'ajalas' );
+
     const url = '/Exercises/fullExerciseRegistration';
     const formData = new FormData();
-    formData.append( 'exercise', { name: this.state.name });
-    formData.append( 'bodyAreaDetails', this.state.selectedTableElements );
+    formData.append( 'exercise', JSON.stringify({ name: this.state.name }) );
+    formData.append( 'bodyAreaDetails', JSON.stringify( this.state.selectedTableElements ) );
     formData.append( 'fileImage', this.state.selectedImage );
 
     //This new instance was used instead of importing the
@@ -181,7 +185,7 @@ class ExerciseForm extends Component {
           ref={this.setFileInputRef}
           type="file" 
           onChange={this.handleImageSelectedHandler} 
-          accept="image/png, image/jpeg"
+          accept="image/png, image/jpeg, image/jpg, image/gif"
         />
 
         <SelectableTable
