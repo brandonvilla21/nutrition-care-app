@@ -35,11 +35,27 @@ class ExerciseForm extends Component {
     this.getBodyAreas();
   }
 
+
+  /**
+   * 
+   * Generic method to handle the input events, mainly the
+   * text input events.
+   * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+   * @param event - Native input text event
+   */
   handleInput = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
 
+
+  /**
+   * 
+   * Handle the image file manipulation for the file input.
+   * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+   * @param event - Native input file event to get the selected
+   * image file.
+   */
   handleImageSelectedHandler = event => {
     
     if ( event.target.files && event.target.files[0] ) {
@@ -51,6 +67,16 @@ class ExerciseForm extends Component {
 
   }
 
+  
+  /**
+   * 
+   * Handle the registration for the exercise while emitting to the
+   * parent component if the submission was correct or not, in order
+   * to show the proper modal
+   * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+   * @param event - Native input file event to get the selected
+   * image file.
+   */
   handleSubmit = event => {
     event.preventDefault();
     this.submitExercise()
@@ -68,6 +94,12 @@ class ExerciseForm extends Component {
       });
   };
 
+
+  /**
+   * 
+   * Get the current body areas on the API.
+   * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+   */
   getBodyAreas = () => {
 
     const url = '/BodyAreas';
@@ -75,10 +107,19 @@ class ExerciseForm extends Component {
     axios.get( url )
       .then( response => response.data )
       .then( bodyAreas => this.setState({ bodyAreas }) )
-      .catch( err =>  { console.log( 'err',err );
-      });
+      .catch( err =>  { throw err });
+
   }
 
+
+  /**
+   * 
+   * Make the needed http post request to send the current
+   * exercise to the API with the 'multipart/form-data' header.
+   * It is required to set that header in order to send a file
+   * in this manner.
+   * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+   */
   submitExercise = () => {
 
     const accessToken = localStorage.getItem( 'NC_token' );
@@ -106,6 +147,15 @@ class ExerciseForm extends Component {
         .then( res => res.data ); 
   };
 
+
+  /**
+   * 
+   * Handle the toggling for the selectable table that contains
+   * the body areas.
+   * @param original - The last selected item that was selected on the
+   * selectable table.
+   * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+   */
   toggleRow( original ) {
       
     let selectedTableElements = [
@@ -129,10 +179,33 @@ class ExerciseForm extends Component {
 
   }
   
+  
+  /**
+   * 
+   * Set a reference for the input file element on the 
+   * render method in order to be able to trigger a file selection
+   * on the input file from another button.
+   * @param inputFile the native reference for the input file.
+   * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+   */
   setFileInputRef = inputFile => this.fileInput = inputFile;
 
+  
+  /**
+   * 
+   * Triggers a selection for the file input reference.
+   * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+   */
   selectFile = () => this.fileInput.click();
 
+
+  /**
+   * 
+   * Make simple validation to check if the user has filled and
+   * selected all the proper data to create a new exercise
+   * record.
+   * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+   */
   isValidExercise() {
 
     const { selectedImage, selectedTableElements, name } = this.state;
