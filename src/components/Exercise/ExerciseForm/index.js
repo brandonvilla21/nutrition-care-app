@@ -7,17 +7,15 @@ import Card from '@material-ui/core/Card';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-import axios from 'axios';
-// import globalAxios 
+import originalAxios from 'axios';
+import axios from '../../../axios';
 import SelectableTable from '../../shared/SelectableTable';
 
-const accessToken = localStorage.getItem( 'NC_token' );
 
 const customAxiosConfig = {
     baseURL: process.env.REACT_APP_BASE_URL,
     headers: {
         'Content-Type': 'multipart/form-data',
-        'Authorization': accessToken,
     }
 };
 
@@ -74,8 +72,7 @@ class ExerciseForm extends Component {
 
     const url = '/BodyAreas';
 
-    const customAxios = axios.create( customAxiosConfig );
-    customAxios.get( url )
+    axios.get( url )
       .then( response => response.data )
       .then( bodyAreas => this.setState({ bodyAreas }) )
       .catch( err =>  { console.log( 'err',err );
@@ -83,6 +80,8 @@ class ExerciseForm extends Component {
   }
 
   submitExercise = () => {
+
+    const accessToken = localStorage.getItem( 'NC_token' );
 
     const url = '/Exercises/fullExerciseRegistration';
     const formData = new FormData();
@@ -95,7 +94,13 @@ class ExerciseForm extends Component {
     // https://github.com/axios/axios/pull/1395
     //This is a workaround to avoid changes on the global
     //axios instance.
-    const customAxios = axios.create( customAxiosConfig );
+    const customAxios = originalAxios.create({
+      ...customAxiosConfig,
+      headers: {
+        ...customAxiosConfig.headers,
+        Authorization: accessToken,
+      }
+    });
 
     return customAxios.post( url, formData )
         .then( res => res.data ); 
