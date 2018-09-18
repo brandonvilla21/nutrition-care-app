@@ -6,38 +6,74 @@ import SelectDay from './components/SelectDay/SelectDay';
 import { connect } from 'react-redux';
 import RoutineDay from './components/RoutineDay/RoutineDay';
 import Container from '../../shared/Container/Container';
+import {
+    setDayForNewExercise
+} from '../../../containers/Routine/store/actions/actions';
+import ExerciseModal from '../ExerciseModal';
 
-const MyRoutine = ({ classes, nextIndex, prevIndex, days }) => {
-    return (
-        <React.Fragment>
-            <SelectDay />
-            <Container className={classes.daysContainer}>
-                {
-                    days.map( ( day, index ) => 
-                        day.selected && <RoutineDay day={day.name} key={index}/>
-                    )
-                }
-            </Container>
-            <Container className={classes.buttonsContainer}>
-                <Button
-                    onClick={prevIndex}
-                    variant="raised"
-                    color="secondary">
-                    Regresar
-                </Button>
-                <Button
-                    onClick={nextIndex}
-                    variant="raised"
-                    color="primary">
-                    Siguiente
-                </Button>
-            </Container>
-        </React.Fragment>
-    );
+class MyRoutine extends React.Component {
+    state = { open: false };
+
+    handleModal = day =>
+        this.setState( () => {
+            this.props.setDayForNewExercise( day );
+            return { open: true };
+        })
+    
+    // TODO: call method from props to handle further operations
+    handleSave = () => this.setState( () => ({ open: false }) )
+    handleClose = () => this.setState( () => ({ open: false }) )
+
+    render() {
+        const {
+            classes,
+            prevIndex,
+            nextIndex,
+            days,
+        } = this.props;
+
+        return (
+            <React.Fragment>
+                <ExerciseModal
+                    open={this.state.open}
+                    onSave={this.handleSave}
+                    onClose={this.handleClose}
+                />
+                <SelectDay />
+                <Container className={classes.daysContainer}>
+                    {
+                        days.map( ( day, index ) => 
+                            day.selected &&
+                            <RoutineDay key={index} day={day.name} onNewExercice={this.handleModal}/>
+                        )
+                    }
+                </Container>
+                <Container className={classes.buttonsContainer}>
+                    <Button
+                        onClick={prevIndex}
+                        variant="raised"
+                        color="secondary">
+                        Regresar
+                    </Button>
+                    <Button
+                        onClick={nextIndex}
+                        variant="raised"
+                        color="primary">
+                        Siguiente
+                    </Button>
+                </Container>
+            </React.Fragment>
+        );
+
+    }
 };
 
 const mapStateToProps = ({ routine }) => ({
     days: routine.days
+});
+
+const mapDispatchToProps = ({
+    setDayForNewExercise
 });
 
 MyRoutine.propTypes = {
@@ -45,4 +81,4 @@ MyRoutine.propTypes = {
     prevIndex: PropTypes.func,
 };
 
-export default connect( mapStateToProps )( withStyles( styles )( MyRoutine ) );
+export default connect( mapStateToProps, mapDispatchToProps )( withStyles( styles )( MyRoutine ) );
