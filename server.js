@@ -1,3 +1,6 @@
+// Express app replaces this builpack
+// https://github.com/mars/create-react-app-buildpack.git
+
 const express = require( 'express' ),
       path    = require( 'path' ),
       port    = process.env.PORT || 8080;
