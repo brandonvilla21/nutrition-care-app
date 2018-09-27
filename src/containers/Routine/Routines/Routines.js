@@ -3,10 +3,10 @@ import AddButton from '../../../components/AddButton';
 
 const Routines = () => {
     return (
-        <div>
-            <h2>This sould show all routines</h2>
+        <React.Fragment>
             <AddButton to="/dashboard/routine/create"/>
-        </div>
+            <h2>This sould show all routines</h2>
+        </React.Fragment>
     );
 };
 

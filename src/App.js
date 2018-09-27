@@ -9,6 +9,7 @@ import Signin from './containers/Signin';
 import { ADMINISTRATOR, REGULAR } from './shared/user-roles';
 import ProtectedRoute from './components/ProtectedRoute';
 import SessionRoute from './components/SessionRoute/SessionRoute';
+import { Redirect, Route } from 'react-router-dom';
 
 import 'react-table/react-table.css';
 
@@ -27,6 +28,7 @@ class App extends Component {
           <SessionRoute path="/login"
             render={() => <Login type={REGULAR} header="Inicia Sesión"/> }/>
           <SessionRoute path="/signin" component={Signin} />
+          <Route render={() => <Redirect to="/dashboard" />} />
         </Switch>
       </BrowserRouter>
       </MuiThemeProvider>

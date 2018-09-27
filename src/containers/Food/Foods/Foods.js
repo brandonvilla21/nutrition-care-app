@@ -21,7 +21,8 @@ class Foods extends Component {
         const { classes } = this.props;
         const { food } = this.state;
         return (
-            <div>
+            <React.Fragment>
+                <AddButton to="/dashboard/food/create"/>
                 <Typography className={classes.title} variant="headline">Alimentos</Typography>
                 <Divider/>
                 <Paper className={classes.root}>
@@ -52,8 +53,7 @@ class Foods extends Component {
                         </TableBody>
                     </Table>
                 </Paper>
-                <AddButton to="/dashboard/food/create"/>
-            </div>
+            </React.Fragment>
         );
     }
 }
