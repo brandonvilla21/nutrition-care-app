@@ -25,7 +25,8 @@ class BodyAreas extends React.Component {
         const { classes } = this.props;
         const { bodyAreas } = this.state;
         return (
-            <div>
+            <React.Fragment>
+                <AddButton to="/dashboard/body-area/create"/>
                 <Typography className={classes.title} variant="headline">Áreas del cuerpo</Typography>
                 <Divider/>
                 <Paper className={classes.root}>
@@ -48,8 +49,7 @@ class BodyAreas extends React.Component {
                         </TableBody>
                     </Table>
                 </Paper>
-                <AddButton to="/dashboard/body-area/create"/>
-            </div>
+            </React.Fragment>
         );
     }
 }

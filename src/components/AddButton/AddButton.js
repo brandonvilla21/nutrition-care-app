@@ -12,5 +12,4 @@ const AddButton = ({ to, classes }) => {
     );
 }
 
-
-export default withStyles(styles)(AddButton);
+export default withStyles( styles )( AddButton );

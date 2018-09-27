@@ -20,5 +20,5 @@ const app = (
     </div>
 );
 
-ReactDOM.render( app, document.getElementById('root') );
+ReactDOM.render( app, document.getElementById( 'root' ) );
 registerServiceWorker();
