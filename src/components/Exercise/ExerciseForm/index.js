@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
 import Card from '@material-ui/core/Card';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -11,6 +12,7 @@ import styles from './styles';
 import originalAxios from 'axios';
 import axios from '../../../axios';
 import SelectableTable from '../../shared/SelectableTable';
+import SnackbarContentWrapper from '../../shared/SnackbarContentWrapper';
 
 
 const customAxiosConfig = {
@@ -27,6 +29,7 @@ const initialState = {
   selectedImage: null,
   srcImage: null,
   submitting: false,
+  isImageToLarge: false,
 };
 
 class ExerciseForm extends Component {
@@ -59,12 +62,20 @@ class ExerciseForm extends Component {
    * image file.
    */
   handleImageSelectedHandler = event => {
+
     
     if ( event.target.files && event.target.files[0] ) {
+
       let reader = new FileReader();
       reader.readAsDataURL( event.target.files[0] );
       reader.onload = ( e ) => this.setState({ srcImage: e.target.result });
       this.setState({ selectedImage: event.target.files[0]  });
+
+      if ( !this.isValidSizeImage( event.target.files[0].size ) )
+        this.setState({ isImageToLarge: true });
+      else 
+        this.setState({ isImageToLarge: false });
+
     }
 
   }
@@ -172,7 +183,7 @@ class ExerciseForm extends Component {
     let selectedTableElements = [
       ...this.state.selectedTableElements
     ];
-    const elementIndex = selectedTableElements.findIndex( element => element.id == original.id );
+    const elementIndex = selectedTableElements.findIndex( element => element.id === original.id );
     // check to see if the key exists
     if ( elementIndex >= 0 ) {
       // it does exist so we will remove it using destructing
@@ -219,9 +230,17 @@ class ExerciseForm extends Component {
    */
   isValidExercise() {
 
-    const { selectedImage, selectedTableElements, name } = this.state;
-    return selectedImage !== null && selectedTableElements.length > 0 && name.length > 0;
+    const { selectedImage, selectedTableElements, name, isImageToLarge } = this.state;
+    return selectedImage !== null && 
+           isImageToLarge === false &&
+           selectedTableElements.length > 0 && 
+           name.length > 0;
 
+  }
+
+  isValidSizeImage( imageFileSize ) {
+    const maxMBs = 1;
+    return imageFileSize <= maxMBs * 1024 * 1024;
   }
 
   render() {
@@ -302,6 +321,15 @@ class ExerciseForm extends Component {
         </div>
 
       {this.state.submitting ? <LinearProgress variant="query" />: null}
+      <Snackbar
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
+      open={this.state.isImageToLarge}
+    >
+      <SnackbarContentWrapper
+        variant="error"
+        noActions
+        message="La imagen que seleccionaste sobrepasa el límite de 1MB. Por favor selecciona una imagen más ligera."
+      /></Snackbar>
 
       </form>
     );
