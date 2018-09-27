@@ -8,3 +8,6 @@ export const SUBMIT_ROUTINE = 'SUBMIT_ROUTINE';
 export const CLOSE = 'CLOSE';
 export const GO_ROUTINES = 'GO_ROUTINES';
 export const SELECT_DAY = 'SELECT_DAY';
+export const SET_DAY_FOR_NEW_EXERCISE = 'SET_DAY_FOR_NEW_EXERCISE';
+export const LOAD_BODY_AREAS = 'LOAD_BODY_AREAS';
+export const ERROR_LOAD_BODY_AREAS = 'ERROR_LOAD_BODY_AREAS';

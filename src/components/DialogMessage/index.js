@@ -11,7 +11,7 @@ const Transition = props => {
     return <Slide direction="up" {...props} />;
 };
 
-const DialogMessage = ({ open, title, body, handleClose }) => {
+const DialogMessage = ({ open, title, body, buttonMessage, handleClose }) => {
     return (
         <Dialog
             open={open}
@@ -31,7 +31,7 @@ const DialogMessage = ({ open, title, body, handleClose }) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Aceptar
+              { buttonMessage || 'Aceptar'}
             </Button>
           </DialogActions>
         </Dialog>

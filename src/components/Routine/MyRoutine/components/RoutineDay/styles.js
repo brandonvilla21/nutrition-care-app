@@ -8,7 +8,15 @@ export const styles = theme => ({
     },
     expansionPanelDetails: {
       display: 'flex',
+      flexDirection: 'column'
+    },
+    expansionPanelDetailsC: {
+      display: 'flex',
       flexWrap: 'wrap',
-      justifyContent: 'space-around'
+      justifyContent: 'space-around',
+    },
+    button: {
+      marginLeft: 'auto',
+      marginRight: 0
     }
 });
