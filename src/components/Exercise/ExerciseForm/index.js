@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
 import Card from '@material-ui/core/Card';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -24,7 +25,8 @@ const initialState = {
   bodyAreas: [],
   selectedTableElements: [],
   selectedImage: null,
-  srcImage: null
+  srcImage: null,
+  submitting: false,
 };
 
 class ExerciseForm extends Component {
@@ -81,6 +83,9 @@ class ExerciseForm extends Component {
     event.preventDefault();
     this.submitExercise()
       .then( ({ exerciseId }) => {
+
+        this.setState({ submitting: false });
+
         if ( exerciseId ) {
           this.props.onSubmit({ submitted: true, err: false });
         } else {
@@ -93,6 +98,7 @@ class ExerciseForm extends Component {
           err: true, 
           errorMessage: err.response.data.error.message
         });
+        this.setState({ submitting: false });
         throw err.response.data;
       });
   };
@@ -124,6 +130,8 @@ class ExerciseForm extends Component {
    * @author Marcos Barrera del Río <elyomarcos@gmail.com>
    */
   submitExercise = () => {
+
+    this.setState({ submitting: true });
 
     const accessToken = localStorage.getItem( 'NC_token' );
 
@@ -292,6 +300,9 @@ class ExerciseForm extends Component {
             Registrar ejercicio
           </Button>
         </div>
+
+      {this.state.submitting ? <LinearProgress variant="query" />: null}
+
       </form>
     );
   }
