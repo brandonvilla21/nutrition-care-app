@@ -82,15 +82,18 @@ class ExerciseForm extends Component {
     this.submitExercise()
       .then( ({ exerciseId }) => {
         if ( exerciseId ) {
-          this.props.onSubmit( true );
-          this.setState({ ...initialState });
+          this.props.onSubmit({ submitted: true, err: false });
         } else {
-          this.props.onSubmit( false );
+          this.props.onSubmit({ submitted: true, err: true });
         }
       })
       .catch( err => {
-        console.log( 'err: ', err );
-        this.props.onSubmit( false );
+        this.props.onSubmit({ 
+          submitted: false, 
+          err: true, 
+          errorMessage: err.response.data.error.message
+        });
+        throw err.response.data;
       });
   };
 
@@ -107,7 +110,7 @@ class ExerciseForm extends Component {
     axios.get( url )
       .then( response => response.data )
       .then( bodyAreas => this.setState({ bodyAreas }) )
-      .catch( err =>  { throw err });
+      .catch( err =>  { throw err; });
 
   }
 

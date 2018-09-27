@@ -99,9 +99,8 @@ class DietForm extends Component {
           this.props.onSubmitted({ 
             submitted: false, 
             err: true, 
-            errorMessage: err.response.data.error.message
+            errorMessage: err.response,
           });
-          throw err.response.data;
         });
     }
 
