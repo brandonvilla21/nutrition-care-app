@@ -18,11 +18,13 @@ import {
     fetchBodyAreas,
     fetchExerciesFromBodyArea
 } from '../../../containers/Routine/store/actions/actions';
+
 const Transition = props => <Slide direction="up" {...props} />;
 
 class ExerciseModal extends React.Component {
     state = {
-        bodyAreaSelectedId: -1
+        bodyAreaSelectedId: -1,
+        exercisesSelected: []
     }
     // TODO this component is being mounted in a not desired moment
     // so the fetch occours before expected
@@ -30,10 +32,25 @@ class ExerciseModal extends React.Component {
         this.props.fetchBodyAreas();
     }
     handleBodyAreaChange = event => {
-        this.setState( prevState => {
+        this.setState( () => {
             const bodyAreaSelectedId = event.target.value;
             this.props.fetchExerciesFromBodyArea( bodyAreaSelectedId );
             return { bodyAreaSelectedId };
+        });
+    }
+    handleSelectExercise = exercise => {
+        this.setState( ({ exercisesSelected }) => {
+            const index = exercisesSelected.findIndex( e  => e.id === exercise.id );
+            // Exercise is not part of the list, will be added
+            if ( index === -1 )
+                return { exercisesSelected: [ ...exercisesSelected, exercise ] };
+            // Exercise is already part of the list, will be removed
+            return {
+                exercisesSelected: [
+                    ...exercisesSelected.slice( 0, index ),
+                    ...exercisesSelected.slice( index + 1 )
+                ]
+            };
         });
     }
     render() {
@@ -59,9 +76,13 @@ class ExerciseModal extends React.Component {
                   <Typography variant="title" color="inherit" className={classes.flex}>
                     Ejercicio para el {day}
                   </Typography>
-                  <Button color="inherit" onClick={onSave}>
-                    Guardar
-                  </Button>
+                  {
+                    // Display button if there are exercises selected  
+                    this.state.exercisesSelected.length > 0 &&
+                    <Button color="inherit" onClick={onSave}>
+                        Guardar
+                    </Button>
+                  }
                 </Toolbar>
             </AppBar>
             <Container className={classes.container}>
@@ -72,6 +93,10 @@ class ExerciseModal extends React.Component {
                     bodyAreas={this.props.bodyAreas}
                     bodyAreaSelectedId={this.state.bodyAreaSelectedId}
                     onChangeBodyArea={this.handleBodyAreaChange}
+                    exercises={this.props.exercises}
+                    exerciseSelected={this.state.exercisesSelected}
+                    onSelectExercise={this.handleSelectExercise}
+                    onSubmitExercise={onSave}
                 />
             </Container>
           </Dialog>
