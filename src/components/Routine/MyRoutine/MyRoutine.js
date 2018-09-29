@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import RoutineDay from './components/RoutineDay/RoutineDay';
 import Container from '../../shared/Container/Container';
 import {
-    setDayForNewExercise
+    setDayForNewExercise,
+    addExercises
 } from '../../../containers/Routine/store/actions/actions';
 import ExerciseModal from '../ExerciseModal';
 
@@ -21,7 +22,10 @@ class MyRoutine extends React.Component {
         })
     
     // TODO: call method from props to handle further operations
-    handleSave = () => this.setState( () => ({ open: false }) )
+    handleSave = exercises => {
+        this.props.addExercises( exercises );
+        this.setState( () => ({ open: false }) );
+    }
     handleClose = () => this.setState( () => ({ open: false }) )
 
     render() {
@@ -73,7 +77,8 @@ const mapStateToProps = ({ routine }) => ({
 });
 
 const mapDispatchToProps = ({
-    setDayForNewExercise
+    setDayForNewExercise,
+    addExercises
 });
 
 MyRoutine.propTypes = {

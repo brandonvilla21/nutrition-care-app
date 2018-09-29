@@ -5,7 +5,7 @@ export const removeDay = ( state, action ) => {
     const { day } = action;
     const newDays = days.filter( element => element.id !== day.id );
     
-    const newState = updateObject( state, { days: [...newDays] } );
+    const newState = updateObject( state, { days: [...newDays] });
     return removeExercisesFromDay( newState, day );
 };
 
@@ -20,6 +20,62 @@ export const selectDay = ( state, action ) => {
     return { ...state, days: updatedDays };
 };
 
+export const addExercisesToStore = ( state, action ) => {
+    // Verify if the RoutineDay already exists in the routine list
+    const routineDay = dayExistsInRoutine( state.routine, state.dayForNewExercise );
+    // That routineDay exists so it will only be added the new exercises to it
+    if ( routineDay ) {
+        const nextRoutineDay = {
+            ...routineDay, // Rest of props irrelevant for this operation
+            exercises: [
+                ...routineDay.exercises, // Prev exercises
+                ...action.payload // New exercises
+            ]
+        };
+        const nextRoutine = updateRoutineDay( state.routine, nextRoutineDay );
+        return { ...state, routine: nextRoutine };
+    } else { // Create a new object for the new day in routine
+        // New object (RoutineDay) to store in routine list
+        const newRoutineDay = {
+            day: state.dayForNewExercise,
+            exercises: [
+                ...action.payload
+            ]
+        };
+        // Add new object to routine list
+        const routine = [ ...state.routine, newRoutineDay ];
+        return { ...state, routine };
+    }
+};
+
+/**
+ * If the seeked day exists, it will return the day object
+ * If not, it will return udndefined
+ * @param {array} routine the entire routine array
+ * @param {string} day string to look for in the array
+ */
+function dayExistsInRoutine( routine, day ) {
+    if ( routine.length > 0 ) {
+        return routine.find( e => e.day === day );
+    }
+    return undefined;
+}
+
+/**
+ * This will update the RoutineDay passed as second argument in the routine list
+ * @param {array} routine routine list
+ * @param {object} nextRoutineDay Routine Day object (object type from routine list)
+ */
+function updateRoutineDay( routine, nextRoutineDay ) {
+    // Find the id by the day name
+    const index = routine.findIndex( e => e.day === nextRoutineDay.day );
+    // Next routine list
+    return [
+        ...routine.slice( 0, index ),
+        nextRoutineDay,
+        ...routine.slice( index + 1 )
+    ];
+}
 
 function removeExercisesFromDay( state, day ) {
     if( day.exercises )

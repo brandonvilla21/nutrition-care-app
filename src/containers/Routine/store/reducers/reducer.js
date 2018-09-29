@@ -6,10 +6,12 @@ import {
     ERROR_LOAD_BODY_AREAS,
     CHANGE_INPUT_VALUE,
     LOAD_EXERCISES,
-    ERROR_LOADING_EXERCISES
+    ERROR_LOADING_EXERCISES,
+    ADD_EXERCISES
 } from '../actions/actionTypes';
 import {
-    selectDay
+    selectDay,
+    addExercisesToStore
 } from './reducerOperations';
 
 const initialState = {
@@ -26,6 +28,22 @@ const initialState = {
     ],
     bodyAreas: [],
     exercises: [],
+    routine: [
+        // Routine Day Object
+        // {
+        //     day: 'Lunes',
+        //     exercises: [
+        //         {
+        //             exercise: { ...exerciseObj },
+        //             series: 10,
+        //             reps: 30,
+        //             description: 'lorem ipsum'
+        //         },
+        //         ...
+        //     ]
+        // }
+        // ...
+    ],
     error: '',
 };
 
@@ -47,6 +65,8 @@ const reducer = ( state = initialState, action ) => {
             return { ...state, exercises: action.payload };
         case ERROR_LOADING_EXERCISES:
             return { ...state , error: action.payload };
+        case ADD_EXERCISES:
+            return addExercisesToStore( state, action );
         default:
             return state;
     }

@@ -35,7 +35,7 @@ class ExerciseModal extends React.Component {
         this.setState( () => {
             const bodyAreaSelectedId = event.target.value;
             this.props.fetchExerciesFromBodyArea( bodyAreaSelectedId );
-            return { bodyAreaSelectedId };
+            return { bodyAreaSelectedId, exercisesSelected: [] };
         });
     }
     handleSelectExercise = exercise => {
@@ -53,12 +53,14 @@ class ExerciseModal extends React.Component {
             };
         });
     }
+    handleSave = () => {
+        this.props.onSave( this.state.exercisesSelected )
+    }
     render() {
         const {
             day,
             classes,
             open,
-            onSave,
             onClose
         } = this.props;
         return (
@@ -79,7 +81,7 @@ class ExerciseModal extends React.Component {
                   {
                     // Display button if there are exercises selected  
                     this.state.exercisesSelected.length > 0 &&
-                    <Button color="inherit" onClick={onSave}>
+                    <Button color="inherit" onClick={this.handleSave}>
                         Guardar
                     </Button>
                   }
@@ -96,7 +98,7 @@ class ExerciseModal extends React.Component {
                     exercises={this.props.exercises}
                     exerciseSelected={this.state.exercisesSelected}
                     onSelectExercise={this.handleSelectExercise}
-                    onSubmitExercise={onSave}
+                    onSubmitExercise={this.handleSave}
                 />
             </Container>
           </Dialog>
