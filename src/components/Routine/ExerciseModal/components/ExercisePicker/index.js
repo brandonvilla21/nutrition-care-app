@@ -1,26 +1,38 @@
 import React from 'react';
-import { Typography, withStyles } from '@material-ui/core';
+import { Typography, withStyles, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
 import Container from '../../../../shared/Container';
 import styles from './styles';
 
-const ExercisePicker = ({ classes }) => {
+const ExercisePicker = ({ classes, bodyAreaSelectedId, bodyAreas, onChangeBodyArea }) => {
+    const renderBodyAreas = () =>
+        bodyAreas.map( bodyArea =>
+            <MenuItem
+                key={bodyArea.id}
+                value={bodyArea.id}
+            >
+                {bodyArea.description}
+            </MenuItem>
+        );
+
     return (
         <Container className={classes.container}>
             <Typography variant="subheading" color="inherit">
                 Selecciona un área de cuerpo que desees trabajar
             </Typography>
-            {/* <Select
-                value={this.state.age}
-                onChange={this.handleChange}
-                inputProps={{
-                    name: 'age',
-                    id: 'age-simple',
-                }}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select> */}
+            <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="body-area">Área del cuerpo</InputLabel>
+                <Select
+                    value={bodyAreaSelectedId}
+                    onChange={onChangeBodyArea}
+                    displayEmpty
+                    inputProps={{
+                        name: 'bodyAreaSelectedId',
+                        id: 'body-area',
+                    }}
+                >
+                    {renderBodyAreas()}
+                </Select>
+            </FormControl>
         </Container >
     );
 };

@@ -3,7 +3,8 @@ import {
     SELECT_DAY,
     SET_DAY_FOR_NEW_EXERCISE,
     LOAD_BODY_AREAS,
-    ERROR_LOAD_BODY_AREAS
+    ERROR_LOAD_BODY_AREAS,
+    CHANGE_INPUT_VALUE
 } from './actionTypes';
 import { getBodyAreas } from '../../../BodyArea/body-area.service';
 
@@ -20,6 +21,11 @@ export const selectDay = event => ({
 export const setDayForNewExercise = day => ({
     type: SET_DAY_FOR_NEW_EXERCISE,
     payload: day
+});
+
+export const handleInputChange = event => ({
+    type: CHANGE_INPUT_VALUE,
+    payload: { name: event.target.name, value: event.target.value }
 });
 
 export const fetchBodyAreas = () => dispatch =>

@@ -15,7 +15,8 @@ import Container from '../../shared/Container';
 import { connect } from 'react-redux';
 import ExercisePicker from './components/ExercisePicker';
 import {
-    fetchBodyAreas
+    fetchBodyAreas,
+    handleInputChange
 } from '../../../containers/Routine/store/actions/actions';
 const Transition = props => <Slide direction="up" {...props} />;
 
@@ -58,7 +59,11 @@ class ExerciseModal extends React.Component {
                 <Typography variant="title" color="inherit" className={classes.flex}>
                     Selecciona un ejercicio
                 </Typography>
-                <ExercisePicker />
+                <ExercisePicker
+                    bodyAreas={this.props.bodyAreas}
+                    bodyAreaSelectedId={this.props.bodyAreaSelectedId}
+                    onChangeBodyArea={this.props.handleInputChange}
+                />
             </Container>
           </Dialog>
         );
@@ -66,11 +71,14 @@ class ExerciseModal extends React.Component {
 }
 
 const mapStateToProps = ({ routine }) => ({
-    day: routine.dayForNewExercise
+    day: routine.dayForNewExercise,
+    bodyAreas: routine.bodyAreas,
+    bodyAreaSelectedId: routine.bodyAreaSelectedId,
 });
 
 const mapDispatchToProps = ({
-    fetchBodyAreas
+    fetchBodyAreas,
+    handleInputChange
 });
 
 export default connect( mapStateToProps, mapDispatchToProps )( withStyles( styles )( ExerciseModal ) );
