@@ -16,9 +16,19 @@ const submitBodyArea = bodyArea => {
     });
 };
 
+const getBodyAreasWithExercies = bodyAreaId =>
+    axios.get( `/BodyAreas/${bodyAreaId}`, {
+        params: {
+            filter: {
+                include: ['exercises']
+            }
+        }
+    });
+
 const handleResponse = res => res.data ? res.data : {};
 
 export {
     getBodyAreas,
-    submitBodyArea
+    submitBodyArea,
+    getBodyAreasWithExercies
 };

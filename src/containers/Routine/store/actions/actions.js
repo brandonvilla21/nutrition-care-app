@@ -4,9 +4,11 @@ import {
     SET_DAY_FOR_NEW_EXERCISE,
     LOAD_BODY_AREAS,
     ERROR_LOAD_BODY_AREAS,
-    CHANGE_INPUT_VALUE
+    CHANGE_INPUT_VALUE,
+    LOAD_EXERCISES,
+    ERROR_LOADING_EXERCISES
 } from './actionTypes';
-import { getBodyAreas } from '../../../BodyArea/body-area.service';
+import { getBodyAreas, getBodyAreasWithExercies } from '../../../BodyArea/body-area.service';
 
 export const addDescription = event => ({
     type: ADD_DESCRIPTION,
@@ -34,3 +36,10 @@ export const fetchBodyAreas = () => dispatch =>
             dispatch({ type: LOAD_BODY_AREAS, payload }) )
         .catch( err =>
             dispatch({ type: ERROR_LOAD_BODY_AREAS, payload: err }) );
+
+export const fetchExerciesFromBodyArea = bodyAreaId => dispatch =>
+    getBodyAreasWithExercies( bodyAreaId )
+        .then( res =>
+            dispatch({ type: LOAD_EXERCISES, payload: res.data.exercises }) )
+        .catch( err =>
+            dispatch({ type: ERROR_LOADING_EXERCISES, payload: err }) );

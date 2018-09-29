@@ -16,17 +16,26 @@ import { connect } from 'react-redux';
 import ExercisePicker from './components/ExercisePicker';
 import {
     fetchBodyAreas,
-    handleInputChange
+    fetchExerciesFromBodyArea
 } from '../../../containers/Routine/store/actions/actions';
 const Transition = props => <Slide direction="up" {...props} />;
 
 class ExerciseModal extends React.Component {
+    state = {
+        bodyAreaSelectedId: -1
+    }
     // TODO this component is being mounted in a not desired moment
     // so the fetch occours before expected
     componentDidMount() {
         this.props.fetchBodyAreas();
     }
-    
+    handleBodyAreaChange = event => {
+        this.setState( prevState => {
+            const bodyAreaSelectedId = event.target.value;
+            this.props.fetchExerciesFromBodyArea( bodyAreaSelectedId );
+            return { bodyAreaSelectedId };
+        });
+    }
     render() {
         const {
             day,
@@ -61,8 +70,8 @@ class ExerciseModal extends React.Component {
                 </Typography>
                 <ExercisePicker
                     bodyAreas={this.props.bodyAreas}
-                    bodyAreaSelectedId={this.props.bodyAreaSelectedId}
-                    onChangeBodyArea={this.props.handleInputChange}
+                    bodyAreaSelectedId={this.state.bodyAreaSelectedId}
+                    onChangeBodyArea={this.handleBodyAreaChange}
                 />
             </Container>
           </Dialog>
@@ -74,11 +83,12 @@ const mapStateToProps = ({ routine }) => ({
     day: routine.dayForNewExercise,
     bodyAreas: routine.bodyAreas,
     bodyAreaSelectedId: routine.bodyAreaSelectedId,
+    exercises: routine.exercises,
 });
 
 const mapDispatchToProps = ({
     fetchBodyAreas,
-    handleInputChange
+    fetchExerciesFromBodyArea
 });
 
 export default connect( mapStateToProps, mapDispatchToProps )( withStyles( styles )( ExerciseModal ) );

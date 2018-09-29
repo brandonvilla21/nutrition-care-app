@@ -4,7 +4,9 @@ import {
     SET_DAY_FOR_NEW_EXERCISE,
     LOAD_BODY_AREAS,
     ERROR_LOAD_BODY_AREAS,
-    CHANGE_INPUT_VALUE
+    CHANGE_INPUT_VALUE,
+    LOAD_EXERCISES,
+    ERROR_LOADING_EXERCISES
 } from '../actions/actionTypes';
 import {
     selectDay
@@ -23,7 +25,7 @@ const initialState = {
         { id: 6, name: 'Domingo', selected: false },
     ],
     bodyAreas: [],
-    bodyAreaSelectedId: -1,
+    exercises: [],
     error: '',
 };
 
@@ -41,6 +43,10 @@ const reducer = ( state = initialState, action ) => {
             return { ...state, error: action.payload };
         case CHANGE_INPUT_VALUE:
             return { ...state, [action.payload.name]: action.payload.value };
+        case LOAD_EXERCISES:
+            return { ...state, exercises: action.payload };
+        case ERROR_LOADING_EXERCISES:
+            return { ...state , error: action.payload };
         default:
             return state;
     }
