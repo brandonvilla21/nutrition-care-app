@@ -15,6 +15,12 @@ import ExerciseCard from '../ExerciseCard/ExerciseCard';
 
 const RoutineDay = ({ classes, day, routine, onNewExercice }) => {
     const handleClick = () => onNewExercice( day );
+    const handleEditExercise = exerciseId => {
+        // TODO
+        // Find the exercise in routine by its id and display ExerciseDialog component
+        console.log('ID', exerciseId)
+    };
+
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -23,14 +29,11 @@ const RoutineDay = ({ classes, day, routine, onNewExercice }) => {
             <ExpansionPanelDetails className={classes.expansionPanelDetails}>
                 <Container className={classes.expansionPanelDetailsC}>
                     {
-                        routine.exercises.map( ( elment, index )=>
+                        routine.exercises.map( ( exercise  )=>
                             <ExerciseCard
-                                key={index}
-                                image={elment.exercise.imageName}
-                                description={elment.description}
-                                series={elment.series}
-                                reps={elment.reps}
-                                onEditExercise={this.handleEditExercise}
+                                key={exercise.id}
+                                exercise={exercise}
+                                onEditExercise={handleEditExercise}
                             />
                         )
                     }

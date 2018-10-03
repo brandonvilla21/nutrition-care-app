@@ -25,7 +25,7 @@ export const addExercisesToStore = ( state, action ) => {
     // Get the day object from routine object
     const routineDay = routine[dayForNewExercise];
     // Map new exercises to be added into the next list
-    const mapNextExercises = action.payload.map( e => ({ exercise: { ...e }, series: '', reps: '', description: '' }) );
+    const mapNextExercises = action.payload.map( e => ({ ...e, series: '', reps: '', description: '' }) );
     // Create the nextRoutineDay with the new exercises
     const nextRoutineDay = {
         ...routineDay,
