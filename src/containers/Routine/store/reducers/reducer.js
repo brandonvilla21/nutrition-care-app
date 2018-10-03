@@ -28,22 +28,45 @@ const initialState = {
     ],
     bodyAreas: [],
     exercises: [],
-    routine: [
+    routine: {
+        'Lunes': {
+            exercises: [
+                // { How objects should look like
+                //     exercise: { ...exerciseObj },
+                //     series: 10,
+                //     reps: 30,
+                //     description: 'lorem ipsum'
+                // },
+                // ...
+            ]
+        },
+        'Martes': {
+            exercises: []
+        },
+        'Miércoles': {
+            exercises: []
+        },
+        'Jueves': {
+            exercises: []
+        },
+        'Viernes': {
+            exercises: []
+        },
+        'Sábado': {
+            exercises: []
+        },
+        'Domingo': {
+            exercises: []
+        },
         // Routine Day Object
         // {
         //     day: 'Lunes',
         //     exercises: [
-        //         {
-        //             exercise: { ...exerciseObj },
-        //             series: 10,
-        //             reps: 30,
-        //             description: 'lorem ipsum'
-        //         },
-        //         ...
+        //         
         //     ]
         // }
         // ...
-    ],
+    },
     error: '',
 };
 

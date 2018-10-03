@@ -54,7 +54,7 @@ class ExerciseModal extends React.Component {
         });
     }
     handleSave = () => {
-        this.props.onSave( this.state.exercisesSelected )
+        this.props.onSave( this.state.exercisesSelected );
     }
     render() {
         const {

@@ -25,10 +25,10 @@ class ExerciseCard extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, description, series, reps } = this.props;
         const { open } = this.state;
         return (
-            <div>
+            <div className={classes.exerciseDialogContainer}>
                 <ExerciseDialog title="Press militar de hombro" open={open} handleClose={this.handleClose}/>
                 <Card className={classes.card}>
                     <CardHeader
@@ -46,15 +46,15 @@ class ExerciseCard extends Component {
                     />
                     <CardContent className={classes.cardContent}>
                         <ExerciseInfo
-                            description="my desc"
-                            series={5}
-                            reps={20}
+                            description={description}
+                            series={series}
+                            reps={reps}
                         />
                     </CardContent>
                 </Card>
             </div>
         );
     }
-};
+}
 
-export default withStyles(styles, { withTheme: true})(ExerciseCard);
+export default withStyles( styles, { withTheme: true })( ExerciseCard );

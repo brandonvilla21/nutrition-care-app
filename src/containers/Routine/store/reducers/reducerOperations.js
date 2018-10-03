@@ -21,6 +21,28 @@ export const selectDay = ( state, action ) => {
 };
 
 export const addExercisesToStore = ( state, action ) => {
+    const { routine, dayForNewExercise } = state;
+    // Get the day object from routine object
+    const routineDay = routine[dayForNewExercise];
+    // Map new exercises to be added into the next list
+    const mapNextExercises = action.payload.map( e => ({ exercise: { ...e }, series: '', reps: '', description: '' }) );
+    // Create the nextRoutineDay with the new exercises
+    const nextRoutineDay = {
+        ...routineDay,
+        exercises: [
+            ...routineDay.exercises ,
+            ...mapNextExercises
+        ]
+    };
+    const nextRoutine = {
+        ...state.routine,
+        [dayForNewExercise]: nextRoutineDay
+    };
+
+    return { ...state, routine: nextRoutine };
+};
+
+export const addExercisesToStore2 = ( state, action ) => {
     // Verify if the RoutineDay already exists in the routine list
     const routineDay = dayExistsInRoutine( state.routine, state.dayForNewExercise );
     // That routineDay exists so it will only be added the new exercises to it

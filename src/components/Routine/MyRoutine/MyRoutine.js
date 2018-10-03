@@ -34,6 +34,7 @@ class MyRoutine extends React.Component {
             prevIndex,
             nextIndex,
             days,
+            routine
         } = this.props;
 
         return (
@@ -46,9 +47,14 @@ class MyRoutine extends React.Component {
                 <SelectDay />
                 <Container className={classes.daysContainer}>
                     {
-                        days.map( ( day, index ) => 
+                        days.map( ( day, index ) =>
                             day.selected &&
-                            <RoutineDay key={index} day={day.name} onNewExercice={this.handleModal}/>
+                            <RoutineDay
+                                key={index}
+                                day={day.name}
+                                routine={routine[day.name]}
+                                onNewExercice={this.handleModal}
+                            />
                         )
                     }
                 </Container>
@@ -70,10 +76,11 @@ class MyRoutine extends React.Component {
         );
 
     }
-};
+}
 
 const mapStateToProps = ({ routine }) => ({
-    days: routine.days
+    days: routine.days,
+    routine: routine.routine,
 });
 
 const mapDispatchToProps = ({

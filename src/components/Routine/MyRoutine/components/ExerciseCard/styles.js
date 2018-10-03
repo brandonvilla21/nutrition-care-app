@@ -14,7 +14,7 @@ export const styles = theme => ({
     },
     expand: {
       transform: 'rotate(0deg)',
-      transition: theme.transitions.create('transform', {
+      transition: theme.transitions.create( 'transform', {
         duration: theme.transitions.duration.shortest,
       }),
       marginLeft: 'auto',
