@@ -18,7 +18,7 @@ const ExerciseCard = ({ classes, exercise, onEditExercise }) => {
         onEditExercise( exercise.id );
     };
 
-    const { description, series, reps } = exercise;
+    const { name, description, series, reps } = exercise;
     return (
         <div className={classes.exerciseDialogContainer}>
             <Card className={classes.card}>
@@ -28,8 +28,8 @@ const ExerciseCard = ({ classes, exercise, onEditExercise }) => {
                             <CreateIcon color="secondary" />
                         </IconButton>
                     }
-                    title="Press militar de hombro"
-                    subheader="[brazo, triceps, hombro]"
+                    title={name}
+                    // subheader="[brazo, triceps, hombro]"
                 />
                 <CardMedia
                     className={classes.media}
