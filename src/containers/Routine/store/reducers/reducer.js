@@ -67,6 +67,8 @@ const initialState = {
         // }
         // ...
     },
+    // Exercise to edit in Dialog Form
+    formExerciseEdit: {},
     error: '',
 };
 

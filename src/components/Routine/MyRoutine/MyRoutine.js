@@ -11,22 +11,31 @@ import {
     addExercises
 } from '../../../containers/Routine/store/actions/actions';
 import ExerciseModal from '../ExerciseModal';
+import EditExerciseDialog from './components/EditExerciseDialog/EditExerciseDialog';
 
 class MyRoutine extends React.Component {
-    state = { open: false };
+    state = {
+        open: false,
+        editModalOpen: false
+    };
 
     handleModal = day =>
         this.setState( () => {
             this.props.setDayForNewExercise( day );
             return { open: true };
         })
-    
-    // TODO: call method from props to handle further operations
+
     handleSave = exercises => {
         this.props.addExercises( exercises );
         this.setState( () => ({ open: false }) );
     }
     handleClose = () => this.setState( () => ({ open: false }) )
+    handleEditExercise = exerciseId => {
+        // TODO
+        // Find the exercise in routine by its id and display ExerciseDialog component
+        console.log( 'ID', exerciseId );
+        this.setState({ editModalOpen: true });
+    };
 
     render() {
         const {
@@ -44,6 +53,10 @@ class MyRoutine extends React.Component {
                     onSave={this.handleSave}
                     onClose={this.handleClose}
                 />
+                <EditExerciseDialog
+                    open={this.state.editModalOpen}
+                    onClose={this.handleClose}
+                />
                 <SelectDay />
                 <Container className={classes.daysContainer}>
                     {
@@ -54,6 +67,7 @@ class MyRoutine extends React.Component {
                                 day={day.name}
                                 routine={routine[day.name]}
                                 onNewExercice={this.handleModal}
+                                onEditExercise={this.handleEditExercise}
                             />
                         )
                     }

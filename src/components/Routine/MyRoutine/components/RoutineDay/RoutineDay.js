@@ -13,14 +13,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Container from '../../../../shared/Container';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 
-const RoutineDay = ({ classes, day, routine, onNewExercice }) => {
+const RoutineDay = ({ classes, day, routine, onNewExercice, onEditExercise }) => {
     const handleClick = () => onNewExercice( day );
-    const handleEditExercise = exerciseId => {
-        // TODO
-        // Find the exercise in routine by its id and display ExerciseDialog component
-        console.log('ID', exerciseId)
-    };
-
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -33,7 +27,7 @@ const RoutineDay = ({ classes, day, routine, onNewExercice }) => {
                             <ExerciseCard
                                 key={exercise.id}
                                 exercise={exercise}
-                                onEditExercise={handleEditExercise}
+                                onEditExercise={onEditExercise}
                             />
                         )
                     }

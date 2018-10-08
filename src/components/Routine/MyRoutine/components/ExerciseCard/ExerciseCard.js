@@ -21,7 +21,6 @@ const ExerciseCard = ({ classes, exercise, onEditExercise }) => {
     const { description, series, reps } = exercise;
     return (
         <div className={classes.exerciseDialogContainer}>
-            {/* <ExerciseDialog title="Press militar de hombro" open={open} handleClose={this.handleClose}/> */}
             <Card className={classes.card}>
                 <CardHeader
                     action={
