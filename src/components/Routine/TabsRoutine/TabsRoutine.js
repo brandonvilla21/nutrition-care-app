@@ -61,7 +61,7 @@ class TabsRoutine extends Component {
                 {
                     value === 2 &&
                     <TabContainer>
-                        <FinishRoutine prevIndex={this.prevIndex} />
+                        <FinishRoutine submitRoutine={this.props.submitRoutine} prevIndex={this.prevIndex} />
                     </TabContainer>
                 }
             </React.Fragment>

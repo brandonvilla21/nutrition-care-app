@@ -9,9 +9,13 @@ import {
     ERROR_LOADING_EXERCISES,
     ADD_EXERCISES,
     UPDATE_EXERCISE_IN_ROUTINE,
-    REMOVE_ROUTINE_DAY
+    REMOVE_ROUTINE_DAY,
+    ROUTINE_SUCCESFULLY_CREATED,
+    ERROR_WHILE_CREATING_ROUTINE,
+    RESET_SUCCESS_PROPERTY
 } from './actionTypes';
 import { getBodyAreas, getBodyAreasWithExercies } from '../../../BodyArea/body-area.service';
+import { submitRoutine } from '../../routine.service';
 
 export const addDescription = event => ({
     type: ADD_DESCRIPTION,
@@ -48,6 +52,17 @@ export const removeDayFromRoutine = day => ({
     type: REMOVE_ROUTINE_DAY,
     payload: day
 });
+
+export const resetSuccessProp = () => ({
+    type: RESET_SUCCESS_PROPERTY
+});
+
+export const createRoutine = () => ( dispatch, getState ) => {
+    const state = getState();
+    submitRoutine( state )
+        .then( res => dispatch({ type: ROUTINE_SUCCESFULLY_CREATED, payload: res.data }) )
+        .catch( err => dispatch({ type: ERROR_WHILE_CREATING_ROUTINE, payload: err }) );
+};
 
 export const fetchBodyAreas = () => dispatch =>
     getBodyAreas()

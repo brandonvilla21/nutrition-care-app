@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import { styles } from './styles';
-import logo from '../../../../../logo.svg';
 import IconButton from '@material-ui/core/IconButton';
 import ExerciseInfo from './components/ExerciseInfo/ExerciseInfo';
 

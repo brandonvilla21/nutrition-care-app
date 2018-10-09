@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Button } from '@material-ui/core';
 import Container from '../../shared/Container';
 
-const FinishRoutine = ({ prevIndex }) => {
+const FinishRoutine = ({ prevIndex, submitRoutine }) => {
     return (
         <div>
             <Typography align="center" variant="display1">
@@ -14,7 +14,7 @@ const FinishRoutine = ({ prevIndex }) => {
                 para verla más tarde.
             </Typography>
             <Typography style={{ marginTop: '2em' }} align="center">
-                <Button variant="extendedFab">
+                <Button onClick={submitRoutine} variant="extendedFab">
                     <span role="img" aria-label="emoji-arm">💪🏼 </span>
                     Guardar mi rutina
                 </Button>
