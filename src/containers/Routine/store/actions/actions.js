@@ -7,7 +7,8 @@ import {
     CHANGE_INPUT_VALUE,
     LOAD_EXERCISES,
     ERROR_LOADING_EXERCISES,
-    ADD_EXERCISES
+    ADD_EXERCISES,
+    UPDATE_EXERCISE_IN_ROUTINE
 } from './actionTypes';
 import { getBodyAreas, getBodyAreasWithExercies } from '../../../BodyArea/body-area.service';
 
@@ -34,6 +35,12 @@ export const handleInputChange = event => ({
 export const addExercises = exercises => ({
     type: ADD_EXERCISES,
     payload: exercises
+});
+
+export const updateExerciseInRoutine = ( day, exercise ) => ({
+    type: UPDATE_EXERCISE_IN_ROUTINE,
+    // Avoid passing by ref
+    payload: { day, exercise: { ...exercise } }
 });
 
 export const fetchBodyAreas = () => dispatch =>

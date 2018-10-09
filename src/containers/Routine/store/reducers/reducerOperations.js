@@ -42,6 +42,34 @@ export const addExercisesToStore = ( state, action ) => {
     return { ...state, routine: nextRoutine };
 };
 
+export const updateExercise = ( state, action ) => {
+    const { day, exercise: nextExercise } = action.payload;
+    const { routine } = state;
+    // Get the routine day that contains the exercise to be updated
+    const dayOfRoutine = routine[day];
+    // Get the list of all exercises of the selected day
+    const listOfExercises = dayOfRoutine.exercises;
+    const indexOfExerciseUpdated = listOfExercises.findIndex( exercise => exercise.id === nextExercise.id );
+    const nextListOfExercises = [
+        ...listOfExercises.slice( 0, indexOfExerciseUpdated ),
+        nextExercise,
+        ...listOfExercises.slice( indexOfExerciseUpdated + 1 ),
+    ];
+    console.log('next list', nextListOfExercises)
+    const dayOfRoutineUpdated = {
+        ...dayOfRoutine,
+        exercises: nextListOfExercises 
+    };
+
+    const routineUpdated = {
+        ...routine,
+        [day]: dayOfRoutineUpdated
+    };
+    console.log('next routine', routineUpdated)
+    return { ...state, routine: routineUpdated };
+
+}
+
 export const addExercisesToStore2 = ( state, action ) => {
     // Verify if the RoutineDay already exists in the routine list
     const routineDay = dayExistsInRoutine( state.routine, state.dayForNewExercise );
@@ -69,6 +97,7 @@ export const addExercisesToStore2 = ( state, action ) => {
         return { ...state, routine };
     }
 };
+
 
 /**
  * If the seeked day exists, it will return the day object

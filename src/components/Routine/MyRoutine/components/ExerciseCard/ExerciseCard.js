@@ -33,6 +33,7 @@ const ExerciseCard = ({ classes, exercise, onEditExercise }) => {
                 />
                 <CardMedia
                     className={classes.media}
+                    // Set a static with/height in case
                     image={logo}
                 />
                 <CardContent className={classes.cardContent}>

@@ -7,11 +7,13 @@ import {
     CHANGE_INPUT_VALUE,
     LOAD_EXERCISES,
     ERROR_LOADING_EXERCISES,
-    ADD_EXERCISES
+    ADD_EXERCISES,
+    UPDATE_EXERCISE_IN_ROUTINE
 } from '../actions/actionTypes';
 import {
     selectDay,
-    addExercisesToStore
+    addExercisesToStore,
+    updateExercise
 } from './reducerOperations';
 
 const initialState = {
@@ -92,6 +94,8 @@ const reducer = ( state = initialState, action ) => {
             return { ...state , error: action.payload };
         case ADD_EXERCISES:
             return addExercisesToStore( state, action );
+        case UPDATE_EXERCISE_IN_ROUTINE:
+            return updateExercise( state, action );
         default:
             return state;
     }

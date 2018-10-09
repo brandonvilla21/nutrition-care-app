@@ -8,33 +8,64 @@ import RoutineDay from './components/RoutineDay/RoutineDay';
 import Container from '../../shared/Container/Container';
 import {
     setDayForNewExercise,
-    addExercises
+    addExercises,
+    updateExerciseInRoutine
 } from '../../../containers/Routine/store/actions/actions';
 import ExerciseModal from '../ExerciseModal';
 import EditExerciseDialog from './components/EditExerciseDialog/EditExerciseDialog';
 
 class MyRoutine extends React.Component {
     state = {
-        open: false,
-        editModalOpen: false
+        exerciseModal: false,
+        editExerciseModal: false,
+        dayToEdit: '',
+        exerciseToEdit: {
+            id: null,
+            name: '',
+            imageName: '',
+            description: '',
+            series: '',
+            reps: ''
+        },
     };
 
     handleModal = day =>
         this.setState( () => {
             this.props.setDayForNewExercise( day );
-            return { open: true };
+            return { exerciseModal: true };
         })
+    handleInputModalChange = event => {
+        event.persist();
+        this.setState( prevState => ({
+            exerciseToEdit: {
+                ...prevState.exerciseToEdit,
+                [event.target.name]: event.target.value
+            }
+        }) );
+    }
+
+    handleSaveModal = () => {
+        const { dayToEdit, exerciseToEdit } = this.state;
+        this.props.updateExerciseInRoutine( dayToEdit, exerciseToEdit );
+        this.handleClose( 'editExerciseModal' );
+    }
 
     handleSave = exercises => {
         this.props.addExercises( exercises );
-        this.setState( () => ({ open: false }) );
+        this.setState( () => ({ exerciseModal: false }) );
     }
-    handleClose = () => this.setState( () => ({ open: false }) )
-    handleEditExercise = exerciseId => {
-        // TODO
+
+    handleClose = modalName => this.setState( () => ({ [modalName]: false }) );
+
+    handleEditExercise = ( exerciseId, day ) => {
+        const { routine } = this.props;
         // Find the exercise in routine by its id and display ExerciseDialog component
-        console.log( 'ID', exerciseId );
-        this.setState({ editModalOpen: true });
+        const exercise = routine[day].exercises.find( exercise => exercise.id === exerciseId );
+        this.setState({
+            editExerciseModal: true,
+            exerciseToEdit: { ...exercise },
+            dayToEdit: day
+        });
     };
 
     render() {
@@ -49,13 +80,16 @@ class MyRoutine extends React.Component {
         return (
             <React.Fragment>
                 <ExerciseModal
-                    open={this.state.open}
+                    open={this.state.exerciseModal}
                     onSave={this.handleSave}
                     onClose={this.handleClose}
                 />
                 <EditExerciseDialog
-                    open={this.state.editModalOpen}
+                    open={this.state.editExerciseModal}
+                    exercise={this.state.exerciseToEdit}
+                    onChange={this.handleInputModalChange}
                     onClose={this.handleClose}
+                    onSave={this.handleSaveModal}
                 />
                 <SelectDay />
                 <Container className={classes.daysContainer}>
@@ -99,7 +133,8 @@ const mapStateToProps = ({ routine }) => ({
 
 const mapDispatchToProps = ({
     setDayForNewExercise,
-    addExercises
+    addExercises,
+    updateExerciseInRoutine
 });
 
 MyRoutine.propTypes = {

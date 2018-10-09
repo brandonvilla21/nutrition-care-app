@@ -56,23 +56,25 @@ class ExerciseModal extends React.Component {
     handleSave = () => {
         this.props.onSave( this.state.exercisesSelected );
     }
+
+    handleClose = () => this.props.onClose( 'exerciseModal' );
+
     render() {
         const {
             day,
             classes,
-            open,
-            onClose
+            open
         } = this.props;
         return (
             <Dialog
                 fullScreen
                 open={open}
-                onClose={onClose}
+                onClose={this.handleClose}
                 TransitionComponent={Transition}
             >
             <AppBar className={classes.appBar}>
                 <Toolbar>
-                  <IconButton color="inherit" onClick={onClose} aria-label="Cerrar">
+                  <IconButton color="inherit" onClick={this.handleClose} aria-label="Cerrar">
                     <CloseIcon />
                   </IconButton>
                   <Typography variant="title" color="inherit" className={classes.flex}>

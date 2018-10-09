@@ -15,6 +15,7 @@ import ExerciseCard from '../ExerciseCard/ExerciseCard';
 
 const RoutineDay = ({ classes, day, routine, onNewExercice, onEditExercise }) => {
     const handleClick = () => onNewExercice( day );
+    const handleEditExercise = exerciseId => onEditExercise( exerciseId, day );
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -27,7 +28,7 @@ const RoutineDay = ({ classes, day, routine, onNewExercice, onEditExercise }) =>
                             <ExerciseCard
                                 key={exercise.id}
                                 exercise={exercise}
-                                onEditExercise={onEditExercise}
+                                onEditExercise={handleEditExercise}
                             />
                         )
                     }
