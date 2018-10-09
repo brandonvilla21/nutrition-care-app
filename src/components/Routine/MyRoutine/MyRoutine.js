@@ -9,7 +9,8 @@ import Container from '../../shared/Container/Container';
 import {
     setDayForNewExercise,
     addExercises,
-    updateExerciseInRoutine
+    updateExerciseInRoutine,
+    removeDayFromRoutine
 } from '../../../containers/Routine/store/actions/actions';
 import ExerciseModal from '../ExerciseModal';
 import EditExerciseDialog from './components/EditExerciseDialog/EditExerciseDialog';
@@ -67,7 +68,6 @@ class MyRoutine extends React.Component {
             dayToEdit: day
         });
     };
-
     render() {
         const {
             classes,
@@ -102,6 +102,7 @@ class MyRoutine extends React.Component {
                                 routine={routine[day.name]}
                                 onNewExercice={this.handleModal}
                                 onEditExercise={this.handleEditExercise}
+                                onDeleteDay={this.props.removeDayFromRoutine}
                             />
                         )
                     }
@@ -134,7 +135,8 @@ const mapStateToProps = ({ routine }) => ({
 const mapDispatchToProps = ({
     setDayForNewExercise,
     addExercises,
-    updateExerciseInRoutine
+    updateExerciseInRoutine,
+    removeDayFromRoutine
 });
 
 MyRoutine.propTypes = {

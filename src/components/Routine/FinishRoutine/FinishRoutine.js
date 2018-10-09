@@ -15,7 +15,7 @@ const FinishRoutine = ({ prevIndex }) => {
             </Typography>
             <Typography style={{ marginTop: '2em' }} align="center">
                 <Button variant="extendedFab">
-                    <span role="img" aria-label="emoji-arm"> 💪🏼</span>
+                    <span role="img" aria-label="emoji-arm">💪🏼 </span>
                     Guardar mi rutina
                 </Button>
             </Typography>

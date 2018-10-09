@@ -8,7 +8,8 @@ import {
     LOAD_EXERCISES,
     ERROR_LOADING_EXERCISES,
     ADD_EXERCISES,
-    UPDATE_EXERCISE_IN_ROUTINE
+    UPDATE_EXERCISE_IN_ROUTINE,
+    REMOVE_ROUTINE_DAY
 } from './actionTypes';
 import { getBodyAreas, getBodyAreasWithExercies } from '../../../BodyArea/body-area.service';
 
@@ -41,6 +42,11 @@ export const updateExerciseInRoutine = ( day, exercise ) => ({
     type: UPDATE_EXERCISE_IN_ROUTINE,
     // Avoid passing by ref
     payload: { day, exercise: { ...exercise } }
+});
+
+export const removeDayFromRoutine = day => ({
+    type: REMOVE_ROUTINE_DAY,
+    payload: day
 });
 
 export const fetchBodyAreas = () => dispatch =>

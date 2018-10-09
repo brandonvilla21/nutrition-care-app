@@ -16,7 +16,13 @@ export const styles = theme => ({
       justifyContent: 'flex-start',
     },
     button: {
+     marginTop: '.5em' 
+    },
+    buttonContainer: {
       marginLeft: 'auto',
-      marginRight: 0
+      marginRight: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between'
     }
 });

@@ -1,12 +1,14 @@
 import { updateObject } from '../utility';
 
 export const removeDay = ( state, action ) => {
+    // TODO: doesn't work as expected
     const { days } = state;
     const { day } = action;
     const newDays = days.filter( element => element.id !== day.id );
     
     const newState = updateObject( state, { days: [...newDays] });
-    return removeExercisesFromDay( newState, day );
+    return newState;
+    // return removeExercisesFromDay( newState, day );
 };
 
 export const selectDay = ( state, action ) => {
@@ -128,8 +130,8 @@ function updateRoutineDay( routine, nextRoutineDay ) {
     ];
 }
 
-function removeExercisesFromDay( state, day ) {
-    if( day.exercises )
-        delete day.exercises;
-    return updateObject( state, { removedDay: day });
-}
+// function removeExercisesFromDay( state, day ) {
+//     if( day.exercises )
+//         delete day.exercises;
+//     return updateObject( state, { removedDay: day });
+// }

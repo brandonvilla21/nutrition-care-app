@@ -8,12 +8,14 @@ import {
     LOAD_EXERCISES,
     ERROR_LOADING_EXERCISES,
     ADD_EXERCISES,
-    UPDATE_EXERCISE_IN_ROUTINE
+    UPDATE_EXERCISE_IN_ROUTINE,
+    REMOVE_ROUTINE_DAY
 } from '../actions/actionTypes';
 import {
     selectDay,
     addExercisesToStore,
-    updateExercise
+    updateExercise,
+    removeDay
 } from './reducerOperations';
 
 const initialState = {
@@ -96,6 +98,8 @@ const reducer = ( state = initialState, action ) => {
             return addExercisesToStore( state, action );
         case UPDATE_EXERCISE_IN_ROUTINE:
             return updateExercise( state, action );
+        case REMOVE_ROUTINE_DAY:
+            return removeDay( state, action );
         default:
             return state;
     }
