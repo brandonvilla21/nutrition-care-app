@@ -18,7 +18,7 @@ const ExerciseCard = ({ classes, exercise, onEditExercise }) => {
         onEditExercise( exercise.id );
     };
 
-    const { name, description, series, reps } = exercise;
+    const { name, description, series, reps, imageName } = exercise;
     return (
         <div className={classes.exerciseDialogContainer}>
             <Card className={classes.card}>
@@ -34,7 +34,7 @@ const ExerciseCard = ({ classes, exercise, onEditExercise }) => {
                 <CardMedia
                     className={classes.media}
                     // Set a static with/height in case
-                    image={logo}
+                    image={`${process.env.REACT_APP_IMAGE_ENTRY_POINT}/${imageName}`}
                 />
                 <CardContent className={classes.cardContent}>
                     <ExerciseInfo

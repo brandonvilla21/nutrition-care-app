@@ -1,7 +1,7 @@
 import { updateObject } from '../utility';
 
 export const removeDay = ( state, action ) => {
-    // TODO: doesn't work as expected
+    // TODO: doesn't work yet
     const { days } = state;
     const { day } = action;
     const newDays = days.filter( element => element.id !== day.id );
@@ -57,7 +57,6 @@ export const updateExercise = ( state, action ) => {
         nextExercise,
         ...listOfExercises.slice( indexOfExerciseUpdated + 1 ),
     ];
-    console.log('next list', nextListOfExercises)
     const dayOfRoutineUpdated = {
         ...dayOfRoutine,
         exercises: nextListOfExercises 
@@ -67,10 +66,9 @@ export const updateExercise = ( state, action ) => {
         ...routine,
         [day]: dayOfRoutineUpdated
     };
-    console.log('next routine', routineUpdated)
     return { ...state, routine: routineUpdated };
 
-}
+};
 
 export const addExercisesToStore2 = ( state, action ) => {
     // Verify if the RoutineDay already exists in the routine list
