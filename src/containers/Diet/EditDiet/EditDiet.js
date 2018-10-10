@@ -8,8 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
 import { Link } from 'react-router-dom';
-import DietForm from '../../../components/Diet/DietForm';
-
+import EditDietForm from '../../../components/Diet/EditDietForm';
 
 class EditDiet extends Component {
     constructor( props ) {
@@ -23,7 +22,6 @@ class EditDiet extends Component {
         this.handleClose = this.handleClose.bind( this );
         this.isSubmitted = this.isSubmitted.bind( this );
     }
-
     
     handleClose() {
       this.setState({ 
@@ -103,7 +101,7 @@ class EditDiet extends Component {
 
             </Dialog>
           
-          {/* <DietForm onSubmitted={this.isSubmitted} /> */}
+            <EditDietForm onSubmitted={this.isSubmitted} />
           <p>Test</p>
         </div>
       );
