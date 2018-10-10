@@ -7,13 +7,17 @@ import axios from '../../axios';
 import EditTabsDiet from './Components/EditTabsDiet';
 import debounce from 'lodash.debounce';
 
+import sendLoopbackParams from '../../shared/sendLoopbackParams';
+
+import { withRouter } from 'react-router';
+
 import { 
   handleChange, onRecalculateTotals, roundNumber, toggleRow,
   onChangeDataTableFields, calculateDataTableData,
 
 } from './diet-utils';
 
-class DietForm extends Component {
+class EditDietForm extends Component {
 
     constructor( props ) {
         super( props );
@@ -45,7 +49,8 @@ class DietForm extends Component {
       const getFoodsPromise = this.getFoods();
 
       this.removeRepeatedFoods( currentFoodsOnDietPromise, getFoodsPromise )
-        .then( foods => this.setState({ foods }) );
+        .then( foods => this.setState({ foods }) )
+        .catch( err => console.log( 'gg', err ) );
 
     }
 
@@ -108,10 +113,11 @@ class DietForm extends Component {
    * of every food from the Diet details.
    */
     setDietFoodsToEdit() {
-      return this.getDietToEdit().then( ({ data }) => {
-        const diet = data;
+      return this.getDietToEdit().then( diet => {
+        console.log( 'diet: ', diet );
 
-        const selectedFoods = diet.foods.map( food => food.pivot );
+        const selectedFoods = diet.dietFoodDetails;
+        console.log( 'selectedFoods: ', selectedFoods );
         selectedFoods.forEach( food => {
           food.desiredCalories = roundNumber( food.calories * food.desiredGrams );
           food.desiredCarbohydrates = roundNumber( food.carbohydrates * food.desiredGrams );
@@ -120,16 +126,15 @@ class DietForm extends Component {
           
           //Only to reuse the second table from the DietForm without any problem with the
           //column id.
-          food.id = food.food_id;
+          // food.id = food.food_id;
         });
 
         this.setState({ selectedFoods, description: diet.description, });
         
-
         //Return an array of objects which contains 'id' and 'description'
         //of every food from the Diet details.
         return selectedFoods.map( food => {
-          return { id: food.food_id, description: food.description, };
+          return { id: food.foodId, description: food.description, };
         });
 
       });
@@ -143,39 +148,39 @@ class DietForm extends Component {
    * @param resetIndex - A callback to reset the Tabs' index when needed.
    */
     onSubmitDiet( resetIndex ) {
-      const url = `${urlConfig.baseUrl}/diets/${this.props.idToEdit}`;
-      const config = urlConfig.axiosConfig;
-      config.method = 'PUT';
+      // const url = `${urlConfig.baseUrl}/diets/${this.props.idToEdit}`;
+      // const config = urlConfig.axiosConfig;
+      // config.method = 'PUT';
 
-      const { 
-        totalCarbohydrates, totalProteins, totalFats,
-        totalCalories, description,
-      } = this.state;
+      // const { 
+      //   totalCarbohydrates, totalProteins, totalFats,
+      //   totalCalories, description,
+      // } = this.state;
       
-      const selectedFoods = [ ...this.state.selectedFoods ];
+      // const selectedFoods = [ ...this.state.selectedFoods ];
         
-      const data = { 
-        totalCarbohydrates, totalProteins, totalFats,
-        totalCalories, selectedFoods, description,
-      };
+      // const data = { 
+      //   totalCarbohydrates, totalProteins, totalFats,
+      //   totalCalories, selectedFoods, description,
+      // };
       
-      axios.put( url, data, config )
-          .then( response => {
-            if ( response.status === 200 ) {
-                  this.props.onSubmitted({ submitted: true, err: false });
-                  resetIndex();
-              } else 
-                this.props.onSubmitted({ submitted: false, err: true });
+      // axios.put( url, data, config )
+      //     .then( response => {
+      //       if ( response.status === 200 ) {
+      //             this.props.onSubmitted({ submitted: true, err: false });
+      //             resetIndex();
+      //         } else 
+      //           this.props.onSubmitted({ submitted: false, err: true });
               
-          })
-          .catch( err => {
-            this.props.onSubmitted({ 
-              submitted: false, 
-              err: true, 
-              errorMessage: err.response.data.message
-            });
-            throw err.response.data.message;
-          });
+      //     })
+      //     .catch( err => {
+      //       this.props.onSubmitted({ 
+      //         submitted: false, 
+      //         err: true, 
+      //         errorMessage: err.response.data.message
+      //       });
+      //       throw err.response.data.message;
+      //     });
     }
 
   /**
@@ -187,13 +192,18 @@ class DietForm extends Component {
    */
     getDietToEdit() {
 
-      const idToEdit = this.props.idToEdit;
-      const url = `${urlConfig.baseUrl}/diets/${idToEdit}`;
-      const config = urlConfig.axiosConfig;
-      config.method = 'GET';
+      const idToEdit = this.props.match.params.id;
+      const userId = localStorage.getItem( 'NC_userId' );
+      const url = `Customers/${userId}/diets/`;
 
-      return axios.get( url, config )
+      const loopbackParams = {
+        where: { id: idToEdit },
+        include: ['dietFoodDetails'],
+      };
+
+      return axios.get( url, sendLoopbackParams( loopbackParams ) )
         .then( response => response.data )
+        .then( ( [diet] ) => diet )
         .catch( err => {
           throw err.response.data.message;
         });
@@ -207,9 +217,10 @@ class DietForm extends Component {
    * @author Marcos Barrera del Río <elyomarcos@gmail.com>
    */
     getFoods() {
-      const url = `${urlConfig.baseUrl}/foods`;
-      return fetch( url )
-        .then( data => data.json() )
+
+      const url = 'Foods';
+
+      return axios.get( url )
         .then( response => response.data )
         .then( foods => {
           foods.forEach( food => {
@@ -218,12 +229,12 @@ class DietForm extends Component {
             food.desiredFats = food.fats;
             food.desiredCarbohydrates = food.carbohydrates;
             food.desiredCalories = food.calories;
-            food.food_id = food.id;
             food.foodFromFoodsTable = true;
           });
 
           return foods;
-        });
+        })
+        .catch( err => { throw err.response.data; });
     }
 
 
@@ -291,12 +302,8 @@ class DietForm extends Component {
         );
     }
 }
-DietForm.propTypes = {
+EditDietForm.propTypes = {
     onSubmitted: PropTypes.func,
-    idToEdit: PropTypes.oneOfType( [
-      PropTypes.string,
-      PropTypes.number
-    ] ).isRequired,
 };
 
 const selectableFoodColumns = [
@@ -333,4 +340,4 @@ const selectableFoodColumns = [
   }
 ];
 
-export default DietForm;
+export default withRouter( EditDietForm );
