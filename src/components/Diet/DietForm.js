@@ -69,7 +69,7 @@ class DietForm extends Component {
       
       const selectedFoods = [ ...this.state.selectedFoods ].map( food => {
         return { 
-          food_id: food.id,
+          foodId: food.id,
           calories: food.calories,
           carbohydrates: food.carbohydrates,
           fats: food.fats,
