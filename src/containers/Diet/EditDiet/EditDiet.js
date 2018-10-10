@@ -102,7 +102,6 @@ class EditDiet extends Component {
             </Dialog>
           
             <EditDietForm onSubmitted={this.isSubmitted} />
-          <p>Test</p>
         </div>
       );
     }

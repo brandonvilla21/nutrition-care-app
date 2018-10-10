@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Tabs, Tab, RaisedButton, Dialog, FlatButton } from 'material-ui';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import ActionHelp from '@material-ui/icons/Help';
+import { withStyles, Button, TextField } from '@material-ui/core/';
+
+import withWidth from '@material-ui/core/withWidth';
+
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import AppBar from '@material-ui/core/AppBar';
+
+
 import ActionShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import AvPlaylistAddCheck from '@material-ui/icons/PlaylistAddCheck';
 import CheckCircle from '@material-ui/icons/CheckCircle';
-import TextField from 'material-ui/TextField/TextField';
-import blue from '@material-ui/core/colors/blue';
+
 import grey from '@material-ui/core/colors/grey';
-const blue500 = blue['500'];
-const grey700 = grey['700'];
 
 import DietTotalsCard from './DietTotalsCard/DietTotalsCard';
 import DietTableCalculator from './DietTableCalculator';
-import SelectableTable from '../../SelectableTable';
+import SelectableTable from '../../shared/SelectableTable';
+import TabContainer from '../../shared/TabContainer';
+import SimpleExpandibleCard from '../../shared/SimpleExpandibleCard';
+
+import classNames from 'classnames';
+
+const grey700 = grey['700'];
+
 
 class EditTabsDiet extends Component {
 
@@ -102,51 +112,84 @@ class EditTabsDiet extends Component {
                   () => this.setState({ resetToggle: false }) );
   }
 
+  getTabsType() {
+    const sizes = ['sm', 'xs'];
+    const type = sizes.includes( this.props.width ) 
+      ? { scrollable: true, scrollButtons: 'auto' } 
+      : { centered: true };
+    
+    return type;
+  }
+
   render () {
 
-    const { 
+    const tabsType = this.getTabsType();
+
+    const {
+      tabIndex, 
+    } = this.state;
+
+    const {
       foods, selectedFoods, totalCalories, 
       totalCarbohydrates, totalFats, totalProteins,
-      selectableFoodColumns, description, onChange
+      selectableFoodColumns, description, onChange, classes
     } = this.props;
 
     return (
-      <Tabs 
-        value={this.state.tabIndex}
-        disabled={true}
-        onChange={this.blockTapTabs}
-        initialSelectedIndex={0} 
-        style={styles.tabs}
-        >
 
-        <Tab 
-          icon={<ActionShoppingBasket />}
-          value={0}
-          style={styles.tab} label="Alimentos disponibles">
-          <div>
+      <React.Fragment>
 
-            <Card initiallyExpanded={true} style={styles.recomendationStyles}>
-              <CardHeader 
-                title="Aviso"
-                subtitle="Recomendaciones"
-                actAsExpander={true}
-                showExpandableButton={true}
-                avatar={<ActionHelp style={styles.actionHelpStyle}/>}
-              />
-              <CardText expandable={true} style={{ color: grey700, fontSize: 16 }}>
-                <ul>
-                  <li>
-                    Selecciona los alimentos que quieras incorporar en tu dieta.
-                  </li>
-                  <li>
-                    Puedes seleccionar todos los alimentos que quieras en la tabla de alimentos
-                    de abajo.
-                  </li>
-                </ul>
-              </CardText>
-            </Card>
+        <AppBar position="static" color="default">
+      
+          <Tabs
+            scrollButtons="auto"
+            indicatorColor="primary"
+            textColor="primary"
+            value={tabIndex}
+            {...tabsType}
+          >
+
+            <Tab 
+              icon={<ActionShoppingBasket />} 
+              label="Alimentos disponibles"
+            ></Tab>
             
-            <SelectableTable
+            <Tab 
+              label="Alimentos seleccionados" 
+              icon={<AvPlaylistAddCheck />}
+            ></Tab>
+
+            <Tab 
+              icon={<CheckCircle />}
+              label="Finalizar"
+            ></Tab>
+
+          </Tabs>
+
+        </AppBar>
+
+        <TabContainer 
+          className={classNames({ 
+            [classes.hideTab]: tabIndex !== 0 
+          })}
+        >
+          <SimpleExpandibleCard cardStyle={styles.recomendationStyles}
+          title={
+            <strong className={classes.cardTitle}>Recomendaciones</strong>
+          }
+          >
+            <ul>
+              <li>
+                Selecciona los alimentos que quieras incorporar en tu dieta.
+              </li>
+              <li>
+                Puedes seleccionar todos los alimentos que quieras en la tabla de alimentos
+                de abajo.
+              </li>
+            </ul>
+          </SimpleExpandibleCard>
+        
+          <SelectableTable
               resetToggle={this.state.resetToggle} 
               elements={foods}
               selectedElements={selectedFoods}
@@ -162,175 +205,130 @@ class EditTabsDiet extends Component {
               clearManualRemovedFoodState={this.props.clearManualRemovedFoodState.bind( this )}
             />
 
-            <RaisedButton
-                    style={styles.raisedButtonNextStyle}
-                    label="Siguiente"
-                    primary={true}
-                    disabled={this.disableCalculateDietButton()}
-                    value={1}
-                    onClick={this.nextIndex} />
-            
+          <div className={classes.firstTabButtonContainer}>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={this.disableCalculateDietButton()}
+              onClick={this.nextIndex}>
+
+              Calcular nutrientes
+
+            </Button>
           </div>
-    
-        </Tab>
+        </TabContainer>
 
-        <Tab 
-          style={styles.tab} label="Alimentos seleccionados"
-          value={1}
-          icon={<AvPlaylistAddCheck style={styles.iconStyles} color={blue500} />}>
+        <TabContainer className={classNames({ 
+            [classes.hideTab]: tabIndex !== 1 
+        })}>
+
+          <SimpleExpandibleCard cardStyle={styles.recomendationStyles}
+          title={
+            <strong className={classes.cardTitle}>Recomendaciones</strong>
+            }
+          >
+            <ul>
+              <li>
+                Elige los gramos o calorías que deseas agregar para cada alimento de la tabla.
+              </li>
+              <li>
+                Ten en cuenta el valor total de cada uno de los macronutrientes de la tabla,
+                así como también de las calorías totales.
+              </li>
+            </ul>
+          </SimpleExpandibleCard>
+
+          <DietTableCalculator 
+          selectedFoods={selectedFoods}
+          onChangeTable={this.props.onChangeDataTableFields.bind( this )}
+          />
+
+          <div data-testid="total-card-calculator">
+          <DietTotalsCard
+            totalCalories={totalCalories}
+            totalCarbohydrates={totalCarbohydrates}
+            totalFats={totalFats}
+            totalProteins={totalProteins}/>
+          </div>
+
+          <TextField className={classes.descriptionTextField} 
+          name="description"
+          id="description"
+          InputLabelProps={{ htmlFor: 'description' }}
+          label="Agrega la descripción de tu dieta"
+          value={description}
+          onChange={onChange}
+          fullWidth
+          />
+
           <div>
+          
+          </div>
 
-            <Card initiallyExpanded={true} style={styles.recomendationStyles}>
-              <CardHeader 
-                title="Aviso"
-                subtitle="Recomendaciones"
-                actAsExpander={true}
-                showExpandableButton={true}
-                avatar={<ActionHelp style={styles.actionHelpStyle}/>}
-              />
-              <CardText expandable={true} style={{ color: grey700, fontSize: 16 }}>
-                <ul>
-                  <li>
-                    Elige los gramos o calorías que deseas agregar para cada alimento de la tabla.
-                  </li>
-                  <li>
-                    Ten en cuenta el valor total de cada uno de los macronutrientes de la tabla,
-                    así como también de las calorías totales.
-                  </li>
-                </ul>
-              </CardText>
-            </Card>
+          <div className={classes.generalTabButtonContainer}>
+          <Button
+            variant="contained"
+            color="secondary"
+            disabled={this.disableCalculateDietButton()}
+            onClick={this.prevIndex}>
 
-            <DietTableCalculator
-              selectedFoods={selectedFoods}
-              onChangeTable={this.props.onChangeDataTableFields.bind( this )}
-              handleOpenEliminationModal={this.handleOpenEliminationModal}
-              onEdit={true}              
-            />
+            Regresar
 
-            <Dialog
-              title="AVISO"
-              actions={[
+          </Button>
 
-                <RaisedButton
-                  // style={styles.raisedButtonNextStyle}
-                  label="Cancelar"
-                  secondary={true}
-                  key={1} onClick={this.handleCloseEliminationModal.bind( this )}
-                  />,
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={this.disableSaveButton()}
+            onClick={this.nextIndex}>
 
-                <FlatButton 
-                  label="Eliminar" 
-                  secondary={true}
-                  key={0}
-                  onClick={this.handleRemoveRow.bind( this )}/>,
-                
-              ]}
-              modal={true}
-              open={this.state.openModalElimination}
-              onRequestClose={this.handleCloseEliminationModal}
-            >
-              Esta comida está relacionada con tu dieta directamente, lo que significa
-              que si la eliminas, NO la podrás recuperar más adelante. 
-              ¿Estás seguro de eliminar esta comida?
-            </Dialog>
+            Finalizar dieta
 
+          </Button>
+          </div>
+
+        </TabContainer>
+
+        <TabContainer>
+            
             <DietTotalsCard
               totalCalories={totalCalories}
               totalCarbohydrates={totalCarbohydrates}
               totalFats={totalFats}
-              totalProteins={totalProteins}
-            />
+              totalProteins={totalProteins}/>
 
-            <div>
-              <RaisedButton
-                      style={styles.raisedButtonPrevStyle}
-                      label="Agregar más alimentos a la dieta"
-                      secondary={true}
-                      disabled={this.disableCalculateDietButton()}
-                      value={1}
-                      onClick={this.prevIndex} />
+            <p style={{ textAlign: 'center' }}>
+              Te pedimos que confirmes los datos antes de continuar. 
+              Cuando estés listo, da clic en 
+                <strong> Guardar</strong>
+            </p>
 
-              <RaisedButton
-                      style={styles.raisedButtonNextStyle}
-                      label="Siguiente"
-                      primary={true}
-                      disabled={this.disableCalculateDietButton()}
-                      value={1}
-                      onClick={this.nextIndex} />
+            <div className={classes.generalTabButtonContainer}>
+              <Button
+                variant="contained"
+                color="secondary"
+                disabled={this.disableCalculateDietButton()}
+                onClick={this.prevIndex}>
+
+                Regresar
+
+              </Button>
+
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={this.disableCalculateDietButton()}
+                onClick={this.props.onSubmitDiet.bind( this, this.resetIndex )}
+                >
+
+                Guardar dieta
+
+              </Button>
             </div>
 
-          </div>
-        </Tab>
+          </TabContainer>
 
-        <Tab
-            icon={<CheckCircle />}
-            label="Finalizar"
-            value={2}
-            style={styles.tab}
-          >
-            <div>
-
-            <TextField
-              floatingLabelStyle={styles.floatingLabelStyle}
-              name="description"
-              floatingLabelText="Agrega una descripción para tu dieta"
-              fullWidth={true}
-              value={description}
-              onChange={onChange}
-            />
-              <div className="final-grid">
-
-                <DietTotalsCard className="totals-card"
-                  totalCalories={totalCalories}
-                  totalCarbohydrates={totalCarbohydrates}
-                  totalFats={totalFats}
-                  totalProteins={totalProteins}
-                />
-
-                {/* <Card className="recommendation-card" initiallyExpanded={true}>
-                  <CardHeader 
-                    title="Aviso"
-                    subtitle="Recomendaciones"
-                    actAsExpander={true}
-                    showExpandableButton={true}
-                    avatar={<ActionHelp style={styles.actionHelpStyle}/>}
-                  />
-                  <CardText expandable={true}>
-                    <strong>AQUÍ VAN LAS RECOMENDACIONES</strong>
-                  </CardText>
-                </Card> */}
-
-                <div>
-                  <p>
-                    Te pedimos que confirmes los datos antes de continuar. 
-                    Cuando estés listo, da clic en 
-                      <strong> Guardar</strong>
-                  </p>
-                  <RaisedButton
-                    style={styles.raisedButtonPrevStyle}
-                    label="Regresar"
-                    secondary={true}
-                    disabled={this.disableCalculateDietButton()}
-                    value={1}
-                    onClick={this.prevIndex} />
-
-                  <RaisedButton
-                    style={styles.raisedButtonNextStyle}
-                    label="Editar dieta"
-                    primary={true}
-                    disabled={this.disableSaveButton()}
-                    onClick={this.props.onSubmitDiet.bind( this, this.resetIndex )} />
-                </div> 
-
-              </div>
-              
-               
-            
-            </div>
-          </Tab>
-
-      </Tabs>
+      </React.Fragment>
     );
   }
 }
@@ -356,37 +354,37 @@ EditTabsDiet.propTypes = {
 
 
 const styles = {
-  tab: {
-    backgroundColor: blue500,
-    inkBarStyle: {
-      backgroundColor: 'white'
-    }
-  },
-  tabs: {
-    borderRadius: '10px red',
-    paddingTop: '18px'
+  hideTab: {
+    display: 'none',
   },
   iconStyles: {
     marginRight: 24,
   },
-  raisedButtonNextStyle: {
-    marginTop: 20,
-    float: 'right'
+  firstTabButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    marginTop: '10px',
+    marginBottom: '10px',
   },
-  raisedButtonPrevStyle: {
-    marginTop: 20,
-    float: 'left'
-  },
-  actionHelpStyle: {
-    marginTop: 10, 
-    color: grey700
+  generalTabButtonContainer: {
+    display: 'flex',
+    flexDirection: 'space-between',
+    marginTop: '10px',
+    marginBottom: '10px',
+    justifyContent: 'space-between',
   },
   recomendationStyles: {
-    margin: '10px 0px 10px 0px'
+    margin: '10px 0 10px 0',
   },
   floatingLabelStyle: {
     fontSize: 19,
+  },
+  cardTitle: {
+    color: grey700,
+  },
+  descriptionTextField: {
+    margin: '15px 0 15px 0',
   }
 };
 
-export default EditTabsDiet;
+export default withStyles( styles )( EditTabsDiet );
