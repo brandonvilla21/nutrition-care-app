@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import PageBase from '../../components/PageBase';
-import axios from 'axios';
-import urlConfig from '../../url-config';
+import axios from '../../axios';
 
 import EditTabsDiet from './Components/EditTabsDiet';
 import debounce from 'lodash.debounce';
