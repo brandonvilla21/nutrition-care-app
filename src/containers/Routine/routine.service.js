@@ -22,3 +22,7 @@ export const submitRoutine = state => {
 
     return axios.post( '/Routines/fullRoutine', { routine: routine, routineDetails: routineDetails });
 };
+
+export const fetchRoutines = () => {
+    return axios.get( '/Routines' );
+}
