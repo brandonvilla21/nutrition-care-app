@@ -3,7 +3,8 @@ import red from '@material-ui/core/colors/red';
 export const styles = theme => ({
     card: {
       // maxWidth: 400,
-      margin: 5
+      margin: 5,
+      width: '300px'
     },
     media: {
       height: 0,
@@ -14,7 +15,7 @@ export const styles = theme => ({
     },
     expand: {
       transform: 'rotate(0deg)',
-      transition: theme.transitions.create('transform', {
+      transition: theme.transitions.create( 'transform', {
         duration: theme.transitions.duration.shortest,
       }),
       marginLeft: 'auto',

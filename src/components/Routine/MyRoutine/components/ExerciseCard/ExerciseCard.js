@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Card,
     CardMedia,
@@ -8,53 +8,42 @@ import {
 } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import { styles } from './styles';
-import logo from '../../../../../logo.svg';
-import ExerciseDialog from './components/ExerciseDialog';
 import IconButton from '@material-ui/core/IconButton';
 import ExerciseInfo from './components/ExerciseInfo/ExerciseInfo';
 
-class ExerciseCard extends Component {
-    state = { open: false };
+const ExerciseCard = ({ classes, exercise, onEditExercise }) => {
 
-    handleOpen = () => {
-        this.setState({ open: true });
-    };
-    
-    handleClose = () => {
-        this.setState({ open: false });
+    const handleEdit = () => {
+        onEditExercise( exercise.id );
     };
 
-    render() {
-        const { classes } = this.props;
-        const { open } = this.state;
-        return (
-            <div>
-                <ExerciseDialog title="Press militar de hombro" open={open} handleClose={this.handleClose}/>
-                <Card className={classes.card}>
-                    <CardHeader
-                        action={
-                            <IconButton>
-                                <CreateIcon color="secondary" />
-                            </IconButton>
-                        }
-                        title="Press militar de hombro"
-                        subheader="[brazo, triceps, hombro]"
+    const { name, description, series, reps, imageName } = exercise;
+    return (
+        <div className={classes.exerciseDialogContainer}>
+            <Card className={classes.card}>
+                <CardHeader
+                    action={
+                        <IconButton onClick={handleEdit}>
+                            <CreateIcon color="secondary" />
+                        </IconButton>
+                    }
+                    title={name}
+                    // subheader="[brazo, triceps, hombro]"
+                />
+                <CardMedia
+                    className={classes.media}
+                    // Set a static with/height in case
+                    image={`${process.env.REACT_APP_IMAGE_ENTRY_POINT}/${imageName}`}
+                />
+                <CardContent className={classes.cardContent}>
+                    <ExerciseInfo
+                        description={description}
+                        series={series}
+                        reps={reps}
                     />
-                    <CardMedia
-                        className={classes.media}
-                        image={logo}
-                    />
-                    <CardContent className={classes.cardContent}>
-                        <ExerciseInfo
-                            description="my desc"
-                            series={5}
-                            reps={20}
-                        />
-                    </CardContent>
-                </Card>
-            </div>
-        );
-    }
+                </CardContent>
+            </Card>
+        </div>
+    );
 };
-
-export default withStyles(styles, { withTheme: true})(ExerciseCard);
+export default withStyles( styles, { withTheme: true })( ExerciseCard );

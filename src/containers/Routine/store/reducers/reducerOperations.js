@@ -1,12 +1,14 @@
 import { updateObject } from '../utility';
 
 export const removeDay = ( state, action ) => {
+    // TODO: doesn't work yet
     const { days } = state;
     const { day } = action;
     const newDays = days.filter( element => element.id !== day.id );
     
     const newState = updateObject( state, { days: [...newDays] });
-    return removeExercisesFromDay( newState, day );
+    return newState;
+    // return removeExercisesFromDay( newState, day );
 };
 
 export const selectDay = ( state, action ) => {
@@ -21,6 +23,54 @@ export const selectDay = ( state, action ) => {
 };
 
 export const addExercisesToStore = ( state, action ) => {
+    const { routine, dayForNewExercise } = state;
+    // Get the day object from routine object
+    const routineDay = routine[dayForNewExercise];
+    // Map new exercises to be added into the next list
+    const mapNextExercises = action.payload.map( e => ({ ...e, series: '', reps: '', description: '' }) );
+    // Create the nextRoutineDay with the new exercises
+    const nextRoutineDay = {
+        ...routineDay,
+        exercises: [
+            ...routineDay.exercises ,
+            ...mapNextExercises
+        ]
+    };
+    const nextRoutine = {
+        ...state.routine,
+        [dayForNewExercise]: nextRoutineDay
+    };
+
+    return { ...state, routine: nextRoutine };
+};
+
+export const updateExercise = ( state, action ) => {
+    const { day, exercise: nextExercise } = action.payload;
+    const { routine } = state;
+    // Get the routine day that contains the exercise to be updated
+    const dayOfRoutine = routine[day];
+    // Get the list of all exercises of the selected day
+    const listOfExercises = dayOfRoutine.exercises;
+    const indexOfExerciseUpdated = listOfExercises.findIndex( exercise => exercise.id === nextExercise.id );
+    const nextListOfExercises = [
+        ...listOfExercises.slice( 0, indexOfExerciseUpdated ),
+        nextExercise,
+        ...listOfExercises.slice( indexOfExerciseUpdated + 1 ),
+    ];
+    const dayOfRoutineUpdated = {
+        ...dayOfRoutine,
+        exercises: nextListOfExercises 
+    };
+
+    const routineUpdated = {
+        ...routine,
+        [day]: dayOfRoutineUpdated
+    };
+    return { ...state, routine: routineUpdated };
+
+};
+
+export const addExercisesToStore2 = ( state, action ) => {
     // Verify if the RoutineDay already exists in the routine list
     const routineDay = dayExistsInRoutine( state.routine, state.dayForNewExercise );
     // That routineDay exists so it will only be added the new exercises to it
@@ -47,6 +97,7 @@ export const addExercisesToStore = ( state, action ) => {
         return { ...state, routine };
     }
 };
+
 
 /**
  * If the seeked day exists, it will return the day object
@@ -77,8 +128,8 @@ function updateRoutineDay( routine, nextRoutineDay ) {
     ];
 }
 
-function removeExercisesFromDay( state, day ) {
-    if( day.exercises )
-        delete day.exercises;
-    return updateObject( state, { removedDay: day });
-}
+// function removeExercisesFromDay( state, day ) {
+//     if( day.exercises )
+//         delete day.exercises;
+//     return updateObject( state, { removedDay: day });
+// }

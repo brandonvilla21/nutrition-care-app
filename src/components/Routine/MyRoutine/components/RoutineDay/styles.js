@@ -3,7 +3,7 @@ export const styles = theme => ({
       width: '100%',
     },
     heading: {
-      fontSize: theme.typography.pxToRem(15),
+      fontSize: theme.typography.pxToRem( 15 ),
       fontWeight: theme.typography.fontWeightRegular,
     },
     expansionPanelDetails: {
@@ -13,10 +13,16 @@ export const styles = theme => ({
     expansionPanelDetailsC: {
       display: 'flex',
       flexWrap: 'wrap',
-      justifyContent: 'space-around',
+      justifyContent: 'flex-start',
     },
     button: {
+     marginTop: '.5em' 
+    },
+    buttonContainer: {
       marginLeft: 'auto',
-      marginRight: 0
+      marginRight: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between'
     }
 });

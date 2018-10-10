@@ -7,6 +7,7 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import GeneralInfo from '../GeneralInfo/GeneralInfo';
 import { styles } from './styles';
 import MyRoutine from '../MyRoutine/MyRoutine';
+import FinishRoutine from '../FinishRoutine/FinishRoutine';
 
 class TabsRoutine extends Component {
 
@@ -57,7 +58,12 @@ class TabsRoutine extends Component {
                         />
                     </TabContainer>
                 }
-                {value === 2 && <TabContainer>Item Three</TabContainer>}
+                {
+                    value === 2 &&
+                    <TabContainer>
+                        <FinishRoutine submitRoutine={this.props.submitRoutine} prevIndex={this.prevIndex} />
+                    </TabContainer>
+                }
             </React.Fragment>
         );
     }
