@@ -9,6 +9,12 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+import { Link } from 'react-router-dom';
 
 import ActionShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import AvPlaylistAddCheck from '@material-ui/icons/PlaylistAddCheck';
@@ -238,10 +244,48 @@ class EditTabsDiet extends Component {
             </ul>
           </SimpleExpandibleCard>
 
-          <DietTableCalculator 
-          selectedFoods={selectedFoods}
-          onChangeTable={this.props.onChangeDataTableFields.bind( this )}
+          <DietTableCalculator
+            selectedFoods={selectedFoods}
+            onChangeTable={this.props.onChangeDataTableFields.bind( this )}
+            handleOpenEliminationModal={this.handleOpenEliminationModal}
+            onEdit
           />
+
+          <Dialog
+            aria-labelledby="remove-food-modal"
+            disableBackdropClick
+            open={this.state.openModalElimination}
+            onClose={this.handleCloseEliminationModal}
+          >
+
+              <DialogTitle 
+                data-testid="remove-food-modal"
+                id="remove-food-modal">
+                Dieta editada
+              </DialogTitle>
+
+              <DialogContent>
+                Este alimento está relacionado con tu dieta directamente. Si la eliminas, NO lo podrás recuperar más adelante. 
+                ¿Estás seguro de eliminar este alimento?
+              </DialogContent>
+
+              <DialogActions> 
+                {[
+                  <Button key={0} 
+                    color="primary"
+                    onClick={this.handleCloseEliminationModal.bind( this )}>
+                      Cancelar
+                  </Button>,
+
+                  <Button key={1} 
+                    color="primary"
+                    onClick={this.handleRemoveRow.bind( this )}>
+                      Eliminar
+                  </Button>
+                ]}
+              </DialogActions>
+
+          </Dialog>
 
           <div data-testid="total-card-calculator">
           <DietTotalsCard
@@ -272,7 +316,7 @@ class EditTabsDiet extends Component {
             disabled={this.disableCalculateDietButton()}
             onClick={this.prevIndex}>
 
-            Regresar
+            Seleccionar más alimentos
 
           </Button>
 
@@ -289,7 +333,9 @@ class EditTabsDiet extends Component {
 
         </TabContainer>
 
-        <TabContainer>
+        <TabContainer className={classNames({ 
+            [classes.hideTab]: tabIndex !== 2 
+        })}>
             
             <DietTotalsCard
               totalCalories={totalCalories}
@@ -321,7 +367,7 @@ class EditTabsDiet extends Component {
                 onClick={this.props.onSubmitDiet.bind( this, this.resetIndex )}
                 >
 
-                Guardar dieta
+                Guardar dieta modificada
 
               </Button>
             </div>
