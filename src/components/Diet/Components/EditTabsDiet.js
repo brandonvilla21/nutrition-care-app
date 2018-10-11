@@ -305,10 +305,6 @@ class EditTabsDiet extends Component {
           fullWidth
           />
 
-          <div>
-          
-          </div>
-
           <div className={classes.generalTabButtonContainer}>
           <Button
             variant="contained"
@@ -316,7 +312,7 @@ class EditTabsDiet extends Component {
             disabled={this.disableCalculateDietButton()}
             onClick={this.prevIndex}>
 
-            Seleccionar más alimentos
+            Más alimentos
 
           </Button>
 
@@ -367,7 +363,7 @@ class EditTabsDiet extends Component {
                 onClick={this.props.onSubmitDiet.bind( this, this.resetIndex )}
                 >
 
-                Guardar dieta modificada
+                Guardar dieta
 
               </Button>
             </div>
@@ -414,7 +410,6 @@ const styles = {
   },
   generalTabButtonContainer: {
     display: 'flex',
-    flexDirection: 'space-between',
     marginTop: '10px',
     marginBottom: '10px',
     justifyContent: 'space-between',
