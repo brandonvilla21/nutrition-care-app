@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
 import EditorModeEdit from '@material-ui/icons/ModeEdit';
-import ActionDelete from '@material-ui/icons/Delete';
+// import ActionDelete from '@material-ui/icons/Delete';
 
 import ReactTable from 'react-table';
 

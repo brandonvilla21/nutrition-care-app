@@ -245,7 +245,7 @@ class EditDietForm extends Component {
 
       
       const selectedFoods = [ ...this.state.selectedFoods ];
-      const index = selectedFoods.findIndex( element => element.id == selectedRow.id );
+      const index = selectedFoods.findIndex( element => element.id === selectedRow.id );
 
       selectedFoods.splice( index, 1 );
 

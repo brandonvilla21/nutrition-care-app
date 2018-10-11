@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import { withStyles, Button, TextField } from '@material-ui/core/';
 
-import withWidth from '@material-ui/core/withWidth';
-
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,8 +11,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-import { Link } from 'react-router-dom';
 
 import ActionShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import AvPlaylistAddCheck from '@material-ui/icons/PlaylistAddCheck';
