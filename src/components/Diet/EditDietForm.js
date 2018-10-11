@@ -114,19 +114,13 @@ class EditDietForm extends Component {
    */
     setDietFoodsToEdit() {
       return this.getDietToEdit().then( diet => {
-        console.log( 'diet: ', diet );
 
         const selectedFoods = diet.dietFoodDetails;
-        console.log( 'selectedFoods: ', selectedFoods );
         selectedFoods.forEach( food => {
           food.desiredCalories = roundNumber( food.calories * food.desiredGrams );
           food.desiredCarbohydrates = roundNumber( food.carbohydrates * food.desiredGrams );
           food.desiredFats = roundNumber( food.fats * food.desiredGrams );
           food.desiredProteins = roundNumber( food.proteins * food.desiredGrams );
-          
-          //Only to reuse the second table from the DietForm without any problem with the
-          //column id.
-          // food.id = food.food_id;
         });
 
         this.setState({ selectedFoods, description: diet.description, });
@@ -275,7 +269,7 @@ class EditDietForm extends Component {
 
         return(
             <PageBase
-                title="Registrar una dieta"
+                title="Editando dieta"
                 navigation="Dietas / Registro">
                 
               <div>

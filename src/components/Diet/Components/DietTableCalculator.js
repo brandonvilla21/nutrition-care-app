@@ -80,7 +80,7 @@ const DietTableCalculator = ( props ) => {
               color="secondary"
               aria-label="Delete"
             >
-              <ActionDelete fontSize="small" />
+              <ActionDelete fontSize="default" />
             </IconButton>
           );
         },
