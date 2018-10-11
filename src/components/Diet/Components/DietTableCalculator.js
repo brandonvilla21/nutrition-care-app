@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 import ReactTable from 'react-table';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+
+import { withStyles } from '@material-ui/core/styles';
+
+import IconButton from '@material-ui/core/IconButton';
+import ActionDelete from '@material-ui/icons/Delete';
 
 const DietTableCalculator = ( props ) => {
 
@@ -25,7 +29,7 @@ const DietTableCalculator = ( props ) => {
         return (
           <input
             data-testid={`input-grams`}
-            style={styles.input}
+            className={props.classes.input}
             min="1.0"
             step="any"
             type="number"
@@ -47,7 +51,7 @@ const DietTableCalculator = ( props ) => {
         return (
           <input
             data-testid={`input-calories`}
-            style={styles.input}
+            className={props.classes.input}
             min="1.0"
             step="any"
             type="number"
@@ -71,15 +75,13 @@ const DietTableCalculator = ( props ) => {
         sortable: false,
         Cell: ({ original }) => {
           return (
-            <Button
-              variant="contained"
+            <IconButton 
+              onClick={handleOpenEliminationModal.bind( this, original )}
               color="secondary"
-              // disabled={this.disableCalculateDietButton()}
-              onClick={handleOpenEliminationModal.bind( this, original )}>
-
-              X
-
-            </Button>
+              aria-label="Delete"
+            >
+              <ActionDelete fontSize="small" />
+            </IconButton>
           );
         },
         minWidth: 70,
@@ -89,6 +91,8 @@ const DietTableCalculator = ( props ) => {
 
   }
 
+  finalColumns = centerColumns( finalColumns, props.classes );
+
   return(
     <div>
       <ReactTable
@@ -96,7 +100,7 @@ const DietTableCalculator = ( props ) => {
         columns={[
 
           {
-            Header: <Typography variant="subheading">INTRODUCE LOS GRAMOS DE CADA UNO DE LOS ALIMENTOS QUE SELECCIONASTE</Typography>,
+            Header: <Typography variant="subheading">MODIFICA LOS GRAMOS DE CADA UNO DE LOS ALIMENTOS SI ASÍ LO DESEAS</Typography>,
             columns: [
               ...finalColumns
             ]
@@ -116,11 +120,29 @@ DietTableCalculator.propTypes = {
   onEdit:        PropTypes.bool,
 };
 
+
+const centerColumns = ( columns, classes ) => {
+  return columns.map( column => {
+    return {
+      ...column,
+      className: `${classes.alignItemCenter} ${classes.justifyContentCenter}`
+    };
+  });
+};
+
 const styles = {
   input: { 
     width: '88px',
     margin: '0 5px 0 5px',
   },
+  alignItemCenter: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  justifyContentCenter: {
+    display: 'flex',
+    justifyContent: 'center',
+  }
 };
 
 const selectedFoodColumns = [
@@ -157,4 +179,4 @@ const EDITABLE_PROPERTY_ACCESORS = {
   CALORIES: 'desiredCalories'
 };
   
-export default DietTableCalculator;
+export default withStyles( styles )( DietTableCalculator );
