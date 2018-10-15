@@ -123,7 +123,7 @@ class EditDietForm extends Component {
           food.desiredProteins = roundNumber( food.proteins * food.desiredGrams );
         });
 
-        this.setState({ selectedFoods, description: diet.description, });
+        this.setState({ selectedFoods, description: diet.description, dietId: diet.id });
         
         //Return an array of objects which contains 'id' and 'description'
         //of every food from the Diet details.
@@ -139,42 +139,43 @@ class EditDietForm extends Component {
    * Gathers and sends all the the proper data to handle the edit concerns for
    * the diet and its selected foods.
    * @author Marcos Barrera del Río <elyomarcos@gmail.com>
-   * @param resetIndex - A callback to reset the Tabs' index when needed.
    */
-    onSubmitDiet( resetIndex ) {
-      // const url = `${urlConfig.baseUrl}/diets/${this.props.idToEdit}`;
-      // const config = urlConfig.axiosConfig;
-      // config.method = 'PUT';
+    onSubmitDiet() {
+      
+      const url = '/Diets/editDiet';
 
-      // const { 
-      //   totalCarbohydrates, totalProteins, totalFats,
-      //   totalCalories, description,
-      // } = this.state;
+      const { 
+        description, totalCalories, totalCarbohydrates,
+        totalFats, totalProteins, selectedFoods, dietId
+      } = this.state;
+
+      const diet = {
+        description, 
+        totalCalories, 
+        totalCarbohydrates,
+        totalFats, 
+        totalProteins,
+        id: dietId,
+      };
       
-      // const selectedFoods = [ ...this.state.selectedFoods ];
-        
-      // const data = { 
-      //   totalCarbohydrates, totalProteins, totalFats,
-      //   totalCalories, selectedFoods, description,
-      // };
+      const dietDetails = selectedFoods.map( food => { return { ...food, id: undefined }; });
       
-      // axios.put( url, data, config )
-      //     .then( response => {
-      //       if ( response.status === 200 ) {
-      //             this.props.onSubmitted({ submitted: true, err: false });
-      //             resetIndex();
-      //         } else 
-      //           this.props.onSubmitted({ submitted: false, err: true });
-              
-      //     })
-      //     .catch( err => {
-      //       this.props.onSubmitted({ 
-      //         submitted: false, 
-      //         err: true, 
-      //         errorMessage: err.response.data.message
-      //       });
-      //       throw err.response.data.message;
-      //     });
+      axios.put( url, { diet, dietDetails })
+        .then( response => {
+          if ( response.status === 200 ) {
+                this.props.onSubmitted({ submitted: true, err: false });
+            } else 
+              this.props.onSubmitted({ submitted: false, err: true });
+            
+        })
+        .catch( err => {
+          this.props.onSubmitted({ 
+            submitted: false, 
+            err: true, 
+            errorMessage: err.response,
+          });
+      });
+
     }
 
   /**
@@ -224,6 +225,7 @@ class EditDietForm extends Component {
             food.desiredCarbohydrates = food.carbohydrates;
             food.desiredCalories = food.calories;
             food.foodFromFoodsTable = true;
+            food.foodId = food.id;
           });
 
           return foods;
