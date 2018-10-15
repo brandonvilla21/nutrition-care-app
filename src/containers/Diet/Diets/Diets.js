@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
 import EditorModeEdit from '@material-ui/icons/ModeEdit';
-import ActionDelete from '@material-ui/icons/Delete';
+// import ActionDelete from '@material-ui/icons/Delete';
 
 import ReactTable from 'react-table';
 
@@ -98,7 +98,7 @@ const styles = {
   },
   editIconStyle: {
     color: blue500,
-    borderRadius: '25px'
+    borderRadius: '25px',
   },
   deleteIconStyle: {
     color: blueGrey200,
@@ -208,9 +208,7 @@ class Diets extends Component {
                 Cell: ({ original }) => {
                   return (
                     <Link to={`${match.url}/edit/${original.id}`}>
-                      <IconButton 
-                      color="secondary" className={classes.editIconStyle}
-                      // iconStyle={styles.editIconStyle}
+                      <IconButton className={classes.editIconStyle}
                       >
                         <EditorModeEdit />
                       </IconButton>
@@ -219,28 +217,28 @@ class Diets extends Component {
                 },
                 maxWidth: 70
               },
-              {
-                Header: '',
-                id: 'text',
-                accessor: '',
-                filterable: false,
-                sortable: false,
-                Cell: ({ original }) => {
-                  return (
-                    <IconButton
-                      onClick={this.handleDeleteDietDialogOpen.bind(
-                        this,
-                        original
-                      )}
-                      className={classes.deleteIconStyle}
-                      // iconStyle={styles.deleteIconStyle}
-                    >
-                      <ActionDelete />
-                    </IconButton>
-                  );
-                },
-                maxWidth: 70
-              }
+              // {
+              //   Header: '',
+              //   id: 'text',
+              //   accessor: '',
+              //   filterable: false,
+              //   sortable: false,
+              //   Cell: ({ original }) => {
+              //     return (
+              //       <IconButton
+              //         onClick={this.handleDeleteDietDialogOpen.bind(
+              //           this,
+              //           original
+              //         )}
+              //         className={classes.deleteIconStyle}
+              //         // iconStyle={styles.deleteIconStyle}
+              //       >
+              //         <ActionDelete />
+              //       </IconButton>
+              //     );
+              //   },
+              //   maxWidth: 70
+              // }
             ]}
             defaultPageSize={10}
             noDataText="No hay datos registrados"

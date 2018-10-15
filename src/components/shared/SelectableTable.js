@@ -31,10 +31,6 @@ class SelectableTable extends Component {
         () => this.props.clearManualRemovedFoodState() );
     }
 
-    // console.log("gg");
-    
-
-
   }
 
 
