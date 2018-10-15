@@ -305,7 +305,6 @@ class EditTabsDiet extends Component {
           <Button
             variant="contained"
             color="secondary"
-            disabled={this.disableCalculateDietButton()}
             onClick={this.prevIndex}>
 
             Más alimentos
