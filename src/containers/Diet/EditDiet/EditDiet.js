@@ -94,7 +94,7 @@ class EditDiet extends Component {
 
                 <DialogContent>
                   Hubo un error al editar la dieta. Intentalo más tarde :( <br/><br/>
-                  Error: {this.state.errorMessage}
+                  { typeof this.state.errorMessage === 'string' ? 'Error: ' + this.state.errorMessage : null }
                 </DialogContent>
 
                 <DialogActions> {actions} </DialogActions>
