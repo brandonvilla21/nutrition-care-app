@@ -121,6 +121,10 @@ class EditDietForm extends Component {
           food.desiredCarbohydrates = roundNumber( food.carbohydrates * food.desiredGrams );
           food.desiredFats = roundNumber( food.fats * food.desiredGrams );
           food.desiredProteins = roundNumber( food.proteins * food.desiredGrams );
+
+          //Ensure uniqueness on the ID property to avoid problems mixing food records from the Food model
+          //and from the Diet_Food_Detail food records
+          food.id = Symbol( 1 );
         });
 
         this.setState({ selectedFoods, description: diet.description, dietId: diet.id });

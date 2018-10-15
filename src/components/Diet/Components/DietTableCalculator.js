@@ -66,7 +66,7 @@ const DietTableCalculator = ( props ) => {
   if( onEdit === true ) {
 
     finalColumns = [
-      ...finalColumns,
+      ...removeIdColumn( finalColumns ),
       {
         Header: 'Eliminar',
         id: 'text',
@@ -129,6 +129,8 @@ const centerColumns = ( columns, classes ) => {
     };
   });
 };
+
+const removeIdColumn = columns => columns.filter( column => column.accessor !== 'id' );
 
 const styles = {
   input: { 
