@@ -25,7 +25,8 @@ export const submitRoutine = state => {
 };
 
 export const fetchRoutines = () => {
-    return axios.get( '/Routines' );
+    const userId = localStorage.getItem( 'NC_userId' );
+    return axios.get( `/Customers/${userId}/routines` );
 };
 
 export const getRoutineById = id => {
