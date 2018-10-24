@@ -13,6 +13,7 @@ import {
 import { fetchRoutines } from '../routine.service';
 import Visibility from '@material-ui/icons/Visibility';
 import Create from '@material-ui/icons/Create';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -57,7 +58,9 @@ class Routines extends React.Component {
                                         </TableCell>
                                         <TableCell>
                                             <IconButton aria-label="Visibility">
+                                                <Link to={`/dashboard/routine/${routine.id}`}>
                                                     <Visibility />
+                                                </Link>
                                             </IconButton>
                                             <IconButton aria-label="Create">
                                                     <Create />

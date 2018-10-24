@@ -1,4 +1,5 @@
 import axios from '../../axios';
+import sendLoopbackParams from '../../shared/sendLoopbackParams';
 
 export const submitRoutine = state => {
     const customerId = localStorage.getItem( 'NC_userId' );
@@ -25,4 +26,24 @@ export const submitRoutine = state => {
 
 export const fetchRoutines = () => {
     return axios.get( '/Routines' );
-}
+};
+
+export const getRoutineById = id => {
+    const params = {
+        include: [
+            { 
+                relation: 'exerciseRoutineDetails' ,
+                scope: {
+                    include: {
+                        relation: 'exercise',
+                        scope: {
+                            fields: ['name', 'imageName']
+                        }
+                    }
+                }
+            },
+        ]
+    };
+
+    return axios.get( `/Routines/${id}`, sendLoopbackParams( params ) );
+};
