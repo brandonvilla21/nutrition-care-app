@@ -50,7 +50,7 @@ class EditDietForm extends Component {
 
       this.removeRepeatedFoods( currentFoodsOnDietPromise, getFoodsPromise )
         .then( foods => this.setState({ foods }) )
-        .catch( err => console.log( 'gg', err ) );
+        .catch( err => { throw err.response.data.message; });
 
     }
 
