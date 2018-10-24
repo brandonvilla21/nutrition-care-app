@@ -6,6 +6,7 @@ import cardProps from './card-props';
 import SigninForm from '../../components/Signin/SigninForm/SigninForm';
 import { withStyles } from '../../../node_modules/@material-ui/core';
 import { styles } from './styles';
+import { Link } from 'react-router-dom';
 
 const Signin = ({ classes }) => {
     const renderCards = () => 
@@ -22,6 +23,9 @@ const Signin = ({ classes }) => {
                 </div>
                 <SigninForm />
             </div>
+            <Typography variant="caption" style={{ fontSize: '1em' }}>
+                Ya soy miembro. <Link to="/login">Iniciar sesión</Link>
+            </Typography>
         </Layout>
     );
 };

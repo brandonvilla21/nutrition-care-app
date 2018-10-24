@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { setCredentials } from './login.service';
 import { Redirect } from 'react-router';
 import DialogMessage from '../../components/DialogMessage';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
     state = {
@@ -66,6 +67,9 @@ class Login extends React.Component {
                     onChange={this.handleChange}
                     onSubmit={this.handleSubmit}
                 />
+                <Typography variant="caption" style={{ fontSize: '1em' }}>
+                    ¿Aun no eres miembro? Registrate <Link to="/signin">aquí</Link>
+                </Typography>
             </Layout>
         );
     }
